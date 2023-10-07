@@ -1,0 +1,208 @@
+<!-- 柏君原程式碼 -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firebase Connection Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--<h1>Firestore Example Collection</h1>-->
+    <!--新增<br />-->
+    姓名：<input id="a1" /><br />
+    電話：<input id="a2" /><br />
+    信箱：<input id="a3" /><br />
+    <div id="t1-log" contenteditable="true">log</div>
+    <!--<button id="b">儲存</button>-->
+    <br />
+    <br />
+    <!--查詢<br />-->
+    <input type="text" id="search-input" placeholder="Enter name" />
+    <button id="search-button">Search</button>
+    <div id="t2-log" contenteditable="true">log</div>
+
+    <table id="example-table" border="1">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+        query,
+        where,
+        addDoc,
+        doc,
+      } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        /*老師的
+        apiKey: "AIzaSyCyNbWDHB-GYaVbzlNlwjaBnI1fWqUNj6Q",
+        authDomain: "example-fa0f1.firebaseapp.com",
+        projectId: "example-fa0f1",
+        storageBucket: "example-fa0f1.appspot.com",
+        messagingSenderId: "882903924249",
+        appId: "1:882903924249:web:c66f6cadbda9cc9e59b488",
+        */
+        apiKey: "AIzaSyCkYXHGj37nHrMglwUHKWN2vOE0ty3o8T4",
+        authDomain: "fir-test-dc8dc.firebaseapp.com",
+        projectId: "fir-test-dc8dc",
+        storageBucket: "fir-test-dc8dc.appspot.com",
+        messagingSenderId: "851272507964",
+        appId: "1:851272507964:web:493d6b2ce3d5e239029939",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      //更新網頁上可編輯的文字內容
+      function updateEditableText(id, text) {
+        //宣告了一個名為 updateEditableText 的函數，它接受兩個參數，id 和 text。
+        //根據提供的 id 參數取得網頁上的一個元素。這個元素應該是一個可以被編輯的文字區域，例如一個 <div> 或 <span> 元素
+        const editableText = document.getElementById(id);
+        editableText.textContent = text; //更新網頁上指定元素的文字，將其替換為新的文字內容。
+      } //目的：通過提供元素的 id 和新的文字內容，來更新網頁上特定元素的內容，使其顯示為新的文字。
+
+      //目的是清空網頁上特定 HTML 表格中的所有資料。
+      function clearTableData() {
+        //來取得網頁上具有 id 為 "example-table" 的 HTML 表格元素。通過這行程式碼，我們將這個表格元素存儲在名為 tableElement 的變數中，以便稍後使用。
+        const tableElement = document.getElementById("example-table");
+        //取得表格中的所有 <tbody> 元素，然後使用 [0] 來獲取第一個 <tbody> 元素（如果存在多個）。這個 <tbody> 元素通常包含了表格的實際資料行。
+        const tbodyElement = tableElement.getElementsByTagName("tbody")[0];
+        tbodyElement.innerHTML = "";
+      } //目的是找到名為 "example-table" 的表格，然後將其 <tbody> 元素的內容清空，從而實現清除表格中所有資料的效果。
+      //這在需要重置或清空表格內容的網頁應用中很有用。
+
+      //從firestore抓取資料
+      async function fetchExampleCollection(name = null) {
+        //這個函數可以接受一個名為 name 的參數，但預設為 null。
+        try {
+          //這行程式碼建立了一個名為 exampleCol 的資料集合，它可能是 Firebase Firestore 中的一個集合，這個集合的名稱是 "example"。
+          const exampleCol = collection(db, "example");
+          let exampleQuery; //宣告了一個變數 exampleQuery，稍後將用來設定資料集合的查詢條件。
+
+          exampleQuery = query(exampleCol); //建立了一個資料集合的查詢 exampleQuery，它基本上是選取整個 "example" 集合中的所有資料。
+
+          //被註解的程式碼，這段程式碼是一個條件判斷，根據 name 參數是否存在，來改變查詢條件。
+          //如果 name 存在，它將被用於查詢，否則查詢將選取整個集合。目前被註解掉了，所以查詢始終選取整個集合。
+          // if (name) {
+          //     // exampleQuery = query(exampleCol, where("name", "==", name));
+          //     exampleQuery = query(exampleCol);
+          // } else {
+          //     exampleQuery = exampleCol;
+          // }
+
+          //使用 getDocs 函數來執行之前建立的查詢 exampleQuery，並將結果存儲在 exampleSnapshot 中。這個結果是一個包含資料集合中文件的快照。
+          const exampleSnapshot = await getDocs(exampleQuery);
+          const tableElement = document.getElementById("example-table"); //取得網頁上的一個具有 id 為 "example-table" 的 HTML 表格元素。
+
+          //如果 exampleSnapshot 是空的（即沒有匹配的資料），則調用 clearTableData 函數清空表格內容，
+          //並使用 updateEditableText 函數更新網頁上的一個元素的文字內容，顯示 "查無資訊"。
+          //如果有匹配的資料，則首先調用 clearTableData 函數清空表格，然後使用 updateEditableText 函數將網頁上的元素文字更新為 "資訊如下"，
+          //然後迭代處理查詢結果中的每個文件，並將其資料添加到表格中的新行中。
+          if (exampleSnapshot.empty) {
+            clearTableData();
+            updateEditableText("t2-log", "查無資訊");
+          } else {
+            // Clear the table first
+            clearTableData();
+            updateEditableText("t2-log", "資訊如下");
+            exampleSnapshot.forEach((doc) => {
+              const rowElement = document.createElement("tr");
+              const idCellElement = document.createElement("td");
+              const nameCellElement = document.createElement("td");
+              const phoneCellElement = document.createElement("td");
+              const emailCellElement = document.createElement("td");
+
+              const data = doc.data();
+              idCellElement.textContent = doc.id;
+              nameCellElement.textContent = data.name;
+              phoneCellElement.textContent = data.phone;
+              emailCellElement.textContent = data.email;
+
+              rowElement.appendChild(idCellElement);
+              rowElement.appendChild(nameCellElement);
+              rowElement.appendChild(phoneCellElement);
+              rowElement.appendChild(emailCellElement);
+              tableElement.querySelector("tbody").appendChild(rowElement);
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching collection:", error);
+        }
+      } //這個函數的目的是根據資料集合中的資料，更新網頁上的表格，以顯示相應的資訊。如果沒有匹配的資料，則顯示 "查無資訊"。
+
+      //當網頁上的 "search-button" 按鈕被點擊時，它將讀取輸入框中的文字，然後呼叫 fetchExampleCollection 函數，
+      //以執行相關的搜索操作，通常是根據搜尋文字載入和顯示相關資料。這樣的應用通常用於實現簡單的搜尋功能。
+      document.getElementById("search-button").addEventListener("click", () => {
+        const searchInput = document.getElementById("search-input");
+        const searchText = searchInput.value.trim();
+
+        fetchExampleCollection(searchText);
+      });
+
+      //這個函數的目的是接受三個數據作為參數，將它們添加到資料庫的 "example" 集合中，
+      //如果數據不完整（有任何一個參數為空），則顯示錯誤消息，否則顯示成功消息。這用於將用戶提交的數據保存到資料庫中。
+      async function addDataToFirestore(a1, a2, a3) {
+        //它接受三個參數 a1、a2 和 a3，這些參數代表要添加到資料庫的數據。
+        if (a1 === "" || a2 === "" || a3 === "") {
+          updateEditableText("t1-log", "Please fill in all fields.");
+          return;
+        } //這行程式碼檢查參數 a1、a2 和 a3 是否為空字串（即用戶是否未填寫必要的數據）。
+        //如果有任何一個參數為空，則它使用 updateEditableText 函數更新網頁上的元素，顯示 "Please fill in all fields."，
+        //然後立即返回函數，不繼續執行後續的資料庫操作。
+
+        try {
+          const exampleCol = collection(db, "example"); //建立了一個對資料庫集合的參考，這個集合的名稱是 "example"。
+          //這行程式碼使用 addDoc 函數將一個新的文件（或稱為記錄或文檔）添加到名為 "example" 的資料庫集合中。
+          //這個新文件包含了三個欄位：name、phone 和 email，它們的值分別來自函數的參數 a1、a2 和 a3。await 關鍵字表示我們等待這個操作完成，
+          //然後才繼續執行後面的程式碼。
+          await addDoc(exampleCol, {
+            name: a1,
+            phone: a2,
+            email: a3,
+          });
+          updateEditableText("t1-log", "Data added successfully!");
+        } catch (error) {
+          console.error("Error adding data:", error);
+        }
+      }
+
+      /*
+      const addButton = document.getElementById("b");
+      addButton.addEventListener("click", () => {
+        const a1Value = document.getElementById("a1").value;
+        const a2Value = document.getElementById("a2").value;
+        const a3Value = document.getElementById("a3").value;
+
+        addDataToFirestore(a1Value, a2Value, a3Value);
+      });
+*/
+      //網頁一打開就load，執行fetchExampleCollection()
+      window.addEventListener("load", function () {
+        fetchExampleCollection();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firebase Connection Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--<h1>Firestore Example Collection</h1>-->
+    <!--新增<br />-->
+    姓名：<input id="a1" /><br />
+    電話：<input id="a2" /><br />
+    信箱：<input id="a3" /><br />
+    <div id="t1-log" contenteditable="true">log</div>
+    <!--<button id="b">儲存</button>-->
+    <br />
+    <br />
+    <!--查詢<br />-->
+    <input type="text" id="search-input" placeholder="Enter name" />
+    <button id="search-button">Search</button>
+    <div id="t2-log" contenteditable="true">log</div>
+
+    <table id="example-table" border="1">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+        query,
+        where,
+        addDoc,
+        doc,
+      } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCyNbWDHB-GYaVbzlNlwjaBnI1fWqUNj6Q",
+        authDomain: "example-fa0f1.firebaseapp.com",
+        projectId: "example-fa0f1",
+        storageBucket: "example-fa0f1.appspot.com",
+        messagingSenderId: "882903924249",
+        appId: "1:882903924249:web:c66f6cadbda9cc9e59b488",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      function updateEditableText(id, text) {
+        const editableText = document.getElementById(id);
+        editableText.textContent = text;
+      }
+
+      function clearTableData() {
+        const tableElement = document.getElementById("example-table");
+        const tbodyElement = tableElement.getElementsByTagName("tbody")[0];
+        tbodyElement.innerHTML = "";
+      }
+
+      //從firestore抓取資料
+      async function fetchExampleCollection(name = null) {
+        try {
+          const exampleCol = collection(db, "example");
+          let exampleQuery;
+
+          exampleQuery = query(exampleCol);
+
+          // if (name) {
+          //     // exampleQuery = query(exampleCol, where("name", "==", name));
+          //     exampleQuery = query(exampleCol);
+          // } else {
+          //     exampleQuery = exampleCol;
+          // }
+
+          const exampleSnapshot = await getDocs(exampleQuery);
+          const tableElement = document.getElementById("example-table");
+
+          if (exampleSnapshot.empty) {
+            clearTableData();
+            updateEditableText("t2-log", "查無資訊");
+          } else {
+            // Clear the table first
+            clearTableData();
+            updateEditableText("t2-log", "資訊如下");
+            exampleSnapshot.forEach((doc) => {
+              const rowElement = document.createElement("tr");
+              const idCellElement = document.createElement("td");
+              const nameCellElement = document.createElement("td");
+              const phoneCellElement = document.createElement("td");
+              const emailCellElement = document.createElement("td");
+
+              const data = doc.data();
+              idCellElement.textContent = doc.id;
+              nameCellElement.textContent = data.name;
+              phoneCellElement.textContent = data.phone;
+              emailCellElement.textContent = data.email;
+
+              rowElement.appendChild(idCellElement);
+              rowElement.appendChild(nameCellElement);
+              rowElement.appendChild(phoneCellElement);
+              rowElement.appendChild(emailCellElement);
+              tableElement.querySelector("tbody").appendChild(rowElement);
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching collection:", error);
+        }
+      }
+
+      document.getElementById("search-button").addEventListener("click", () => {
+        const searchInput = document.getElementById("search-input");
+        const searchText = searchInput.value.trim();
+
+        fetchExampleCollection(searchText);
+      });
+
+      async function addDataToFirestore(a1, a2, a3) {
+        if (a1 === "" || a2 === "" || a3 === "") {
+          updateEditableText("t1-log", "Please fill in all fields.");
+          return;
+        }
+
+        try {
+          const exampleCol = collection(db, "example");
+          await addDoc(exampleCol, {
+            name: a1,
+            phone: a2,
+            email: a3,
+          });
+          updateEditableText("t1-log", "Data added successfully!");
+        } catch (error) {
+          console.error("Error adding data:", error);
+        }
+      }
+      /*
+      const addButton = document.getElementById("b");
+      addButton.addEventListener("click", () => {
+        const a1Value = document.getElementById("a1").value;
+        const a2Value = document.getElementById("a2").value;
+        const a3Value = document.getElementById("a3").value;
+
+        addDataToFirestore(a1Value, a2Value, a3Value);
+      });
+*/
+      //網頁一打開就load，執行fetchExampleCollection()
+      window.addEventListener("load", function () {
+        fetchExampleCollection();
+      });
+    </script>
+  </body>
+</html>

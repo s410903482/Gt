@@ -1,0 +1,135 @@
+<!--查詢(失敗)-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firebase Connection Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>食物簡介</h1>
+    <div id="a1"></div>
+    <div id="a2"></div>
+    <div id="a3"></div>
+    <div id="a4"></div>
+    <div id="a5"></div>
+
+    <input type="text" id="search-input" placeholder="Enter name" />
+    <button id="search-button">Search</button>
+    <div id="t2-log" contenteditable="true">log</div>
+    <table id="example-table" border="1">
+      <thead>
+        <tr>
+          <th>名稱</th>
+          <th>圖片</th>
+          <th>別稱</th>
+          <th>如何挑選</th>
+          <th>建議保存方式</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+        query,
+        where,
+        addDoc,
+        doc,
+      } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCyNbWDHB-GYaVbzlNlwjaBnI1fWqUNj6Q",
+        authDomain: "example-fa0f1.firebaseapp.com",
+        projectId: "example-fa0f1",
+        storageBucket: "example-fa0f1.appspot.com",
+        messagingSenderId: "882903924249",
+        appId: "1:882903924249:web:c66f6cadbda9cc9e59b488",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      function updateEditableText(名稱, text) {
+        const editableText = document.getElementById(名稱);
+        editableText.textContent = text;
+      }
+
+      function clearTableData() {
+        const tableElement = document.getElementById("example-table");
+        const tbodyElement = tableElement.getElementsByTagName("tbody")[0];
+        tbodyElement.innerHTML = "";
+      }
+
+      async function fetchExampleCollection(名稱 = null) {
+        try {
+          const exampleCol = collection(db, "Rhizome");
+          let exampleQuery;
+
+          if (名稱) {
+            exampleQuery = query(exampleCol, where("名稱", "==", 名稱));
+          } else {
+            exampleQuery = exampleCol;
+          }
+
+          const exampleSnapshot = await getDocs(exampleQuery);
+          const tableElement = document.getElementById("example-table");
+
+          if (exampleSnapshot.empty) {
+            clearTableData();
+            updateEditableText("t2-log", "查無資訊");
+          } else {
+            // Clear the table first
+            clearTableData();
+            updateEditableText("t2-log", "資訊如下");
+            exampleSnapshot.forEach((doc) => {
+              const rowElement = document.createElement("tr");
+              const nameCellElement = document.createElement("td");
+              const imageCellElement = document.createElement("td");
+              const nicknameCellElement = document.createElement("td");
+              const selectionCellElement = document.createElement("td");
+              const methodCellElement = document.createElement("td");
+
+              const data = doc.data();
+              nameCellElement.textContent = data.名稱;
+              imageCellElement.textContent = data.圖片;
+              nicknameCellElement.textContent = data.別稱;
+              selectionCellElement.textContent = data.如何挑選;
+              methodCellElement.textContent = data.建議保存方法;
+
+              rowElement.appendChild(nameCellElement);
+              rowElement.appendChild(imageCellElement);
+              rowElement.appendChild(nicknameCellElement);
+              rowElement.appendChild(selectionCellElement);
+              rowElement.appendChild(methodCellElement);
+              tableElement.querySelector("tbody").appendChild(rowElement);
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching collection:", error);
+        }
+      }
+
+      document.getElementById("search-button").addEventListener("click", () => {
+        const searchInput = document.getElementById("search-input");
+        const searchText = searchInput.value.trim();
+
+        fetchExampleCollection(searchText);
+      });
+    </script>
+  </body>
+</html>
