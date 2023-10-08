@@ -1,0 +1,138 @@
+<!--查詢-->
+<!--查詢食物-->
+<!--還無法使用多個關鍵字查詢資料-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firebase Connection Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>食物簡介</h1>
+
+    <input
+      type="text"
+      id="search-input"
+      placeholder="Enter keywords separated by commas"
+    />
+    <button id="search-button">Search</button>
+    <div id="t2-log" contenteditable="true">log</div>
+    <table id="example-table" border="1">
+      <thead>
+        <tr>
+          <th>名稱</th>
+          <th>準備食材</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+        query,
+        where,
+        addDoc,
+        doc,
+      } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCkYXHGj37nHrMglwUHKWN2vOE0ty3o8T4",
+        authDomain: "fir-test-dc8dc.firebaseapp.com",
+        projectId: "fir-test-dc8dc",
+        storageBucket: "fir-test-dc8dc.appspot.com",
+        messagingSenderId: "851272507964",
+        appId: "1:851272507964:web:493d6b2ce3d5e239029939",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      function updateEditableText(id, text) {
+        const editableText = document.getElementById(id);
+        editableText.textContent = text;
+      }
+
+      function clearTableData() {
+        const tableElement = document.getElementById("example-table");
+        const tbodyElement = tableElement.getElementsByTagName("tbody")[0];
+        tbodyElement.innerHTML = "";
+      }
+
+      async function fetchExampleCollection(關鍵字 = null) {
+        try {
+          const exampleCol = collection(db, "recipe");
+          let exampleQuery;
+
+          if (關鍵字) {
+            const keywords = 關鍵字.split(/[ ,]+/); // 以逗號或空格分隔關鍵字
+            exampleQuery = query(exampleCol, where("關鍵字1", "in", keywords));
+            //exampleQuery = query(exampleCol, where("關鍵字2", "in", keywords));
+            //exampleQuery = query(exampleCol, where("關鍵字3", "in", keywords));
+          } else {
+            // 如果關鍵字為空，則查詢全部資料
+            exampleQuery = query(exampleCol);
+          }
+
+          const exampleSnapshot = await getDocs(exampleQuery);
+          const tableElement = document.getElementById("example-table");
+
+          if (exampleSnapshot.empty) {
+            clearTableData();
+            updateEditableText("t2-log", "查無資訊");
+          } else {
+            // Clear the table first
+            clearTableData();
+            updateEditableText("t2-log", "資訊如下");
+            exampleSnapshot.forEach((doc) => {
+              const rowElement = document.createElement("tr");
+              const nameCellElement = document.createElement("td");
+              const prepareCellElement = document.createElement("td");
+
+              const data = doc.data();
+              nameCellElement.textContent = data.名稱;
+              prepareCellElement.textContent = data.準備食材;
+
+              rowElement.appendChild(nameCellElement);
+              rowElement.appendChild(prepareCellElement);
+              tableElement.querySelector("tbody").appendChild(rowElement);
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching collection:", error);
+        }
+      }
+
+      document.getElementById("search-button").addEventListener("click", () => {
+        const searchInput = document.getElementById("search-input");
+        const searchText = searchInput.value.trim();
+
+        fetchExampleCollection(searchText);
+      });
+
+      const searchInput = document.getElementById("search-input");
+
+      searchInput.addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
+          // 按下 "Enter" 时執行搜索操作
+          const searchText = searchInput.value.trim();
+          fetchExampleCollection(searchText);
+        }
+      });
+    </script>
+  </body>
+</html>
