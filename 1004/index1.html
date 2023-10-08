@@ -1,0 +1,2561 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>咁單呷</title>
+    <!-- JQuery 連結 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- JQuery UI 連結 -->
+    <script src="jquery-ui.js"></script>
+    <meta charset="UTF-8">
+
+    <!--<link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/4443/4443003.png" type="image/x-icon">-->
+    <link rel="icon" href="icon.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body bgcolor="#AAB8AB"><!-- 背景顏色 --><!-- 82ABA3 95A098 AAB8AB 93A3A0-->
+
+    <!-- Sidebar (hidden by default) -->
+    <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left"
+        style="display:none;z-index:2;width:20%;min-width:300px" id="mySidebar">
+        <!--<a href="#user" onclick="w3_close()"  class="w3-bar-item"><img src="https://cdn-icons-png.flaticon.com/512/552/552721.png" width="50px" height="50px">User</a>-->
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button">Close Menu</a>
+        <a href="index.html" class="w3-bar-item w3-button">Home</a>
+        <a href="#search" onclick="w3_close()" class="w3-bar-item w3-button">Search</a>
+        <a href="#knowledge" onclick="w3_close()" class="w3-bar-item w3-button">Knowledge</a>
+        <a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">Food</a>
+        <!--<a href="#" onclick="w3_close()" class="w3-bar-item"></a>
+    <a href="#" onclick="w3_close()" class="w3-bar-item"></a>
+    <a href="#" onclick="w3_close()" class="w3-bar-item"></a>
+    <a href="#" onclick="w3_close()" class="w3-bar-item"></a>
+    <a href="#logout" onclick="w3_close()" class="w3-bar-item w3-button">登出</a>-->
+
+    </nav>
+
+    <!-- Top menu -->
+    <div class="w3-top">
+        <div class="w3-white w3-xlarge" style="margin:auto">
+            <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+            <div class="w3-right w3-bar-item w3-padding-16 w3-row-padding">
+
+                <div class="topnav-right">
+                    <a href="signin.html">登 入</a>
+                </div>
+
+            </div>
+            <div class="w3-padding-16 w3-bar-item">Food</div>
+            <!--<div class="w3-right w3-padding-16 w3-row-padding"><img src="https://cdn-icons-png.flaticon.com/512/552/552721.png" width="50px" height="50px">User 登出 註冊</div>-->
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Search Section -->
+    <hr id="search">
+    <div class="w3-container w3-padding-32 w3-center"><!-- 查詢 section -->
+        <!--<h3>Search</h3><br> -->
+        <h2>Search</h2>
+        <!--<table border="1" align="center" style="color:silver;font-size:30px;font-family:serif;background-color: white" cellpadding="3">
+        <td>-->
+        <form class="SEARCH" style="margin: auto;">
+            <input class="bar" id="myInput" placeholder="請輸入要搜尋的食材或食譜名稱">
+            <button id="search" style="border-radius: 10px;" type="submit">
+                <img src="https://png.pngtree.com/png-vector/20190423/ourmid/pngtree-search-icon-vector-illustration-in-filled-style-for-any-purpose-png-image_975457.jpg"
+                    width="50px" height="50px">
+        </form>
+        <!-- <td>📷 <td border="1"> 
+        <td>-->
+        <!--</table>-->
+    </div>
+    <h1 id="searchconsole">搜尋結果</h1>
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th style="width: 30%;">食譜圖片</th>
+                <th style="width: 30%;">食譜名稱</th>
+                <th style="width: 40%;">關鍵字</th>
+            </tr>
+        </thead>
+        <tbody id="myBody">
+            <tr>
+                <td><img src="https://n.sinaimg.cn/front/342/w644h498/20190305/Jpje-htwhfzr9823434.png" width="100%"
+                        height="100%"></td>
+                <td>金針菇豬肉捲</td>
+                <td>#金針菇 #豬肉捲</td>
+            </tr>
+            <tr>
+                <td><img src="https://d3l76hx23vw40a.cloudfront.net/recipe/whk086-098b.jpg" width="100%" height="100%">
+                </td>
+                <td>三杯杏鮑菇</td>
+                <td>#杏鮑菇 #辣椒</td>
+            </tr>
+            <tr>
+                <td><img src="https://2.bp.blogspot.com/-3jd-03rRBYg/Wi1IDEmIazI/AAAAAAAAu58/tmd620ROwOke7SxOZbsLS29P-7HCSnbygCLcBGAs/s1600/DSC09142.JPG"
+                        width="100%" height="100%"></td>
+                <td>菠菜炒鴻喜菇</td>
+                <td>#鴻禧菇 #菠菜</td>
+            </tr>
+            <tr>
+                <td><img src="https://imageproxy.icook.network/resize?background=255%2C255%2C255&height=600&nocrop=false&stripmeta=true&type=auto&url=http%3A%2F%2Ftokyo-kitchen.icook.tw.s3.amazonaws.com%2Fuploads%2Fstep%2Fcover%2F1421602%2F2e5058ea796c5def.jpg&width=800"
+                        width="100%" height="100%"></td>
+                <td>蘆筍炒蘑菇</td>
+                <td>#蘑菇 #蘆筍 #辣椒</td>
+            </tr>
+            <tr>
+                <td><img src="https://tokyo-kitchen.icook.network/uploads/recipe/cover/212831/4bfbe103c3c7f84f.jpg"
+                        width="100%" height="100%"></td>
+                <td>秀珍菇豆腐</td>
+                <td>#秀珍菇 #豆腐 #辣椒</td>
+            </tr>
+            <tr>
+                <td><img src="https://cc.tvbs.com.tw/img/program/upload/2022/10/05/20221005095137-a8d9daf3.jpg"
+                        width="100%" height="100%"></td>
+                <td>水煮蛋</td>
+                <td>#雞蛋</td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- JQuery在這 -->
+    <script>
+        $('#menu').menu({
+            icons: { submenu: 'ui-icon-triangle-1-s' },
+            position: { my: 'left top', at: 'left+1% bottom' }
+        });
+
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                //抓 搜尋的關鍵詞
+
+                var value = $(this).val().toLowerCase();
+
+                // 抓Table裡有沒有符合
+                $("#myBody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    $("#searchconsole").show();
+                    $("#myTable").show();
+                });
+            });
+        });
+    </script>
+    <!-- knowledge Section -->
+    <hr id="knowledge">
+    <div class="w3-container w3-padding-32 w3-center">
+        <h2>Knowledge</h2>
+    </div>
+
+    <!-- Slideshow container -->
+    <div class="slideshow-container">
+
+        <!-- Full-width images with number and caption text -->
+        <div class="mySlides fade">
+            <div class="numbertext">1 / 3</div>
+            <img src="https://www.newsmarket.com.tw/files/2022/11/1642_l-e870c6db-770x513.jpeg" style="width:100%">
+            <div class="text">
+                <!--<h2>綠色永續食物</h2>-->
+                「永續食材指南」的五大原則依序為友善耕作、少添加物、本土生產、低碳蔬食以及資源循環，並以台灣食材中常見的豌豆為象徵，設計出「永續豆莢」概念的標章。豆莢內的豆子越多，表示該產品符合永續的指標越多，也更趨向於低碳生產的目標。
+            </div>
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">2 / 3</div>
+            <img src="https://s.newtalk.tw/album/news/353/5e1844bac959a.jpg" style="width:100%">
+            <div class="text">胡蘿蔔看起來之所以會紅紅的，是因為它富含一種重要的營養成分「胡蘿蔔素」，這種營養素經過人體消化吸收後會轉變成維生素 A，對於增強視力、安定神經以及改善夜盲症都有幫助。
+            </div>
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">3 / 3</div>
+            <img src="https://storage.googleapis.com/www-cw-com-tw/article/202209/article-63229858979c5.jpg"
+                style="width:100%">
+            <div class="text">雞蛋的體積小、殼薄、易碎；而鴨蛋的體積大、殼厚，
+                可以做出比較多料理，也適合加工製成鹹蛋、皮蛋長期保存。
+            </div>
+        </div>
+
+        <!-- Next and previous buttons -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <br>
+
+    <!-- The dots/circles -->
+    <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+
+
+    <!--<div class="w3-container w3-padding-32 w3-center">
+    <h3>Knowledge</h3><br> 
+    
+    <img src="https://www.newsmarket.com.tw/files/2022/11/1642_l-e870c6db-770x513.jpeg" alt="Me" class="w3-image" style="display:block;margin:auto" width="60%" height="60%">
+    <div class="w3-padding-32">
+      <h1>綠色永續食物</h1>
+      <h6><i>小標</i></h6>
+      <p style="background-color: #B89886; border-radius: 10px;">
+        「永續食材指南」的五大原則依序為友善耕作、少添加物、本土生產、低碳蔬食以及資源循環，並以台灣食材中常見的豌豆為象徵，設計出「永續豆莢」概念的標章。豆莢內的豆子越多，表示該產品符合永續的指標越多，也更趨向於低碳生產的目標。
+      </p>
+    </div>
+  </div> -->
+
+    <!-- Food Section -->
+    <hr id="food">
+    <div class="w3-container w3-padding-32 w3-center">
+        <h2>Food</h2><br>
+        <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+            <h1>蔬菜類</h1>
+            <p>根莖類</p>
+            <div class="group">
+                <input type="button" id="CARROT" value="胡蘿蔔" color="Blue" style="width: 100px;height:70px;"
+                    onclick="CARROT()">
+                <input type="button" id="WHITERADISH" value="白蘿蔔" color="Blue" style="width: 100px;height:70px;"
+                    onclick="WHITERADISH()">
+                <input type="button" id="POTATO" value="馬鈴薯" color="Blue" style="width: 100px;height:70px;"
+                    onclick="POTATO()">
+                <input type="button" id="SWEETPOTATO" value="地瓜(甘藷)" color="Blue" style="width: 100px;height:70px;"
+                    onclick="SWEETPOTATO()">
+                <input type="button" id="BAMBOOSHOOTS" value="綠竹筍" color="Blue" style="width: 100px;height:70px;"
+                    onclick="BAMBOOSHOOTS()">
+                <input type="button" id="ONION" value="洋蔥" color="Blue" style="width: 100px;height:70px;"
+                    onclick="ONION()">
+
+                <div id="textshow1" style="display: none;">
+                    <p class="show">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQ85-Ip8oJxvfC2KE7z6oMbI32QKjydcM15hG_0sP0oS_6dXR9BeZ_xZEHOQ5vhY1ySQ8&usqp=CAU"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名紅蘿蔔、紅菜頭、番蘿蔔、丁香蘿蔔、甘筍<br>
+                        ● 外觀：胡蘿蔔為草本植物，呈圓錐形、顏色鮮豔橙紅，從根部會長出看起來細碎的羽狀複葉，地下部則有肥大直立的根<br>
+                        ● 生產季節：12月～ 4月盛產，其餘季節主要由冷藏品供應<br>
+                        ● 食用方式：可以生吃，也可以熟食，為了不讓營養流失，建議不要水煮<br>
+                        ● 如何挑選：表皮光滑、顏色紅澄澄，外觀完整無裂縫，並且末端沒有分叉，鬚根少，形狀粗短、頭部大<br>
+                        ● 建議保存方式：<br>
+                        1.冷凍保存：兩種方法，保存期間約2個月。<br>
+                        方法一：生的，切成薄片或細絲，平鋪於保鮮膜上包好，裝入冷凍保鮮袋。<br>
+                        方法二：汆燙後，撈起放涼，再裝進冷凍保鮮袋。<br>
+                        2.冷藏保存：擦乾水分，有葉子的話要切掉，用報紙將紅蘿蔔一根根包起來，裝進塑膠袋，直立著保存冷藏，保存期間約2~3週。<br>
+                        3.常溫保存：擦乾水分，用報紙一根一根將紅蘿蔔包起來，放置陰涼處或埋在土裡，保存期間約1週。<br>
+                        4.乾燥保存：平鋪晾乾，配合要煮的菜，切圓片、細絲、或隨意切塊，然後平鋪於竹蓆上晾2天左右，保存期間約1個月。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Carrot_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Carrot_recipe1.html"><u>#菇菇紅蘿蔔偽烘蛋</u></a>
+                        <a href="Carrot_recipe2.html"><u>#馬鈴薯燉肉</u></a>
+                        <a href="Carrot_recipe3.html"><u>#青花菜炒紅蘿蔔</u></a>
+                    </p>
+                </div>
+                <div id="textshow2" style="display: none;">
+                    <p class="show">
+                        <img src="https://d.ifengimg.com/q100/img1.ugc.ifeng.com/newugc/20190228/16/wemedia/4f2f267738b37c6f1317fd0552aa4c53746f405a_size55_w400_h300.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名菜頭、萊菔、大根、蘆菔、菈𦿚（音同「拉沓」）<br>
+                        ●
+                        外觀：除了最常見的，粗碩橢圓的白蘿蔔外，還有一口大小的櫻桃蘿蔔，以及重達十斤的大型蘿蔔等各色品種；外皮則分有青皮、紅皮、紫皮，內裡有紅肉、紅心、紫心；形狀也分為細長形、橢圓形、球形等等<br>
+                        ● 生產季節：產期為秋季至春季，冬季盛產，夏季淡產<br>
+                        ● 食用方式：生吃、涼拌、炒食、滷肉、煮湯、製成醃漬品<br>
+                        ● 如何挑選：要挑選成長線呈均等間隔分布，鬚根的痕跡筆直延伸的，皮白又帶葉，光滑不過裂，沉重夠清脆<br>
+                        ● 建議保存方式：<br>
+                        1.冷凍保存：<br>
+                        方法一：切塊冷凍：蘿蔔先去皮、切塊，放入保鮮袋中冷凍保存；烹調時取出可直接料理，不必退冰。<br>
+                        方法二：磨泥冷凍：蘿蔔去皮後磨成泥，用小袋子、小型保鮮盒或蛋糕模具分裝，再用保鮮膜完整包覆，冷凍能保存1個月左右<br>
+                        方法三：煮熟再冷凍：想節省下廚時間，也可以先煮好再冷凍，尤其以燉滷、煮湯的蘿蔔適合這樣保存。<br>
+                        2.冷藏保存：切掉葉片後，蘿蔔若有清洗，一定要擦乾再用報紙包裹，放置於蔬果冷藏室保存，約可維持蘿蔔約一週的新鮮度。可以的話外頭再套一層紙袋或塑膠袋，直立方式保存會更好。若一餐吃不完整根蘿蔔想要分次料理，因為蘿蔔切口部分最容易乾燥、變軟，必須用保鮮膜完整緊密包覆切口，外部再套一層密封保鮮袋，幫助預防乾燥，再放入冰箱冷藏。<br>
+                        3.乾燥保存：曬蘿蔔建議於冬季進行，白蘿蔔切絲後，平鋪在竹籃上置於室外曝曬，晚上移入室內，約持續4～5天即可裝入密封容器中以冷藏存放，避免接觸水氣可保存6個月左右。<br>
+                        4.醃製保存：不同的醃製方式，有不同的保存期限。<br>
+                        方法一：醋漬白蘿蔔：室溫醃漬2天，冷藏保存15～20天。<br>
+                        方法二：辣漬白蘿蔔：冷藏醃3天，冷藏保存1個月。<br>
+                        方法三：辣醃蘿蔔絲：冷藏醃半天，冷藏保存1週。<br>
+                        方法四：炸雞醃蘿蔔：室溫醃1天，冷藏保存1～3週。<br>
+                        方法五：味噌醃蘿蔔：冷藏醃約1小時，冷藏保存2天。<br>
+                        方法六：台式醃蘿蔔：室溫醃2天，冷藏保存約1～3週。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Whiteradish_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Whiteradish_recipe1.html"><u>#白蘿蔔玉米排骨湯</u></a>
+                        <a href="Whiteradish_recipe2.html"><u>#白蘿蔔雞湯</u></a>
+                        <a href="Whiteradish_recipe3.html"><u>#白蘿蔔炒肉絲</u></a>
+                    </p>
+                </div>
+                <div id="textshow3" style="display: none;">
+                    <p class="show">
+                        <img src="https://www.canceraway.org.tw/uploadsmall/FCF_20171415281.jpg" class="w3-image"
+                            style="display:block;margin:auto" width="40%" height="40%">
+                        又名土豆、洋山芋、薯仔、番仔薯、土蛋<br>
+                        ● 外觀：大小與形狀不一，表皮常帶土<br>
+                        ● 生產季節：產期集中於一至三月<br>
+                        ● 食用方式：<br>
+                        1.粉質馬鈴薯：推薦煎、炸、烤或短暫的水煮。<br>
+                        2.蠟質的馬鈴薯(通常皮薄且較光滑)：適合炒、煎及較長時間的燉煮。<br>
+                        ● 如何挑選：馬鈴薯塊莖不宜過大，表皮應未發綠或發芽，表皮應偏光滑，外型應呈圓形或橢圓。<br>
+                        ●
+                        建議保存方式：陰涼室溫存放別冷藏，將馬鈴薯以報紙包裹，避免見光，放於通風處常溫可保存2~3週。若2~3週後仍無法吃完，請以報紙或紙袋保裹後放入冰箱冷藏，但因為一般家用冰箱溫度無法達到1℃，因此建議還是盡早享用完畢，以免發芽。<br>
+                        <b style="color:red">！注意：若已置放在冰箱冷藏儲存，就不要再拿出來放常溫，否則容易發芽。</b><br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Potato_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Potato_recipe1.html"><u>#鮪魚馬鈴薯沙拉</u></a>
+                        <a href="Potato_recipe2.html"><u>#馬鈴薯燉肉</u></a>
+                        <a href="Potato_recipe3.html"><u>#馬鈴薯雞肉煎餅</u></a>
+                    </p>
+                </div>
+                <div id="textshow4" style="display: none;">
+                    <p class="show">
+                        <img src="https://img.ltn.com.tw/Upload/food/page/2016/04/27/160427-1468-00-jHDux.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名番薯、山芋、紅薯、甘薯、甜薯<br>
+                        ● 外觀：形狀眾多如紡錘型、圓形、圓柱形或不規則，皮色可分作黃、紅、紫、白色等色系，肉色有黃肉、橙紅肉、紫肉及白肉<br>
+                        ● 生產季節：全年，12月至隔年3月產量比較多<br>
+                        ● 食用方式：基本上加熱即可食用，也可曬製成乾，還可以製糖、釀酒和製酒精<br>
+                        ● 如何挑選：<br>
+                        形狀完整，橢圓飽滿呈紡錘型為佳，表面光滑，無損傷或小黑洞，未發芽，尾端無或少鬚根<br>
+                        ● 建議保存方式：<br>
+                        1.常溫保存：在冬季購買的地瓜，或是少量購買、短期存放需求，只需以平攤的方式放置於通風處即可。<br>
+                        2.冷藏保存：將地瓜以紙包裹，再放入冷藏庫中存放。<br>
+                        3.冷凍保存：將地瓜蒸熟後放入冷凍庫內貯存。無論是冷藏還是冷凍存放，都建議從冰箱取出後立即食用完畢哦！<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Sweetpotato_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Sweetpotato_recipe1.html"><u>#蒸地瓜</u></a>
+                        <a href="Sweetpotato_recipe2.html"><u>#地瓜芋頭冰甜湯</u></a>
+                        <a href="Sweetpotato_recipe3.html"><u>#薑汁地瓜</u></a>
+                    </p>
+                </div>
+                <div id="textshow5" style="display: none;">
+                    <p class="show">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDd215x90vfWShcHKRP1l4IYtSi4KbrydKQQ&usqp=CAUhttps://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDd215x90vfWShcHKRP1l4IYtSi4KbrydKQQ&usqp=CAU"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名甜竹、綠仔筍<br>
+                        ● 外觀：外型像彎曲牛角，體型矮肥短<br>
+                        ● 生產季節：3月至10月，以5月至7月為盛產期<br>
+                        ● 食用方式：涼拌、熱炒、煮湯、熬粥<br>
+                        ● 如何挑選：<br>
+                        四有四無，四有為竹筍有形、筍殼有緊、纖維有細、筍底有白；四無為無出青、無漂白、無受損、無臭味<br>
+                        ● 建議保存方式：<br>
+                        1.若沒有要立刻料理，先不要去殼，先在切面抹鹽，再以餐巾紙包覆，放入塑膠袋內，放進冰箱冷藏；或是先用溼的餐巾紙將竹筍底部包起來，然後放進冰箱，但建議在三天內食用。<br>
+                        2.先用清水和軟毛刷刷洗乾淨，然後帶殼放入鍋中，加一點鹽，從冷水開始煮滾，並浸泡在滾水中，等冷卻後再連同鍋子裡的水一起放冰箱冷藏。<br>
+                        3.需要貯藏的竹筍，可以先用冰水預冷至攝氏2度，再用塑膠袋包好放進冰箱冷藏，可存放兩周左右。<br>
+                        4.加工製作筍乾、脆筍、酸筍或桶筍，可以貯存較久時間。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Bambooshoots_test(changepage).html'"
+                            value="相關料理"></input>
+                        :
+                        <a href="Bambooshoots_recipe1.html"><u>#涼拌綠竹筍</u></a>
+                        <a href="Bambooshoots_recipe2.html"><u>#綠竹筍鹹粥</u></a>
+                        <a href="Bambooshoots_recipe3.html"><u>#培根炒綠竹筍</u></a>
+                    </p>
+                </div>
+                <div id="textshow6" style="display: none;">
+                    <p class="show">
+                        <img src="https://imagepphcloud.thepaper.cn/pph/image/72/223/849.jpg" class="w3-image"
+                            style="display:block;margin:auto" width="40%" height="40%">
+                        又名洋蔥頭、玉蔥、蔥頭、圓蔥、球蔥<br>
+                        ● 外觀：球形完整、堅實，表皮完整光滑、乾燥<br>
+                        ● 生產季節：12月至隔年4月<br>
+                        ● 食用方式：生、熟食均可，也可以做湯、做配料、調料和冷菜<br>
+                        ● 如何挑選：<br>
+                        1.外觀完整：表面光滑、乾燥，沒有水傷或擠壓痕跡，才不容易腐爛。<br>
+                        2.飽滿厚實：用手輕輕按壓，如果偏軟表示已變質出水，建議不要購買。<br>
+                        3.重者為佳：重量較重的表示水分含量充足，甜度也會比較高。<br>
+                        4.尖頭扎實：收口扎實的洋蔥表示較為成熟、甜度較高，且尖頭部位乾燥也不易發芽、耐保存。<br>
+                        ● 建議保存方式：<br>
+                        1.常溫保存：放入竹籃或紙袋中，置於通風陰涼處為佳。因為洋蔥害怕悶熱，若用袋裝，記得袋口不要密封，為了保持透氣，要避免使用塑膠袋盛裝保存。或將不要的絲襪清洗乾淨、晾乾後，先於絲襪尾端（腳趾處）打個小結，將洋蔥一顆一顆放入，每放一顆就打一個結，再把整串掛在通風陰涼處，要使用時再用剪刀從尾端剪一顆下來。保存期限約2~3個月。<br>
+                        2.冷藏保存：若想要冷藏已經使用一半的洋蔥，除了用保鮮膜將切面包覆後，放入冰箱冷藏之外；不妨先全部切成方便烹飪的大小，加入適量的鹽巴混合均勻，再放入保鮮容器中密封冷藏，料理時便能直接使用。保存期限約1周。<br>
+                        (Tips：洋蔥切開後，營養素就會開始流失，氧化的速度非常快，可以使用鹽巴稍微醃漬，留住洋蔥的風味和品質，再以保鮮膜包起冷藏，阻絕與空間接觸的機會。)<br>
+                        3.冷凍保存：洋蔥切絲或切末，若過程有沾到水可以用廚房紙巾把洋蔥稍微壓乾，再裝入保鮮袋中鋪平、壓出袋內空氣後密封，貼上處理日期的標籤後送入冷凍庫。保存期限約1~3個月。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Onion_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Onion_recipe1.html"><u>#洋蔥肉片</u></a>
+                        <a href="Onion_recipe2.html"><u>#洋蔥蝦仁炒蛋</u></a>
+                        <a href="Onion_recipe3.html"><u>#黑胡椒洋蔥炒牛肉</u></a>
+                    </p>
+                </div>
+            </div>
+            <p>葉菜類</p>
+            <div class="group">
+                <input type="button" id="SPINACH" value="菠菜" color="Blue" style="width:100px;height:70px;"
+                    onclick="SPINACH()">
+                <input type="button" id="CELERY" value="芹菜" color="Blue" style="width:100px;height:70px;"
+                    onclick="CELERY()">
+                <input type="button" id="CABBAGE" value="高麗菜" color="Blue" style="width:100px;height:70px;"
+                    onclick="CABBAGE()">
+                <input type="button" id="CHINESECABBAGE" value="小白菜" color="Blue" style="width:100px;height:70px;"
+                    onclick="CHINESECABBAGE()">
+                <input type="button" id="GREENCABBAGE" value="青江菜" color="Blue" style="width:100px;height:70px;"
+                    onclick="GREENCABBAGE()">
+                <input type="button" id="WATERSPINACH" value="空心菜" color="Blue" style="width:100px;height:70px;"
+                    onclick="WATERSPINACH()">
+
+                <div id="textshow7" style="display: none;">
+                    <p class="show">
+                        <img src="https://img1s.tuliu.com//art/2020/12/07/5fcdd36a6177a.jpg" class="w3-image"
+                            style="display:block;margin:auto" width="40%" height="40%">
+                        又名菠薐、波斯菜、鸚鵡菜、紅根菜、飛龍菜<br>
+                        <!-- ● 外觀：主根粗大，呈現紫紅色，綠色葉片叢生，葉柄長葉片有與狀裂的是裂葉種菠菜<br> -->
+                        ● 生產季節：全年，10月至隔年4月為盛產期<br>
+                        ● 食用方式：<br>
+                        在火鍋裡涮來吃、炒食、滾水中汆燙。<br>
+                        Tips：要去除菠菜的澀味，除了可以先汆燙外，拌炒過程要確實炒熟，可以加水幫助熟成。<br>
+                        ● 如何挑選：<br>
+                        葉片厚實的菠菜，它葉片會整個展開，放久的菠菜，會有萎縮的現象。避免挑選葉緣變黃的菠菜，莖的部份，如果把菠菜直立，放較久的菠菜會向下彎，再用手摸看看，最好是飽滿沒有變軟的現象。<br>
+                        ● 建議保存方式：<br>
+                        可用廚房紙巾包覆後，裝入塑膠袋，要留意根部是朝塑膠袋內的方向套起，順著蔬菜生長的方向，以直立的方式放入冰箱冷藏。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Spinach_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Spinach_recipe1.html"><u>#菠菜番茄蛋炒板條</u></a>
+                        <a href="Spinach_recipe2.html"><u>#菠菜炒沙茶牛肉</u></a>
+                        <a href="Spinach_recipe3.html"><u>#菠菜炒蛋</u></a>
+                    </p>
+                </div>
+                <div id="textshow8" style="display: none;">
+                    <p class="show">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvXT5oC0l58napp9aNNZcsSPcBY8mBmdBeqg&usqp=CAU"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名旱芹、藥芹、西芹、富菜<br>
+                        <!-- ● 外觀：主根粗大，呈現紫紅色，綠色葉片叢生，葉柄長葉片有與狀裂的是裂葉種菠菜<br> -->
+                        ● 生產季節：十月至隔年四月為盛產期<br>
+                        ● 食用方式：炒食、煮湯、調味<br>
+                        ● 如何挑選：<br>
+                        建議選莖梗較粗且直挺，葉片不要太茂密，容易流失水分，顏色過綠者則可能是過度施肥，避開選購<br>
+                        ● 建議保存方式：<br>
+                        首先，需要先把葉片摘掉，避免水分透過葉片散失、變得枯黃，拔掉葉子能讓莖部保留較多的水分，不會乾扁。<br>
+                        1.室溫保存：把芹菜葉拔除後，用報紙把莖部包住，露出根部，再把根步朝下置於裝有清水的容器中，約可保鮮3天。<br>
+                        2.冷藏保存：用濕紙巾包裹住芹菜的根部，再套上一層保鮮膜或報紙，接著照著它原本生長的樣子「直立」於冰箱冷藏保存，最長約能保存1週。<br>
+                        3.冷凍保存：先清洗掉芹菜表面的泥土，晾乾後切末，把芹菜末平鋪分裝入保鮮袋中密封，再收進冷凍庫保存即可，煮湯時可以直接取出使用，不需要退冰。<br>
+                        小叮嚀：一次只拿出需要使用的份量，切忌退冰後又再冷凍。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Celery_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Celery_recipe1.html"><u>#芹菜炒豆乾</u></a>
+                        <a href="Celery_recipe2.html"><u>#芹菜黑木耳炒豆干</u></a>
+                        <a href="Celery_recipe3.html"><u>#涼拌芹菜</u></a>
+                    </p>
+                </div>
+                <div id="textshow9" style="display: none;">
+                    <p class="show">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIoI3Tj6P3wF8lpJ7_5N_3D1tF3SpXr8xr9g&usqp=CAU"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名包心菜、甘藍菜、捲心菜、圓白菜、大頭菜<br>
+                        <!-- ● 外觀： -->
+                        ● 盛產季節：全年，盛產期為1月～4月；8月～12月<br>
+                        ● 食用方式：在切絲生食、清炒、煮湯、醃漬、曬乾<br>
+                        ● 如何挑選：<br>
+                        外觀無受損，葉子邊緣沒有變黃，菜心小、葉梗細，手秤重輕盈不墜重，輕拍高麗菜，聲音空洞者表示葉片結構蓬鬆，口感較清脆<br>
+                        ● 建議保存方式：<br>
+                        1.高麗菜具有耐存的優點，放在通風處可維持五天不壞。<br>
+                        2.冷藏保存：先用菜刀挖掉菜心，塞入濡溼但不滴水的衛生紙團後，裝入保鮮袋或者用報紙包好、裝入塑膠袋稍微封住袋口，即可放進冷藏庫。<br>
+                        3.採以莖部朝下，依原來生長的方向放置，則可延長高麗菜的保存時間。<br>
+                        4.常溫保存：同樣建議同樣將菜心挖掉，塞入濕衛生紙，再用報紙包好置於陰涼處。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Cabbage_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Cabbage_recipe1.html"><u>#高麗菜飯</u></a>
+                        <a href="Cabbage_recipe2.html"><u>#櫻花蝦炒高麗菜</u></a>
+                        <a href="Cabbage_recipe3.html"><u>#豆皮高麗菜</u></a>
+                    </p>
+                </div>
+                <div id="textshow10" style="display: none;">
+                    <p class="show">
+                        <img src="https://tokyo-kitchen.icook.network/uploads/category/background/727/cb2001d7612241ec.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名青菜、油白菜、小菘菜、塔菜、塌菜<br>
+                        ● 外觀：葉片短柄細小，沒有莖，葉片直接從根部長出。葉廣卵狀至橢圓形，具長葉柄，主脈明顯，色白<br>
+                        ● 生產季節：全年<br>
+                        ● 食用方式：可煮食或炒食，亦可做成菜湯或者涼拌食用<br>
+                        ● 如何挑選：<br>
+                        全株葉片完整、堅挺不枯萎、葉色鮮明、葉片與葉柄肥厚者為佳<br>
+                        ● 建議保存方式：<br>
+                        可用廚房紙巾包覆後，裝入塑膠袋，要留意根部是朝塑膠袋內的方向套起，順著蔬菜生長的方向，以直立的方式放入冰箱冷藏。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Chinesecabbage_test(changepage).html'"
+                            value="相關料理"></input>
+                        :
+                        <a href="Chinesecabbage_recipe1.html"><u>#小白菜炒蛋</u></a>
+                        <a href="Chinesecabbage_recipe2.html"><u>#小白菜炒豆包</u></a>
+                        <a href="Chinesecabbage_recipe3.html"><u>#小白菜炒菇菇</u></a>
+                    </p>
+                </div>
+                <div id="textshow11" style="display: none;">
+                    <p class="show">
+                        <img src="https://img1s.tuliu.com//art/2020/12/07/5fcdd36a6177a.jpg" class="w3-image"
+                            style="display:block;margin:auto" width="40%" height="40%">
+                        又名湯匙菜、江門白菜、青梗白菜、高腳白菜<br>
+                        ● 外觀：上部稍微開張呈全緣波狀、倒卵形，下方為多肉葉柄，葉淺綠至深綠色<br>
+                        ● 生產季節：全年，盛產期在 9月～12月<br>
+                        ● 食用方式：<br>
+                        炒食或煮湯。<br>
+                        Tips：青江菜如何料理減少苦味？怎麼炒？<br>
+                        1.先用滾水川燙，燙過後立刻取出，後續再以油脂搭配薑末快炒，川燙與薑味有助於減緩苦味。<br>
+                        2.另一種則運用遮掩法，使用肉片、雞蛋與之香炒，讓肉汁等香氣釋出，提升料理風味較不易專注感受「菜味」。甚至使用微辛的沙茶醬做底，濃郁滋味對於怕苦味的人非常有用。<br>
+                        ● 如何挑選：<br>
+                        莖部緊實、硬度足夠。葉子必須是漂亮的青綠色，若有發黃、枯萎代表已經不新鮮。莖部接近根的部份要寬且大，代表含水量充足，風味濃厚。<br>
+                        ● 建議保存方式：<br>
+                        以沾濕的廚房紙巾先捲起，再用報紙包覆、裝進塑膠袋中，採直立方式置於蔬果冷藏室中，便能夠保持脆綠、不易枯萎。約可保存3～4天。<br>
+                        ● 補充：<br>
+                        如何正確清洗青江菜？<br>
+                        梗處葉片清洗：沖洗蔬菜表面，梗處凹縫仔細翻開沖洗。<br>
+                        流水沖洗：分離梗處，以流水再沖洗 2 遍。<br>
+                        浸泡：浸泡於水中，搭配流水流動，協助帶除殘餘的髒污與農藥。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Greencabbage_test(changepage).html'"
+                            value="相關料理"></input>
+                        :
+                        <a href="Greencabbage_recipe1.html"><u>#蔥酥醬油拌青江菜</u></a>
+                        <a href="Greencabbage_recipe2.html"><u>#蒜炒青江菜</u></a>
+                        <a href="Greencabbage_recipe3.html"><u>#青炒青江菜</u></a>
+                    </p>
+                </div>
+                <div id="textshow12" style="display: none;">
+                    <p class="show">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR408Sc3rC8-Oj9-OyebxM8eZEKIbrsnr-19w&usqp=CAU"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名空芯菜、應菜、通菜、壅菜、甕菜<br>
+                        ● 外觀：葉片主要為狹長葉及寬大葉形態，莖部光滑、節間中空<br>
+                        ● 生產季節：全年，4月到9月為主要產季<br>
+                        ● 食用方式：炒食或煮湯<br>
+                        ● 如何挑選：以整株完整、新鮮細嫩、不枯黃、無病蟲害、不長鬚根者為佳。<br>
+                        ● 建議保存方式：空心菜買回家時，若外表還濕濕的，應先攤開晾乾後，再以牛皮紙包起來、放入冷藏，由於葉菜類不易保存，最好1~2天內盡快食用完畢。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Waterspinach_test(changepage).html'"
+                            value="相關料理"></input>
+                        :
+                        <a href="Waterspinach_recipe1.html"><u>#空心菜炒牛肉</u></a>
+                        <a href="Waterspinach_recipe2.html"><u>#沙茶炒空心菜</u></a>
+                        <a href="Waterspinach_recipe3.html"><u>#炒空心菜</u></a>
+                    </p>
+                </div>
+            </div>
+            <p>花菜類</p>
+            <div class="group">
+                <input type="button" id="CAULIFLOWER" value="花椰菜" color="Blue" style="width:100px;height:70px;"
+                    onclick="CAULIFLOWER()">
+                <input type="button" id="BROCCOLI" value="青花菜" color="Blue" style="width:100px;height:70px;"
+                    onclick="BROCCOLI()">
+                <input type="button" id="DAYLILY" value="黃花菜" color="Blue" style="width:100px;height:70px;"
+                    onclick="DAYLILY()">
+                <input type="button" id="CHIVEFLOWER" value="韭菜花" color="Blue" style="width:100px;height:70px;"
+                    onclick="CHIVEFLOWER()">
+
+                <div id="textshow15" style="display: none;">
+                    <p class="show">
+                        <img src="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcR1i65jau24Z4zRE2eG1NwPzFqanXgGLQxws1wWYgyZ9Ae7anWM3lajEOsLUeF3qRU2"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名菜花、花菜、開花菜、椰菜花<br>
+                        ● 外觀：頭部為白色或綠色，整體為半球形，肉質花球較密集<br>
+                        ● 生產季節：全年，以冬、春季最為盛產<br>
+                        ● 食用方式：花蕾球可供炒食、川燙食用，莖部去皮後可醃漬成泡菜或菜心使用<br>
+                        ● 如何挑選：<br>
+                        綠花椰菜挑色澤鮮綠的，越翠綠越濃密表示越新鮮；白花椰菜則要看莖的部分，莖要有一點淡綠色最好，底部不能有裂痕<br>
+                        ● 建議保存方式：<br>
+                        第一：將整顆花椰菜，直接泡進水裡，只需要浸泡花朵的部分即可。<br>
+                        第二：待花椰菜泡到會滴水的程度後，直接放入密封袋，密封後冷藏就可以。<br>
+                        這樣可延長保存五天以上。冷藏在略高於 0°C、高濕度的環境中最為理想。<br>
+                        如果買得過多或者一時之間吃不完，可以將花椰菜切成適口大小，以3%鹽水（或一匙鹽巴配二公升的水）汆燙到花球變鮮綠色（淺黃色）。撈起沖冷水，瀝乾再放入保鮮盒冷藏或冷凍，可保存較久時間，冷凍約20天，冷藏約7～10天。<br>
+                        <b style="color: red;">！注意：要放冷凍的花椰菜，表面一定要擦乾，如果表面有水，在冷凍的過程會破壞細胞膜，香氣味道就會受到影響。</b><br>
+                        ● 補充：<br>
+                        清洗方式：<br>
+                        1.沖洗：將整顆花椰菜浸泡於流動的清水中。<br>
+                        2.過水：手持花梗，快速進出水面，可以洗掉浮出來的小蟲。<br>
+                        3.切塊：切成適當大小，藉此挑出藏在縫隙裡的小蟲，最後再進行簡單沖洗。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Cauliflower_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Cauliflower_recipe1.html"><u>#蕈菇濃湯花椰菜燉飯</u></a>
+                        <a href="Cauliflower_recipe2.html"><u>#蒸花椰菜</u></a>
+                        <a href="Cauliflower_recipe3.html"><u>#培根花椰菜蛋炒飯</u></a>
+                    </p>
+                </div>
+                <div id="textshow16" style="display: none;">
+                    <p class="show">
+                        <img src="https://imageproxy.icook.network/resize?height=521&width=800&nocrop=false&url=https%3A%2F%2Fuploads-blog.icook.network%2F2020%2F01%2F2ac0b103-800%EF%BC%89-800x521.jpg&type=auto"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名青花苔、花菜苔、綠花菜、西蘭花、百加利<br>
+                        ● 外觀：花球一般呈現出綠色或者深綠色，外觀很有規則，一般是橢圓形<br>
+                        ● 生產季節：全年，以11～4月為盛產期<br>
+                        ● 食用方式：花蕾球可供炒食、川燙食用，莖部去皮後可醃漬成泡菜或菜心使用<br>
+                        ● 如何挑選：<br>
+                        花球整體呈現香菇形，外觀完整密合，沒有嚴重的凹凸現象，莖幹粗短、結實不空心。<br>
+                        ● 建議保存方式：<br>
+                        1.冷藏保存：切勿事先清洗，有孔塑膠袋包裝冷藏，以保持濕度，可保存1週，過久會組織軟化失水。<br>
+                        2.室溫保存：可放置約2至3天，冬天可保存較久，之後花蕾則會開始黃化。<br>
+                        ● 補充：<br>
+                        清洗方式：<br>
+                        1.以清水先浸泡青花菜3分鐘，待農藥溶解在水中。<br>
+                        2.開最小的水，用流動的清水沖洗10分鐘，讓水流沖走蔬果的殘留農藥。<br>
+                        3.最後再切菜，避免農藥汙染刀具。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Broccoli_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Broccoli_recipe1.html"><u>#青花菜炒甜不辣</u></a>
+                        <a href="Broccoli_recipe2.html"><u>#青花菜紅蘿蔔拌菜</u></a>
+                        <a href="Broccoli_recipe3.html"><u>#青花菜炒白菇</u></a>
+                    </p>
+                </div>
+                <div id="textshow17" style="display: none;">
+                    <p class="show">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkjrIbALOUOUw6z4D4QoHvBAxIvO8Q_0f_mA&usqp=CAU"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名金針、金針花、金針菜、忘憂草、柑橘萱草<br>
+                        <!-- ● 外觀：<br> -->
+                        ● 生產季節：8月至10月間<br>
+                        ● 食用方式：食用以干黃花菜為主，涼拌(應先焯熟)、炒、汆湯或做配料<br>
+                        ● 如何挑選：<br>
+                        1.外觀：色澤淺黃或金黃，質地新鮮無雜物，條身緊長均勻粗壯。<br>
+                        2.手感：抓一把捏成團，手感柔軟且有彈性，鬆手後每根黃花菜又能很快伸展開。<br>
+                        3.味道：有爽快的清香氣。<br>
+                        ● 建議保存方式：<br>
+                        大量的可以採用雙絲麻袋包裝，放在乾燥陰涼處。<br>
+                        小量的可以用塑料塞、缸等密封，放在陰涼乾燥處或冰箱內保存。<br>
+                        或曬乾至用手可以折斷的時候，將乾貨收回房間陰涼處自然存放1天冷卻後，用塑膠袋密封包裝，自然儲存即可。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Daylily_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Daylily_recipe1.html"><u>#金針花雞湯</u></a>
+                        <a href="Daylily_recipe2.html"><u>#金針花炒鴻喜菇</u></a>
+                        <a href="Daylily_recipe3.html"><u>#蔥爆肉絲炒金針花</u></a>
+                    </p>
+                </div>
+                <div id="textshow18" style="display: none;">
+                    <p class="show">
+                        <img src="https://gcs.rimg.com.tw/g1/e/58/53/21926906861651_840.jpg" class="w3-image"
+                            style="display:block;margin:auto" width="40%" height="40%">
+                        又名韭花<br>
+                        <!-- ● 外觀：<br> -->
+                        ● 生產季節：全年<br>
+                        ● 食用方式：可炒、可煮、也可以作湯<br>
+                        ● 如何挑選：挑選頭部黃白、有光澤者較新鮮。用手將韭菜花的花苞下折看看，若一折就斷代表新鮮，若要折多次才斷，表示較老<br>
+                        ● 建議保存方式：<br>
+                        1.通風保存：保存時間較短暫。<br>
+                        2.冷藏保存：首先把韭菜花用保鮮膜裹起來，要將它密封好，或者放到密封袋中扎好口也一樣，處理好以后再放到冷藏室里面，雖然會影響到它的食用口感，但是保存時間可以超過一周。<br>
+                        3.冷凍保存：首先把韭菜花用保鮮膜裹起來，然后裝到塑料袋中把口密封好，再投入到冰箱的冷凍室里面，用冷凍保存的方法可以將韭菜花放置很久，甚至幾個月以上都不會有問題，但是口感上面會欠缺一些。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Chiveflower_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Chiveflower_recipe1.html"><u>#韭菜花炒貢丸</u></a>
+                        <a href="Chiveflower_recipe2.html"><u>#韭菜花干貝醬炒飯</u></a>
+                        <a href="Chiveflower_recipe3.html"><u>#韭菜花炒甜不辣</u></a>
+                    </p>
+                </div>
+            </div>
+            <p>果實類</p>
+            <div class="group">
+                <input type="button" id="STRINGBEAN" value="四季豆" color="Blue" style="width: 100px;height:70px;"
+                    onclick="STRINGBEAN()">
+                <input type="button" id="TOMATO" value="牛番茄" color="Blue" style="width: 100px;height:70px;"
+                    onclick="TOMATO()">
+                <input type="button" id="SMALLCUCUMBER" value="黃瓜" color="Blue" style="width: 100px;height:70px;"
+                    onclick="SMALLCUCUMBER()">
+
+                <div id="textshow19" style="display: none;">
+                    <p class="show">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRd2tkJAtGtPsuwxkKrgZx00DJDg6BjHckpMw&usqp=CAU"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名菜豆、刀豆、豆角、敏豆仔、帶莢豌豆<br>
+                        <!--● 外觀：葉片主要為狹長葉及寬大葉形態，莖部光滑、節間中空<br>-->
+                        ● 生產季節：全年，主要盛產期為春、秋兩季<br>
+                        ● 食用方式：單獨清炒、肉類同燉、焯熟涼拌。<br>
+                        注意：四季豆烹煮時間宜長不宜短，要保證四季豆熟透，否則會發生中毒！<br>
+                        ● 如何挑選：表面平滑細緻，感覺水嫩有彈性，且豆粒不會特別突出。<br>
+                        ● 建議保存方式：<br>
+                        1.冷藏保存：直接放在塑膠袋中冷藏可保存5-7天，但是擺久了會逐漸出現咖啡色斑點。<br>
+                        2.冷凍保存：將四季豆洗淨，用鹽水汆燙後瀝乾，再放入冰櫃中冷凍。
+                        切記水份一定要瀝乾，冷凍過的四季豆才不會黏在一起。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Stringbean_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Stringbean_recipe1.html"><u>#蒜香四季豆</u></a>
+                        <a href="Stringbean_recipe2.html"><u>#蔥爆牛肉+四季豆</u></a>
+                        <a href="Stringbean_recipe3.html"><u>#四季豆炒松阪豬</u></a>
+                    </p>
+                </div>
+                <div id="textshow20" style="display: none;">
+                    <p class="show">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToUP3yhLn42abfWGd-E-sWwDIDF-6uH_A-NA&usqp=CAU"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名西紅柿、柑仔得、柑仔蜜<br>
+                        ● 外觀：葉片主要為狹長葉及寬大葉形態，莖部光滑、節間中空<br>
+                        ● 生產季節：盛產期12月至4月<br>
+                        ● 食用方式：生食、烹煮<br>
+                        ● 如何挑選：<br>
+                        1.看葉子：6片葉子的番茄所含的糖分也較高，口感最甜，所以最好選擇6葉的。<br>
+                        2.看外觀：大小較均勻、外形圓潤飽滿的是「母番茄」，肉厚汁多，口感較好，不要挑選有棱角、奇形怪狀的。<br>
+                        3.看顏色：因為番茄各部位接受日照的時間不一，所以顏色也不是特別均勻，一般都是紅色中略帶黃色。<br>
+                        4.捏軟硬：自然成熟的番茄能感覺到裡面果肉很柔軟、彈性十足。<br>
+                        ● 建議保存方式：<br>
+                        未熟番茄：還沒熟的番茄外觀會有些綠綠的。先將未成熟番茄的番茄梗拔掉（如果有的話），然後把番茄倒過來放在室溫環境保存，讓它能夠繼續成熟，只要放在廚房陰涼處的檯面上即可。<br>
+                        成熟番茄：可放冷藏保存，但建議2~3天內吃完。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Tomato_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Tomato_recipe1.html"><u>#牛番茄豆腐炒蛋</u></a>
+                        <a href="Tomato_recipe2.html"><u>#番茄肥牛燜飯</u></a>
+                        <a href="Tomato_recipe3.html"><u>#番茄炒蛋</u></a>
+                    </p>
+                </div>
+                <div id="textshow21" style="display: none;">
+                    <p class="show">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnD-F-O6fZuxWngeyryToNhHRsPS6lQY_DzA&usqp=CAU"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名青瓜、刺瓜、瓜仔哖<br>
+                        ● 外觀：葉片主要為狹長葉及寬大葉形態，莖部光滑、節間中空<br>
+                        ● 生產季節：全年，盛產期為3月至11月<br>
+                        ● 食用方式：<br>
+                        可生吃、可榨汁、涼拌、作湯或熱菜。<br>
+                        小黃瓜表皮有突起的刺疣，容易殘留農藥，除了先沖洗、以流動的水浸泡過，再用流動的水沖洗３分鐘之外，清洗過程還要用軟毛刷來刷洗表皮。即便洗乾淨了，最好再稍微汆燙一下，殺菁去澀。<br>
+                        ● 如何挑選：瓜體粗細平均、摸起來飽滿硬實，且有重量感的小黃瓜。
+                        <br>
+                        ● 建議保存方式：保持乾燥，以報紙包好，裝入塑膠袋放冰箱冷藏，約可保存１周左右。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Smallcucumber_test(changepage).html'"
+                            value="相關料理"></input>
+                        :
+                        <a href="Smallcucumber_recipe1.html"><u>#涼拌小黃瓜</u></a>
+                        <a href="Smallcucumber_recipe2.html"><u>#小黃瓜炒甜不辣</u></a>
+                        <a href="Smallcucumber_recipe3.html"><u>#蒜香小黃瓜炒蛋</u></a>
+                    </p>
+                </div>
+            </div>
+            <hr align="center" style="border: 2px #fff dashed;">
+            <h1>水果類</h1>
+            <div class="group">
+                <input type="button" id="WATERMELON" value="西瓜" color="Blue" style="width:100px;height:70px;"
+                    onclick="WATERMELON()">
+                <input type="button" id="MANGO" value="芒果" color="Blue" style="width:100px;height:70px;"
+                    onclick="MANGO()">
+                <input type="button" id="STRAWBERRY" value="草莓" color="Blue" style="width:100px;height:70px;"
+                    onclick="STRAWBERRY()">
+                <input type="button" id="LITCHI" value="荔枝" color="Blue" style="width:100px;height:70px;"
+                    onclick="LITCHI()">
+                <input type="button" id="REDDRAGONFRUIT" value="火龍果" color="Blue" style="width:100px;height:70px;"
+                    onclick="REDDRAGONFRUIT()">
+
+                <div id="textshow26" style="display: none;">
+                    <p class="show">
+                        <img src="https://ezgo.coa.gov.tw/Content/Ezgo_Fruit/images/season_pages/watermelon-02.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名「夏季瓜果之王」<br>
+                        ● 生產季節：盛產期4-8月<br>
+                        ● 如何挑選：<br>
+                        1.看外觀：選擇表面光滑完整、顏色青綠明亮、花紋清晰鮮明，果梗呈捲曲狀，瓜蒂部分些微凹陷者。<br>
+                        2.拍果皮：聲音清脆響亮者為佳。<br>
+                        ● 建議保存方式：<br>
+                        1.一整個西瓜，放在常溫陰涼通風的地方，可以保存1個月左右。<br>
+                        2.切開的半個西瓜，用保鮮膜包裹好，密封放入冰箱冷藏室，可以放2天左右。<br>
+                        3.切成塊的西瓜，用保鮮盒裝好，蓋上一層保鮮膜，放入冰箱冷藏可以保存8-12小時。<br>
+                        4.切開的西瓜，放在常溫下不能超過8小時，尤其是夏季高溫時期，最好在2-4小時內吃完爲宜，以免變味變質。<br>
+                        5.切好的西瓜，放入冷凍室保存，可以放2-7天。<br>
+                    </p>
+                </div>
+                <div id="textshow27" style="display: none;">
+                    <p class="show">
+                        <img src="https://ezgo.coa.gov.tw/Content/Ezgo_Fruit/images/season_pages/mango-02.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名檬果、杧果、蠻果，閩南語稱檨仔<br>
+                        ● 生產季節：盛產期5-9月<br>
+                        ● 如何挑選：<br>
+                        1.看芒果表面果皮顏色跟光澤度，挑選芒果表皮紅色的，表面色澤質感霧霧的。<br>
+                        2.摸看看芒果的硬度，芒果摸起來的硬度有一點點結實，但保有一些彈性，表示芒果很健康，太硬表示還沒成熟，若是開始有點鬆軟、水水的狀態，就要快點吃掉了，表示已經開始過熟了。<br>
+                        3.看芒果的果蒂跟聞香氣，先看看芒果蒂頭的部分，色澤若是帶點綠色，表示是自然熟成的，蒂頭附近要是滲出透明膠質，表示已經熟成了。<br>
+                        芒果尾部的表皮部分若還是綠色，表示還沒熟，直到顏色呈現黃色帶紅色時，才是熟度最好的。可以拿近一點聞看看芒果的香氣，熟甜的芒果香氣一定是很足的。<br>
+                        4.觀察芒果是否有黑色斑點，表面有一點黑色斑點是熟成的跡象，若黑點已漸漸嚴重且摸起來有鬆軟的感覺，就表示芒果已經開始不健康了喔。<br>
+                        ● 建議保存方式：<br>
+                        還未完熟的芒果，不要冰到冰箱，常溫保存即可。<br>
+                        芒果快要熟的時候，放到冰箱，並以報紙包著，水份比較不會很快蒸發掉。
+                    </p>
+                </div>
+                <div id="textshow28" style="display: none;">
+                    <p class="show">
+                        <img src="https://ezgo.coa.gov.tw/Content/Ezgo_Fruit/images/season_pages/strawberry-01.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名士多啤梨<br>
+                        ● 生產季節：盛產期12月至隔年3月<br>
+                        ● 如何挑選：<br>
+                        挑選顏色鮮豔的草莓，草莓上的絨毛越長代表越少人碰過，越新鮮，而且越新鮮的草莓，身上的小顆粒是立起來的<br>
+                        ● 建議保存方式：<br>
+                        帶回家的草莓不要立刻清洗，直接放入冰箱冷藏即可，需要吃多少再洗多少。若是未能吃完的草莓則密封冷藏，在兩日內吃完即可。<br>
+                        ● 補充：<br>
+                        如何清洗草莓？<br>
+                        草莓的正確洗法是放進漏籃之內用清水慢慢沖洗，瀝乾後可用軟毛巾吸乾水分，入口前才將蒂頭拔除最好。
+                    </p>
+                </div>
+                <div id="textshow29" style="display: none;">
+                    <p class="show">
+                        <img src="https://ezgo.coa.gov.tw/Content/Ezgo_Fruit/images/season_pages/lychee-02.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名荔支、離枝、丹荔、麗枝、貴妃香<br>
+                        ● 生產季節：盛產期5-8月<br>
+                        ● 如何挑選：<br>
+                        新鮮的荔枝從外觀看起來必須果皮鮮嫩無損，果實摸起來飽滿且緊實、無異狀，輕輕聞一下荔枝，荔枝氣味帶有淡淡香氣並無異味，最後需注意蒂頭是否有因荔枝細蛾所造成的「臭蒂頭」，臭蒂頭為蟲害的一種。<br>
+                        ● 建議保存方式：<br>
+                        1.冷藏保存三步驟：<br>
+                        (1)噴水保持荔枝的溼度。<br>
+                        (2)利用紙巾或報紙包裹荔枝。<br>
+                        (3)放進塑膠袋綁緊後冷藏保存。<br>
+                        2.常溫保存：必須將荔枝放置陰涼且通風的地方，並建議當天食用完畢為佳。
+                    </p>
+                </div>
+                <div id="textshow30" style="display: none;">
+                    <p class="show">
+                        <img src="https://ezgo.coa.gov.tw/Content/Ezgo_Fruit/images/season_pages/dargonfruit-02.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        「果中之聖」，又名紅龍果、龍珠果、仙人掌果、量天尺果<br>
+                        ● 生產季節：盛產期 6-11月<br>
+                        ● 如何挑選：<br>
+                        1.外形渾圓飽滿<br>
+                        2.鱗片反捲<br>
+                        3.果皮轉色均勻、色澤鮮豔，且轉紅達一半以上，果萼端的果皮完全轉色<br>
+                        4.鱗片及果梗切口新鮮者為佳，避免挑到擦、壓傷、病蟲害，或是裂果<br>
+                        ● 建議保存方式：<br>
+                        1.陰涼處存放：一般情況下，在買回來火龍果之後要放在陰涼處，不要讓它見陽光，並且室溫也不能超過30℃，這樣可以保存一周到兩周的時間。要是夏天氣溫比較高的話，還是建議放置到冰箱中，不然的話高溫會加快果實變質。<br>
+                        2.冷藏保存：若是想要火龍果中所含水分更多，就可以進行冷藏，冷藏的時候不要堆放擠壓，避免出現損壞，溫度要在3-6度之間，這樣保存的時間能夠久一點。<br>
+                        3.切開的火龍果吃了一半，剩下的一半要先用保鮮膜或是袋子包裹起來，之後再進行冷藏，切記切開的火龍果不可放置的時間過久，以免細菌滋生影響健康。<br>
+                    </p>
+                </div>
+            </div>
+            <!--      
+          <input type="button" id="cucumber" value="黃瓜" color="Blue" style="width: 100px;height:70px;" onclick="CUCUMBER()">
+          <input type="button" id="PUMPKIN" value="南瓜" color="Blue" style="width: 100px;height:70px;" onclick="PUMPKIN()">
+          <input type="button" id="CORN" value="玉米" color="Blue" style="width: 100px;height:70px;" onclick="CORN()">
+          <input type="button" id="SOY" value="黃豆" color="Blue" style="width: 100px;height:70px;" onclick="SOY()">
+          <input type="button" id="REDBEANS" value="紅豆" color="Blue" style="width: 100px;height:70px;" onclick="REDBEANS()">
+          <input type="button" id="GREENBEANS" value="綠豆" color="Blue" style="width: 100px;height:70px;" onclick="GREENBEANS()">
+          <input type="button" id="PEANUT" value="花生" color="Blue" style="width: 100px;height:70px;" onclick="PEANUT()">
+          <input type="button" id="PEA" value="豌豆" color="Blue" style="width: 100px;height:70px;" onclick="PEA()">
+          <input type="button" id="EDAMAME" value="毛豆" color="Blue" style="width: 100px;height:70px;" onclick="EDAMAME()">
+          <div id="textshow28" style="display: none;">
+            <p class="show">這是黃瓜</p>
+          </div> 
+          <div id="textshow29" style="display: none;">
+            <p class="show">這是南瓜</p>
+          </div>
+          <div id="textshow21" style="display: none;">
+            <p class="show">這是玉米</p>
+          </div>
+          <div id="textshow22" style="display: none;">
+            <p class="show">這是黃豆</p>
+          </div> 
+          <div id="textshow23" style="display: none;">
+            <p class="show">這是紅豆</p>
+          </div>
+          <div id="textshow24" style="display: none;">
+            <p class="show">這是綠豆</p>
+          </div>
+          <div id="textshow25" style="display: none;">
+            <p class="show">這是花生</p>
+          </div> 
+          <div id="textshow26" style="display: none;">
+            <p class="show">這是毛豆</p>
+          </div>
+          <div id="textshow27" style="display: none;">
+            <p class="show">這是竹筍</p>
+          </div>
+      </div> -->
+            <hr align="center" style="border: 2px #fff dashed;">
+            <h1>肉類</h1>
+            <p>豬肉</p>
+            <div class="group">
+                <input type="button" id="PIG" value="豬五花" color="Blue" style="width: 100px;height:70px;"
+                    onclick="PIG1()">
+                <input type="button" id="PIG" value="豬梅花" color="Blue" style="width: 100px;height:70px;"
+                    onclick="PIG2()">
+                <input type="button" id="PIG" value="豬里肌" color="Blue" style="width: 100px;height:70px;"
+                    onclick="PIG3()">
+                <input type="button" id="PIG" value="豬皮" color="Blue" style="width: 100px;height:70px;"
+                    onclick="PIG4()">
+
+                <div id="textshow36" style="display: none;">
+                    <p class="show">
+                        <img src="https://www.7-11-seafood.com.tw/img/product/42807316_s.jpg" class="w3-image"
+                            style="display:block;margin:auto" width="40%" height="40%">
+                        又名豬腩、五花肉、三層肉<br>
+                        ● 外觀：一層油脂、一層瘦肉，層次分明<br>
+                        <!-- ● 生產季節：<br> -->
+                        ● 食用方式：<br>
+                        將五花肉條清洗乾淨，以紙巾擦除水分後，在五花肉上以刀劃出刀痕，再均勻塗抹醃料，搭配雙手抓捏後靜置，亦可放入保鮮袋中抓捏能不髒手，醃料也幫助減少肉品殘留的腥味，醃製幾小時或隔一夜風味更好<br>
+                        ● 如何挑選：<br>
+                        油脂與瘦肉分佈均勻、層次分明，肉色呈現新鮮紅潤色，嗅聞無腥味，肉表面帶彈性<br>
+                        ● 建議保存方式：<br>
+                        1.先將五花肉煮或蒸熟後去皮<br>
+                        2.將五花肉切成片狀，也可切成塊狀<br>
+                        3.準備一張烘培紙<br>
+                        4.將切好的五花肉平鋪在紙上包起<br>
+                        5.放入密封袋冷凍保存<br>
+                        6.冷凍保存期限約八周<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Pig1_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Pig1_recipe1.html"><u>#韓式五花肉</u></a>
+                        <a href="Pig1_recipe2.html"><u>#客家鹹豬肉</u></a>
+                        <a href="Pig1_recipe3.html"><u>#烤五花肉</u></a>
+                    </p>
+                </div>
+                <div id="textshow37" style="display: none;">
+                    <p class="show">
+                        <img src="https://www.hucc-coop.tw/uploads/01產品與生產者/產品圖檔/雞豬牛羊/豬肉/梅花肉片.png" class="w3-image"
+                            style="display:block;margin:auto" width="40%" height="40%">
+                        又名胛心肉<br>
+                        ● 外觀：瘦肉中帶有放射狀的油花，油脂分布均勻，由於筋肉相連<br>
+                        <!-- ● 生產季節：<br> -->
+                        ● 食用方式：<br>
+                        梅花肉較嫩部位的肉，適用於烤、煎、炸、炒，烹調的時間要短。<br>
+                        為易於咀嚼，豬肉切片、切絲時，應逆肌紋切割。<br>
+                        ● 如何挑選：<br>
+                        確認肉質得彈性、觀察肉的色澤、聞起來是否有腥味，肉新鮮則色澤應該呈現粉紅的肉色、表面溼潤而不黏手<br>
+                        ● 建議保存方式：<br>
+                        將整塊豬梅花放進鹽滷水裡冷藏醃製1、2小時後，用廚房紙巾擦乾表面的水分，接著分切成2塊，並用廚房紙巾和保鮮膜包起來，最後放入一個塑膠袋或夾鏈袋裡，再放進冷凍庫保存。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Pig2_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Pig2_recipe1.html"><u>#糖醋豬梅花肉</u></a>
+                        <a href="Pig2_recipe2.html"><u>#燉梅花豬</u></a>
+                        <a href="Pig2_recipe3.html"><u>#醬燒梅花豬肉片</u></a>
+                    </p>
+                </div>
+                <div id="textshow38" style="display: none;">
+                    <p class="show">
+                        <img src="https://shoplineimg.com/5e9f96f7f58d53001a5e48eb/5ee5dff524646c004e8f9985/800x.jpg?"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名僧帽肌，因油花均勻，有長得像牛肉的豬肉之稱，肉質軟嫩筋也好咬，市場也有人叫他離緣肉或二層肉<br>
+                        ● 外觀：油脂偏少、肉質富咬勁，形狀和紋理工整<br>
+                        <!-- ● 生產季節：<br> -->
+                        ● 食用方式：<br>
+                        纖維細且比較緊密，不適合長時間烹煮。在處理時，為了讓肉質可以更加鬆軟，可用肉槌拍肉，此動作會把肉的纖維和一些組織拍斷，烹調時肉的收縮就會比較有限，維持口感，不會過度乾硬。<br>
+                        ● 如何挑選：<br>
+                        選購時先看顏色，若呈現鮮紅則代表新鮮，再摸肉質，若有彈性代表豬隻健康，聞起來沒有異味即可購買。<br>
+                        <!-- ● 建議保存方式：<br> -->
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Pig3_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Pig3_recipe1.html"><u>#香煎里肌肉</u></a>
+                        <a href="Pig3_recipe2.html"><u>#蔥爆里肌肉</u></a>
+                        <a href="Pig3_recipe3.html"><u>#蒜苗豬肉炒高麗菜</u></a>
+                    </p>
+                </div>
+                <div id="textshow39" style="display: none;">
+                    <p class="show">
+                        <img src="https://shoplineimg.com/5a1144b372fdc0a86c004895/6125ac6c68e1f10011e34f34/800x.jpg?"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        <!-- 這是豬皮,又名<br> -->
+                        ● 外觀：皮白有光澤，毛孔細而深；去毛徹底，無殘留毛、毛根；無皮傷及皮膚病；無皮下組織，去脂乾；成型好<br>
+                        <!-- ● 生產季節：<br> -->
+                        ● 食用方式：<br>
+                        豬皮用刀在皮上刮一刮，將皮上雜質刮除，有肥油也要清除並洗淨，捲成豬皮捲。<br>
+                        水滾下豬皮捲，並加入米酒一大匙去腥，煮滾後撈出。 再換一鍋水，同樣水滾放後放入，加入米酒煮約15分鐘。
+                        撈起切片，煮過比較好切，切好並將多餘的油脂清除，再次下鍋燙一分鐘後，撈起冰鎮，讓豬皮更Q彈好吃。<br>
+                        ● 如何挑選：<br>
+                        挑選厚實、盡可能沒有雜毛，表面乾淨，購回只需把裡面的油剃除乾淨。<br>
+                        ● 建議保存方式：<br>
+                        1-2天新鮮的豬皮購買後不宜長時間保存，最好1-2天內製作菜餚食用，如果需要長時間保存，需要把豬皮刮洗乾淨，切成條塊，放清水鍋內煮幾分鐘，撈出用冷水過涼，控去水分，用保鮮袋包裹成小包裝袋，放冰箱冷凍室內冷凍保存即可。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Pig4_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Pig4_recipe1.html"><u>#豬皮凍</u></a>
+                        <a href="Pig4_recipe2.html"><u>#涼拌豬皮</u></a>
+                        <a href="Pig4_recipe3.html"><u>#滷豬皮</u></a>
+                    </p>
+                </div>
+            </div>
+            <p>雞肉</p>
+            <div class="group">
+                <input type="button" id="CHICKEN1" value="雞柳" color="Blue" style="width: 100px;height:70px;"
+                    onclick="CHICKEN1()">
+                <input type="button" id="CHICKEN2" value="雞胸" color="Blue" style="width: 100px;height:70px;"
+                    onclick="CHICKEN2()">
+                <input type="button" id="CHICKEN3" value="雞翅" color="Blue" style="width: 100px;height:70px;"
+                    onclick="CHICKEN3()">
+                <input type="button" id="CHICKEN4" value="雞腿" color="Blue" style="width: 100px;height:70px;"
+                    onclick="CHICKEN4()">
+                <input type="button" id="CHICKEN5" value="雞皮" color="Blue" style="width: 100px;height:70px;"
+                    onclick="CHICKEN5()">
+
+                <div id="textshow40" style="display: none;">
+                    <p class="show">
+                        <img src="https://cf.shopee.tw/file/316042290699dcede4f442ede9133b76" class="w3-image"
+                            style="display:block;margin:auto" width="40%" height="40%">
+                        又名雞里肌<br>
+                        ● 外觀：雞胸內側、雞軟骨兩側的長條型肌肉，一隻雞只會有兩條。雞柳的脂肪含量低，肉質比雞胸來得細緻有彈性<br>
+                        <!-- ● 生產季節：<br> -->
+                        ● 食用方式：<br>
+                        雞里肌帶筋，料理前若不先將筋去除，容易影響口感。有時筋會跟肉黏得比較緊，可先用刀將前端的筋跟肉分離。再用大拇指跟食指捏住筋的前端。使用刀背比較不容易在推的過程中，不小心將筋切斷。將肉推到底，即可將筋去除。<br>
+                        ● 如何挑選：<br>
+                        外觀飽滿滑潤沒有過多血水滲出，聞味道如果有異味代表不新鮮，可先查看包裝上是否有 CAS 標章、防檢局屠宰衛生合格標誌或產銷履歷標章，有這些標誌表示雞肉是經過層層品質把關的國產雞肉。<br>
+                        ● 建議保存方式：<br>
+                        放入可冷藏的真空保鮮容器中，再把容器放入冰箱冷藏即可，如果肉品有外包裝，建議將肉品連同外包裝一起放到盤子上，再一起放入冰箱冷藏；冷凍生肉品時，如果有外包裝，就把外包裝移除，接著只要把肉品放入可冷凍的保鮮夾鏈袋中，擠出袋內空氣並封好袋口，再放入冰箱冷凍即可冷藏可保存約
+                        1～2 天，冷凍可保存約 3～4 個月。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Chicken1_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Chicken1_recipe1.html"><u>#養樂多糖醋雞柳</u></a>
+                        <a href="Chicken1_recipe2.html"><u>#蔥燒雞里肌</u></a>
+                        <a href="Chicken1_recipe3.html"><u>#洋蔥炒雞里肌肉</u></a>
+                    </p>
+                </div>
+                <div id="textshow41" style="display: none;">
+                    <p class="show">
+                        <img src="https://img.ltn.com.tw/Upload/food/page/2019/09/27/190927-9635-0-m8hmP.png"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名雞脯肉、雞清肉<br>
+                        ● 外觀：屬於白肉，平時的運動量很少，幾乎都是瘦肉，肉質非常軟嫩<br>
+                        <!-- ● 生產季節：<br> -->
+                        ● 食用方式：<br>
+                        購買的是冷凍雞胸肉，記得前一晚先將雞胸肉從冷凍放入冷藏，並在烹煮前 30 分鐘前取出回溫，避免加熱時肉質收縮過快，讓水分流失<br>
+                        ● 如何挑選：光亮、彈性（壓下去不會凹陷）、連骨賣。<br>
+                        ● 建議保存方式：<br>
+                        沒用完的雞胸肉，你可以選擇生肉繼續冷藏保存，新鮮的雞胸肉可以在1～5℃的冰箱裡保存2天左右，或是跟著醃料繼續醃著。在進入冰箱前，一定得用密封袋（抽真空的話效果更好，可延長保鮮時間），或蓋上密封盒。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Chicken2_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Chicken2_recipe1.html"><u>#乾煎雞胸肉</u></a>
+                        <a href="Chicken2_recipe2.html"><u>#水煮雞胸肉</u></a>
+                        <a href="Chicken2_recipe3.html"><u>#照燒雞胸肉</u></a>
+                    </p>
+                </div>
+                <div id="textshow42" style="display: none;">
+                    <p class="show">
+                        <img src="https://www.18ranch.com.tw/wp-content/uploads/2020/11/雞翅-min.jpg" class="w3-image"
+                            style="display:block;margin:auto" width="40%" height="40%">
+                        <!-- 這是雞翅,又名<br>
+            ● 外觀：主根粗大，呈現紫紅色，綠色葉片叢生，葉柄長葉片有與狀裂的是裂葉種菠菜<br>
+            ● 生產季節：<br> -->
+                        ● 食用方式：<br>
+                        刀子沿著上方的骨輪往下劃，使皮和骨輪分離。用手握著骨輪，直接將骨頭往雞肉膀尖的方向推出去，使骨肉分離，就能將骨頭整個拉出。<br>
+                        ● 如何挑選：看外型、彈性、聞氣味、用手摸、看標章。<br>
+                        ● 建議保存方式：<br>
+                        建議放冰箱的雞翅冷藏不超過3天，以免食用對健康不利。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Chicken3_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Chicken3_recipe1.html"><u>#可樂雞翅</u></a>
+                        <a href="Chicken3_recipe2.html"><u>#烤雞翅</u></a>
+                        <a href="Chicken3_recipe3.html"><u>#滷雞翅</u></a>
+                    </p>
+                </div>
+                <div id="textshow43" style="display: none;">
+                    <p class="show">
+                        <img src="https://plus.webdo.com.tw/manager_admin/newwebdo_upfile/960/15154889601.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名雞脾、雞髀<br>
+                        <!-- ● 外觀：主根粗大，呈現紫紅色，綠色葉片叢生，葉柄長葉片有與狀裂的是裂葉種菠菜<br>
+            ● 生產季節：<br> -->
+                        ● 食用方式：<br>
+                        烹調前再用水把雞肉清洗乾淨。務必完全洗去鹽巴和雞肉滲出的水分，然後用廚房紙巾拭乾後就可以開始烹調了。<br>
+                        ● 如何挑選：<br>
+                        1.毛細孔：從毛細孔可以判斷雞腿肉優不優、好不好吃，因為毛細孔越大，代表飼養的時間越長，肉質會較甜。<br>
+                        2.雞皮顏色：建議盡量挑選雞皮帶點黃色的，太白的雞腿皮並不一定新鮮。<br>
+                        <!-- ● 建議保存方式：<br> -->
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Chicken4_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Chicken4_recipe1.html"><u>#照燒雞腿</u></a>
+                        <a href="Chicken4_recipe2.html"><u>#乾煎雞腿排</u></a>
+                        <a href="Chicken4_recipe3.html"><u>#沙茶雞腿肉</u></a>
+                        <a href="Chicken4_recipe4.html"><u>#清蒸蒜香雞腿肉</u></a>
+                    </p>
+                </div>
+                <div id="textshow44" style="display: none;">
+                    <p class="show">
+                        <img src="https://m5.hocom.tw/Uploads/Product/22852_ampgm049.jpg" class="w3-image"
+                            style="display:block;margin:auto" width="40%" height="40%">
+                        <!-- 這是雞皮,又名<br>
+            ● 外觀：主根粗大，呈現紫紅色，綠色葉片叢生，葉柄長葉片有與狀裂的是裂葉種菠菜<br>
+            ● 生產季節：<br> -->
+                        ● 食用方式：<br>
+                        先把雞皮表麵的雜質處理乾淨、然後用水洗淨；準備一鍋熱水、把雞皮稍微汆燙。<br>
+                        ● 如何挑選：<br>
+                        皮膚表面有很多疙瘩，淡黃色的皮膚有油性光澤，皮軟滑。<br>
+                        <!-- ● 建議保存方式：<br> -->
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Chicken5_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Chicken5_recipe1.html"><u>#鹽酥雞皮</u></a>
+                        <a href="Chicken5_recipe2.html"><u>#涼拌雞皮</u></a>
+                        <a href="Chicken5_recipe3.html"><u>#蔥爆雞皮</u></a>
+                    </p>
+                </div>
+            </div>
+            <p>鴨肉</p>
+            <div class="group">
+                <input type="button" id="DUCK1" value="鴨血" color="Blue" style="width: 100px;height:70px;"
+                    onclick="DUCK1()">
+                <input type="button" id="DUCK2" value="鴨胸" color="Blue" style="width: 100px;height:70px;"
+                    onclick="DUCK2()">
+
+                <div id="textshow45" style="display: none;">
+                    <p class="show">
+                        <img src="https://cdn.101mediaimage.com/img/file/1502932816g5kgx.jpg" class="w3-image"
+                            style="display:block;margin:auto" width="40%" height="40%">
+                        <!-- 這是鴨血,又名<br>
+            ● 外觀：主根粗大，呈現紫紅色，綠色葉片叢生，葉柄長葉片有與狀裂的是裂葉種菠菜<br>
+            ● 生產季節：<br> -->
+                        ● 食用方式：<br>
+                        首先鴨血要多次換水去腥，切好後放入100度熱水泡10分鐘（過程中要攪拌一下），10分鐘後取出鴨血放入冷水浸泡（過程中換2次冷水），這樣鴨血去腥完成。<br>
+                        ● 如何挑選：<br>
+                        真的鴨血一般是暗紅色的，而假的鴨血顏色淺紅，鮮豔一些，有點像咖啡色。這裏還有一個可以觀察出的小細節，真的鴨血切面是有不規則稀疏小孔的哦，而假的鴨血切面很光滑，看不到氣孔，這是鴨血獨一無二的特徵。<br>
+                        ● 建議保存方式：<br>
+                        有時候採用常溫的方式保存，保鮮不變質，3天左右還是能做到的，只要將鴨血放入放入鹽水中浸泡，並且每天換鹽水2次，鴨血可以避免被細菌汙染適當保存，但建議食用前還是要檢查一下!避免保存過程出問題。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Duck1_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Duck1_recipe1.html"><u>#麻辣鴨血</u></a>
+                        <a href="Duck1_recipe2.html"><u>#韭菜炒鴨血</u></a>
+                        <a href="Duck1_recipe3.html"><u>#酸菜鴨血湯</u></a>
+                    </p>
+                </div>
+                <div id="textshow46" style="display: none;">
+                    <p class="show">
+                        <img src="https://cf.shopee.tw/file/dfde368592cbf1fe984406ce75679599" class="w3-image"
+                            style="display:block;margin:auto" width="40%" height="40%">
+                        <!-- 這是鴨胸,又名<br>
+            ● 外觀：主根粗大，呈現紫紅色，綠色葉片叢生，葉柄長葉片有與狀裂的是裂葉種菠菜<br>
+            ● 生產季節：<br> -->
+                        ● 食用方式：<br>
+                        將鴨胸肉洗淨後，泡入鹽水中，水量要蓋過鴨肉，鹽巴放入一大匙即可，浸泡大約1～2小時，讓肉質可以更鮮嫩。<br>
+                        冷凍鴨肉之正確解凍方法 （解凍時不可將包裝全部拆開）<br>
+                        1.冷藏庫解凍法：約4~8小時。<br>
+                        2.流水解凍法：約2~3小時。<br>
+                        3.微波爐解凍：最快，只需3~10分鐘，但須特別注意包裝材料之安全性及耐熱度。<br>
+                        <!-- ● 如何挑選：<br> -->
+                        ● 建議保存方式：<br>
+                        1.只購買可一次（或至多二次）用完的份量。<br>
+                        2.買完後應儘速修整分切成各次所需的量。<br>
+                        3.擦乾表面水分後應分裝封好並註明日期。<br>
+                        4.當天或隔日使用者，應放入冰箱冷藏庫；2-3天後才食用者則應放在冷凍庫凍藏。<br>
+                        5.冷凍庫各包装肉品間應保留適當空隙，使冷風對流均匀，以防冷凍不全。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Duck2_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Duck2_recipe1.html"><u>#香煎鴨胸</u></a>
+                        <a href="Duck2_recipe2.html"><u>#醬炒鴨胸肉</u></a>
+                        <a href="Duck2_recipe3.html"><u>#煙燻鴨胸肉沙拉</u></a>
+                    </p>
+                </div>
+            </div>
+            <hr align="center" style="border: 2px #fff dashed;">
+            <h1>蛋類</h1>
+            <div class="group">
+                <input type="button" id="EGG" value="雞蛋" color="Blue" style="width: 100px;height:70px;" onclick="EGG()">
+                <input type="button" id="DUCKEGG" value="鴨蛋" color="Blue" style="width: 100px;height:70px;"
+                    onclick="DUCKEGG()">
+                <input type="button" id="SALTEDEGG" value="鹹蛋" color="Blue" style="width: 100px;height:70px;"
+                    onclick="SALTEDEGG()">
+                <input type="button" id="PRESERVEDEGG" value="皮蛋" color="Blue" style="width: 100px;height:70px;"
+                    onclick="PRESERVEDEGG()">
+                <input type="button" id="BIRDEGGS" value="鳥蛋" color="Blue" style="width: 100px;height:70px;"
+                    onclick="BIRDEGGS()">
+
+                <div id="textshow51" style="display: none;">
+                    <p class="show">
+                        <img src="https://img.soundofhope.org/2021-10/collage_fotor_fotor-1633983033773.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        <!--這是雞蛋,又名<br>
+             ● 外觀：主根粗大，呈現紫紅色，綠色葉片叢生，葉柄長葉片有與狀裂的是裂葉種菠菜<br> 
+            ● 生產季節：<br>
+            ● 食用方式：<br>-->
+                        ● 如何挑選：<br>
+                        1.盒裝蛋：可挑包裝洗選蛋、並附有CAS及產銷履歷的蛋品<br>
+                        2.散裝蛋：大小適中、外殼乾淨、完整無破裂、蛋殼光滑且摸起來無顆粒感的雞蛋。拿起雞蛋稍用力搖晃，如果有明顯的震動感，表示雞蛋較不新鮮<br>
+                        ● 建議保存方式：<br>
+                        1.洗選蛋:可直接放進冰箱保存<br>
+                        2.一般雞蛋:絕對不要直接放冰箱，建議拿一塊沾濕的布，接著將布擰得乾後，再擦拭蛋表面上的羽毛、糞便等髒污，接著將雞蛋「尖端朝下、圓端在上」冰入冰箱保存。<br>
+                        保存於4-5℃左右時，即使放了十天，新鮮程度依舊，若是置於室溫，約7-10天後就不建議食用了，但若置於冰箱，則可以保存一個月<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Egg_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Egg_recipe1.html"><u>#水煮蛋</u></a>
+                        <a href="Egg_recipe2.html"><u>#蒸蛋</u></a>
+                        <a href="Egg_recipe3.html"><u>#太陽蛋</u></a>
+                        <a href="Egg_recipe4.html"><u>#茶葉蛋</u></a>
+                        <a href="Egg_recipe5.html"><u>#滷蛋</u></a>
+                        <a href="Egg_recipe6.html"><u>#歐姆蛋</u></a>
+                    </p>
+                </div>
+                <div id="textshow52" style="display: none;">
+                    <p class="show">
+                        <img src="https://n.sinaimg.cn/sinakd20200410ac/303/w640h463/20200410/a192-iryninx3867753.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        <!--這是鴨蛋,又名<br>
+             ● 外觀：主根粗大，呈現紫紅色，綠色葉片叢生，葉柄長葉片有與狀裂的是裂葉種菠菜<br> 
+            ● 生產季節：<br>
+            ● 食用方式：<br>-->
+                        ● 如何挑選：<br>
+                        1.看鴨蛋的殼上的平滑程度，用手摸上去有分佈著勻稱的細小顆粒物，這樣的鴨蛋是新鮮的<br>
+                        2.還要看鴨蛋的殼上是否有裂縫<br>
+                        3.用手握住鴨蛋進行適量用力的搖晃，耳朵聽一聽鴨蛋的有無響聲，如果鴨蛋有聲音的就是有問題的，沒有發出聲音的是好<br>
+                        4.用鼻子聞一聞，新鮮的鴨蛋，聞不到味，如果不是新鮮的鴨蛋，我們會聞到一股臭味<br>
+                        ● 建議保存方式：<br>
+                        1、鴨蛋存放時要大頭朝上，小頭在下，這樣使蛋黃上浮後貼在氣室下面，即可防止微生物侵入蛋黃，也保證鴨蛋的質量。<br>
+                        2、夏天的鴨蛋要放入冰箱的保鮮室內保存，這樣低溫情況下能抑制微生物的繁殖；冬天的鴨蛋不放入冰箱，自然室溫下也可保持30天左右不會壞。但是要注意鴨蛋用水洗過後要儘快食用，水洗後的蛋容易變壞。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Duckegg_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Duckegg_recipe1.html"><u>#蛋豆腐</u></a>
+                        <a href="Duckegg_recipe2.html"><u>#簡易版滷肉（滷蛋）</u></a>
+                    </p>
+                </div>
+                <div id="textshow53" style="display: none;">
+                    <p class="show">
+                        <img src="https://www.hucc-coop.tw/uploads/01產品與生產者/產品圖檔/奶蛋豆五穀/蛋品/鹹鴨蛋/鹹鴨蛋情境小圖2.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        <!--這是鹹蛋,又名<br>
+             ● 外觀：主根粗大，呈現紫紅色，綠色葉片叢生，葉柄長葉片有與狀裂的是裂葉種菠菜<br> 
+            ● 生產季節：<br>
+            ● 食用方式：<br>-->
+                        ● 如何挑選：<br>
+                        優質鹹鴨蛋的外殼完整沒有裂痕、看起來乾淨圓潤，一般會呈現淡青色。如果發現蛋殼是暗沉的灰黑色、或帶有黑色斑點，就很可能是較不新鮮的鹹蛋。<br>
+                        ● 建議保存方式：<br>
+                        一般的散裝鹹鴨蛋只能保存3-5天，密封冷藏則可以保存15-30天。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Saltedegg_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Saltedegg_recipe1.html"><u>#金沙豆腐</u></a>
+                        <a href="Saltedegg_recipe2.html"><u>#鹹蛋苦瓜</u></a>
+                        <a href="Saltedegg_recipe3.html"><u>#鹹蛋拌花椰菜</u></a>
+                        <a href="Saltedegg_recipe4.html"><u>#鹹蛋四季豆</u></a>
+                    </p>
+                </div>
+                <div id="textshow54" style="display: none;">
+                    <p class="show">
+                        <img src="https://www.hucc-coop.tw/uploads/01產品與生產者/產品圖檔/奶蛋豆五穀/蛋品/皮蛋/皮蛋情境小圖1.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名松花蛋、變蛋、灰包蛋、鹼蛋、泥蛋<br>
+                        <!-- ● 外觀：主根粗大，呈現紫紅色，綠色葉片叢生，葉柄長葉片有與狀裂的是裂葉種菠菜<br> 
+            ● 生產季節：<br>
+            ● 食用方式：<br>-->
+                        ● 如何挑選：<br>
+                        1.看標示：不購買來路不明的商家，挑選有完整包裝、來源與有效日期清楚，取得 CAS 標章之產品。<br>
+                        2.看外觀：蛋殼無破損、髒汙、黑斑，蛋白凝固良好者，輕敲時有彈性、震動感。<br>
+                        3.聞味道：熟成好的皮蛋有溫和的氨味，而非刺鼻的異味、澀味。<br>
+                        4.切開看：蛋白光滑半透明，且無明顯斑點；蛋黃是勻稱的墨綠色。<br>
+                        ● 建議保存方式：<br>
+                        未開封可放置 3~6 個月，當然前提是在妥善保存的環境下。皮蛋必須放置在常溫的通風場所，並避免光照使蛋殼受熱破裂。<br>
+                        由於放在冰箱會導致皮蛋水分流失，改變它原有的風味，不建議放到冰箱。除非是剝開後沒吃完，可以先用保鮮盒冰起來，盡早食用完畢才不影響味道和品質。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Preservedegg_test(changepage).html'"
+                            value="相關料理"></input>
+                        :
+                        <a href="Preservedegg_recipe1.html"><u>#涼拌皮蛋豆腐</u></a>
+                        <a href="Preservedegg_recipe2.html"><u>#皮蛋地瓜葉</u></a>
+                        <a href="Preservedegg_recipe3.html"><u>#皮蛋瘦肉粥</u></a>
+                    </p>
+                </div>
+                <div id="textshow55" style="display: none;">
+                    <p class="show">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNar7Oo04ZKL7idPyWQyyJbcsFF2os9gmQ-5-ZDucD5LCwICr5WEMWY84ugHj6qs4rv70&usqp=CAU"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名鵪鶉蛋<br>
+                        <!-- ● 外觀：主根粗大，呈現紫紅色，綠色葉片叢生，葉柄長葉片有與狀裂的是裂葉種菠菜<br> 
+            ● 生產季節：<br>
+            ● 食用方式：<br>-->
+                        ● 如何挑選：<br>
+                        1.觀外形：較新鮮的鵪鶉蛋，外殼多半是灰白色，伴有一些紫褐色、紅褐色的斑點，光澤度較好。<br>
+                        2.搖一搖：可以搖晃下鵪鶉蛋，如果沒有聽到水音，並且沒有較強的晃動感，說明比較新鮮。<br>
+                        3.觀察法：將鵪鶉蛋放進裝有冷水的盆子裡，若是馬上就下沉，說明鵪鶉蛋較為新鮮，上浮的話，則是不新鮮的鵪鶉蛋。<br>
+                        ● 建議保存方式：<br>
+                        1.生的鳥蛋：常溫7天；冷藏10天。<br>
+                        2.煮熟的鳥蛋：冷藏冰箱6-7度c，泡水保存，吃不完的情況下隔天把水倒掉；用清水清洗在浸泡冷藏。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Birdeggs_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Birdeggs_recipe1.html"><u>#滷鳥蛋</u></a>
+                        <a href="Birdeggs_recipe2.html"><u>#茶葉鳥蛋</u></a>
+                    </p>
+                </div>
+            </div>
+
+            <hr align="center" style="border: 2px #fff dashed;">
+            <h1>菇類</h1>
+            <div class="group">
+                <input type="button" id="Flammulinavelutipes" value="金針菇" color="Blue" style="width: 100px;height:70px;"
+                    onclick="FLAMMULINAVELUTIPES()">
+                <input type="button" id="Pleurotuseryngii" value="杏鮑菇" color="Blue" style="width: 100px;height:70px;"
+                    onclick="PLEUROTUSERYNGII()">
+                <input type="button" id="Hongximushroom" value="鴻禧菇" color="Blue" style="width: 100px;height:70px;"
+                    onclick="HONGXIMUSHROOM()">
+                <input type="button" id="Mushroom" value="香菇" color="Blue" style="width: 100px;height:70px;"
+                    onclick="MUSHROOM()">
+                <input type="button" id="Whitemushroom" value="蘑菇" color="Blue" style="width: 100px;height:70px;"
+                    onclick="WHITEMUSHROOM()">
+                <input type="button" id="Oystermushroom" value="秀珍菇" color="Blue" style="width: 100px;height:70px;"
+                    onclick="OYSTERMUSHROOM()">
+
+                <div id="textshow56" style="display: none;">
+                    <p class="show">
+                        <img src="https://www.hucc-coop.tw/uploads/01產品與生產者/產品圖檔/蔬菜類/菇類/金針菇.jpg" class="w3-image"
+                            style="display:block;margin:auto" width="40%" height="40%">
+                        又名金菇、金菇菜、絨柄金錢菇<br>
+                        ● 外觀：菇柄較細一絲一絲，大部分都呈現純白色<br>
+                        ● 食用方式：建議不要久煮，否則纖維質老化易影響口感。<br>
+                        ● 如何挑選：<br>
+                        1.挑菇體白淨、乾爽的，如果有軟化、褐化或黏稠的現象，則不宜選購。<br>
+                        2.真空包裝要挑袋子很緊實、越硬越好，再來是金針菇的菇頭要白色的，這樣才是好的。<br>
+                        ● 建議保存方式：<br>
+                        1.若菇柄處若經修剪可能會有褐變現象，此時可將褐變處切除即可。<br>
+                        2.保存時可先清除表面水分，並放於4度C冰箱中，可以用擦手紙包覆菇體，並避免塑膠袋沾附於菇體表面，約可保存7~10天。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Flammulinavelutipes_test(changepage).html'"
+                            value="相關料理"></input>
+                        :
+                        <a href="Flammulinavelutipes_recipe1.html"><u>#金針菇豬肉卷</u></a>
+                        <a href="Flammulinavelutipes_recipe2.html"><u>#涼拌金針菇</u></a>
+                        <a href="Flammulinavelutipes_recipe3.html"><u>#金針菇豆腐</u></a>
+                        <a href="Flammulinavelutipes_recipe4.html"><u>#奶油金針菇</u></a>
+                    </p>
+                </div>
+                <div id="textshow57" style="display: none;">
+                    <p class="show">
+                        <img src="https://doqvf81n9htmm.cloudfront.net/data/crop_article/86974/0212_8-1.jpg_1140x855.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名刺芹菇、刺芹側耳<br>
+                        ● 外觀：杏鮑菇擁有厚的白色肉質菌柄，和小型棕褐色的菌傘，色澤乳白，肉質肥厚。<br>
+                        <!-- ● 盛產季節：<br> -->
+                        ● 食用方式：<br>
+                        切片的方式是將杏鮑菇的纖維切短好入口咀嚼； 用手撕，順著杏鮑菇的纖維紋理撕下來就可以保留長纖維，入口較有嚼勁。<br>
+                        ● 如何挑選：<br>
+                        杏鮑菇挑選盡以外觀完整大小適中（約10-15公分長度），菇柄肥厚具乳白色，輕按壓起來有彈性無酸敗味而有菇類的清香，不要購買水浸狀的杏鮑菇。<br>
+                        ● 建議保存方式：<br>
+                        以冷藏保存，不建議在冰箱時間超過2週，但如果已有黏液或變黃，建議就不要食用了。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Pleurotuseryngii_test(changepage).html'"
+                            value="相關料理"></input>
+                        :
+                        <a href="Pleurotuseryngii_recipe1.html"><u>#三杯杏鮑菇</u></a>
+                        <a href="Pleurotuseryngii_recipe2.html"><u>#炸杏鮑菇</u></a>
+                        <a href="Pleurotuseryngii_recipe3.html"><u>#沙茶杏鮑菇</u></a>
+                    </p>
+                </div>
+                <div id="textshow58" style="display: none;">
+                    <p class="show">
+                        <img src="https://images.chinatimes.com/newsphoto/2021-01-05/1024/20210105004504.jpg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        <img src="https://blog.wonderfulfood.com.tw/wp-content/uploads/2015/01/d41d8cd98f00b204e980902-e1422355331492.jpeg"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        <br>又名蟹味菇、海鮮菇、假松茸<br>
+                        ● 外觀：顏色為淺灰褐色、茶褐色或淺黃褐色，表面平滑乾淨，有淡色的大理石網狀斑紋，菌傘邊緣向內捲起。菌褶很密。<br>
+                        <!-- ● 盛產季節：<br> -->
+                        ● 食用方式：<br>
+                        鴻禧菇生菇味較重，如果不喜歡菇類的「生菇味」，有方法可去除，像是炒久一點，乾炒至出水再料理。<br>
+                        ● 如何挑選：需挑選蕈傘圓潤飽滿的，比較新鮮Q彈。<br>
+                        ● 建議保存方式：<br>
+                        1.用紙袋將鴻禧菇完整包好，放入冰箱冷藏，可放約5-7天。<br>
+                        2.存放愈久，菇類會開始老化、發黃，料理時就愈容易散發菇味。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Hongximushroom_test(changepage).html'"
+                            value="相關料理"></input>
+                        :
+                        <a href="Hongximushroom_recipe1.html"><u>#菠菜炒鴻喜菇</u></a>
+                        <a href="Hongximushroom_recipe2.html"><u>#醬醃鴻喜菇</u></a>
+                        <a href="Hongximushroom_recipe3.html"><u>#滑蛋蝦鴻喜菇</u></a>
+                    </p>
+                </div>
+                <div id="textshow59" style="display: none;">
+                    <p class="show">
+                        <img src="https://img.cdn.px.91app.tw/webapi/imagesV3/Original/SalePage/500727/0/638168768535270000?v=1"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名冬菇、北菇、香蕈、花菇<br>
+                        ● 外觀：菇傘表面都呈褐色至深褐色皺縮狀，菌褶色澤淺黃，菇腳有修剪，香氣濃郁，僅有菇體大小之差異<br>
+                        <!-- ● 盛產季節：<br> -->
+                        ● 食用方式：<br>
+                        1.新鮮香菇清洗：先輕拍香菇，把菌傘縐褶裡的泥沙拍掉。用流動的清水快速沖洗掉泥土、髒污。也可以用沾濕的廚房紙巾把表面的灰塵擦掉。清洗乾淨的香菇瀝乾水份，再用乾燥的廚房紙巾擦乾。<br>
+                        2.乾燥香菇：冷水泡香菇較能保留香氣，但依香菇大小約需要 40 分鐘到一小時，如果備料時間有限，也可以用熱水來泡，速度較快，大約只需要 20 分鐘。<br>
+                        ● 如何挑選：<br>
+                        看外觀菇傘大、肉厚，且傘緣內捲、傘狀完整為佳；聞一聞乾燥有香味的香菇，避免潮濕、有霉味者；看顏色菌褶（香菇內面）顏色要從淺黃到金黃，若呈棕色或泛白，即已變質；看認證「台灣香菇」、「生產履歷」或「CAS」標章產品。<br>
+                        ● 建議保存方式：<br>
+                        1.新鮮香菇：整袋生鮮香菇買回家後，建議打開袋口並往下反摺，或用塑膠繩、橡皮筋輕輕束著，再放入冰箱內冷藏。<br>
+                        2.乾香菇可以存放半年到一年，而良好的保存條件最關鍵的就是「乾燥陰涼」，開封後裝入密封罐或夾鏈袋，避免空氣中的水氣滲入，取用時避免用潮濕的手直接拿取。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Mushroom_test(changepage).html'" value="相關料理"></input>
+                        :
+                        <a href="Mushroom_recipe1.html"><u>#香菇雞湯</u></a>
+                        <a href="Mushroom_recipe2.html"><u>#玉米筍炒香菇</u></a>
+                        <a href="Mushroom_recipe3.html"><u>#香菇炒豬肉片</u></a>
+                        <a href="Mushroom_recipe4.html"><u>#九層塔炒香菇</u></a>
+                    </p>
+                </div>
+                <div id="textshow60" style="display: none;">
+                    <p class="show">
+                        <img src="https://img.shoplineapp.com/media/image_clips/5f964f90284c4a0026c4ed2a/original.jpg?1603686288"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名洋菇、白蘑菇、洋蘑菇、蒙古蘑菇<br>
+                        ●
+                        外觀：蘑菇最大約可長到蕈傘直徑20公分，蕈柄長度15公分，不過人工栽培的蘑菇多半在蕈傘成熟張開後。直徑達2～4公分時便採收。依外觀顏色區分可分為4種，即白色、灰白色、淡黃色及褐色，其中以白色種最受市場歡迎，也是產量最多的一種。<br>
+                        <!-- ● 盛產季節：<br> -->
+                        ● 食用方式：<br>
+                        1.清洗別泡太久：不要泡在水中太久，輕輕洗淨菇上雜質即可，避免洋菇吸進太多水分，保持菇的乾爽。<br>
+                        2.別用奶油爆洋菇：奶油溶點極低，不可直接用奶油炒洋菇或爆香蒜瓣，以免蒜瓣變黑，整道菜也會色澤混濁；可先乾炒洋菇後，再加入奶油，溶化散發出奶油香，與洋菇融合即可。<br>
+                        ● 如何挑選：盡量買菇蒂短、蕈褶仍包裹在菇頭者為新鮮。換句話說，新鮮洋菇應該整朵白色，菇傘下若露出黑色蕈褶，表示不夠新鮮。<br>
+                        ●
+                        建議保存方式：洋菇可以冷藏或冷凍保存，冷藏可以將菇體表面以紙巾擦乾，並於紙袋中吸附菇體散發的水蒸氣，洋菇可在冰箱冷藏中7天左右的保鮮期；另外也可以在殺青後冷凍或直接冷凍，約可維持數個月的保鮮期。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Whitemushroom_test(changepage).html'"
+                            value="相關料理"></input>
+                        :
+                        <a href="Whitemushroom_recipe1.html"><u>#蘆筍炒磨菇</u></a>
+                        <a href="Whitemushroom_recipe2.html"><u>#蘑菇炒豌豆</u></a>
+                        <a href="Whitemushroom_recipe3.html"><u>#蒜炒磨菇</u></a>
+                        <a href="Whitemushroom_recipe4.html"><u>#花椰菜炒磨菇</u></a>
+                    </p>
+                </div>
+                <div id="textshow61" style="display: none;">
+                    <p class="show">
+                        <img src="https://img.cdn.px.91app.tw/webapi/imagesV3/Original/SalePage/501869/0/638152657378970000?v=1"
+                            class="w3-image" style="display:block;margin:auto" width="40%" height="40%">
+                        又名平菇、側耳、蠔菇、黑牡丹菇<br>
+                        ● 外觀：蕈柄側生、扁生或無柄，不像金針菇、香菇一樣，蕈柄乖乖的立在中央<br>
+                        <!-- ● 盛產季節：<br> -->
+                        ● 食用方式：<br>
+                        不建議用水洗菇，更千萬不要用水浸菇。菇類一經沖洗後，部分風味會流失，而且不耐放，須立即下鍋烹煮。即使想沖洗，時間也不宜長，沖完後用布或廚房紙擦乾／瀝乾，減低自來水影響菇類風味。<br>
+                        ● 如何挑選：未黃變、橫切面整齊、斷面潔白、冬季當令。<br>
+                        ● 建議保存方式：<br>
+                        秀珍菇室溫下乾枯得快，須在保鮮時間內儘早食用；如果真的吃不完，可切成小朵或小片，在日光下晒乾（需時2～3天）或用烘乾機烘乾，過程中要記得翻面；亦可利用真空油炸技術，將其製成即食食品。<br>
+                        <input class="recipe" type="button"
+                            onclick="javascript:location.href='Oystermushroom_test(changepage).html'"
+                            value="相關料理"></input>
+                        :
+                        <a href="Oystermushroom_recipe1.html"><u>#秀珍菇豆腐</u></a>
+                        <a href="Oystermushroom_recipe2.html"><u>#高麗菜炒秀珍菇</u></a>
+                        <a href="Oystermushroom_recipe3.html"><u>#秀珍菇炒雞肉</u></a>
+                        <a href="Oystermushroom_recipe4.html"><u>#清炒秀珍菇</u></a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="w3-row-padding w3-padding-32">
+                <hr>
+                <div class="w3-third">
+                    <h3>關於我們</h3>
+                    <div>
+                        <span>本網頁僅供畢業專題使用</span><br>
+                        <span>參考網頁:<a href="https://www.w3schools.com/spaces" target="_blank">W3Schools
+                                Spaces</a></span>
+                    </div>
+                </div>
+
+                <div class="w3-third w3-serif">
+                    <h3>POPULAR TAGS</h3>
+                    <div>
+                        <span class="w3-tag w3-dark-grey w3-small">Chicken</span>
+                        <span class="w3-tag w3-dark-grey w3-small">Fish</span>
+                        <span class="w3-tag w3-dark-grey w3-small">Egg</span>
+                    </div>
+                </div>
+            </footer>
+
+            <script>
+                // Script to open and close sidebar
+                function w3_open() {
+                    document.getElementById("mySidebar").style.display = "block";
+                }
+
+                function w3_close() {
+                    document.getElementById("mySidebar").style.display = "none";
+                }
+                /*1-6*/
+                function CARROT() {
+                    var name = document.getElementById('CARROT');
+                    var textshow = document.getElementById('textshow1');
+                    var textshow2 = document.getElementById('textshow2');
+                    var textshow3 = document.getElementById('textshow3');
+                    var textshow4 = document.getElementById('textshow4');
+                    var textshow5 = document.getElementById('textshow5');
+                    var textshow6 = document.getElementById('textshow6');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function WHITERADISH() {
+                    var name = document.getElementById('WHITERADISH');
+                    var textshow = document.getElementById('textshow2');
+                    var textshow2 = document.getElementById('textshow1');
+                    var textshow3 = document.getElementById('textshow3');
+                    var textshow4 = document.getElementById('textshow4');
+                    var textshow5 = document.getElementById('textshow5');
+                    var textshow6 = document.getElementById('textshow6');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function POTATO() {
+                    var name = document.getElementById('POTATO');
+                    var textshow = document.getElementById('textshow3');
+                    var textshow2 = document.getElementById('textshow1');
+                    var textshow3 = document.getElementById('textshow2');
+                    var textshow4 = document.getElementById('textshow4');
+                    var textshow5 = document.getElementById('textshow5');
+                    var textshow6 = document.getElementById('textshow6');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function SWEETPOTATO() {
+                    var name = document.getElementById('SWEETPOTATO');
+                    var textshow = document.getElementById('textshow4');
+                    var textshow2 = document.getElementById('textshow1');
+                    var textshow3 = document.getElementById('textshow2');
+                    var textshow4 = document.getElementById('textshow3');
+                    var textshow5 = document.getElementById('textshow5');
+                    var textshow6 = document.getElementById('textshow6');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function BAMBOOSHOOTS() {
+                    var name = document.getElementById('BAMBOOSHOOTS');
+                    var textshow = document.getElementById('textshow5');
+                    var textshow2 = document.getElementById('textshow1');
+                    var textshow3 = document.getElementById('textshow2');
+                    var textshow4 = document.getElementById('textshow3');
+                    var textshow5 = document.getElementById('textshow4');
+                    var textshow6 = document.getElementById('textshow6');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function ONION() {
+                    var name = document.getElementById('ONION');
+                    var textshow = document.getElementById('textshow6');
+                    var textshow2 = document.getElementById('textshow1');
+                    var textshow3 = document.getElementById('textshow2');
+                    var textshow4 = document.getElementById('textshow3');
+                    var textshow5 = document.getElementById('textshow4');
+                    var textshow6 = document.getElementById('textshow5');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                /*4-6 -> 7-14*/
+                function SPINACH() {
+                    var name = document.getElementById('SPINACH');
+                    var textshow = document.getElementById('textshow7');
+                    var textshow2 = document.getElementById('textshow8');
+                    var textshow3 = document.getElementById('textshow9');
+                    var textshow4 = document.getElementById('textshow10');
+                    var textshow5 = document.getElementById('textshow11');
+                    var textshow6 = document.getElementById('textshow12');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function CELERY() {
+                    var name = document.getElementById('CELERY');
+                    var textshow = document.getElementById('textshow8');
+                    var textshow2 = document.getElementById('textshow7');
+                    var textshow3 = document.getElementById('textshow9');
+                    var textshow4 = document.getElementById('textshow10');
+                    var textshow5 = document.getElementById('textshow11');
+                    var textshow6 = document.getElementById('textshow12');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function CABBAGE() {
+                    var name = document.getElementById('CABBAGE');
+                    var textshow = document.getElementById('textshow9');
+                    var textshow2 = document.getElementById('textshow7');
+                    var textshow3 = document.getElementById('textshow8');
+                    var textshow4 = document.getElementById('textshow10');
+                    var textshow5 = document.getElementById('textshow11');
+                    var textshow6 = document.getElementById('textshow12');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function CHINESECABBAGE() {
+                    var name = document.getElementById('CHINESECABBAGE');
+                    var textshow = document.getElementById('textshow10');
+                    var textshow2 = document.getElementById('textshow7');
+                    var textshow3 = document.getElementById('textshow8');
+                    var textshow4 = document.getElementById('textshow9');
+                    var textshow5 = document.getElementById('textshow11');
+                    var textshow6 = document.getElementById('textshow12');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function GREENCABBAGE() {
+                    var name = document.getElementById('GREENCABBAGE');
+                    var textshow = document.getElementById('textshow11');
+                    var textshow2 = document.getElementById('textshow7');
+                    var textshow3 = document.getElementById('textshow8');
+                    var textshow4 = document.getElementById('textshow9');
+                    var textshow5 = document.getElementById('textshow10');
+                    var textshow6 = document.getElementById('textshow12');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function WATERSPINACH() {
+                    var name = document.getElementById('WATERSPINACH');
+                    var textshow = document.getElementById('textshow12');
+                    var textshow2 = document.getElementById('textshow7');
+                    var textshow3 = document.getElementById('textshow8');
+                    var textshow4 = document.getElementById('textshow9');
+                    var textshow5 = document.getElementById('textshow10');
+                    var textshow6 = document.getElementById('textshow11');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                /*15-18*/
+                function CAULIFLOWER() {
+                    var name = document.getElementById('CAULIFLOWER');
+                    var textshow = document.getElementById('textshow15');
+                    var textshow2 = document.getElementById('textshow16');
+                    var textshow3 = document.getElementById('textshow17');
+                    var textshow4 = document.getElementById('textshow18');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function BROCCOLI() {
+                    var name = document.getElementById('BROCCOLI');
+                    var textshow = document.getElementById('textshow16');
+                    var textshow2 = document.getElementById('textshow15');
+                    var textshow3 = document.getElementById('textshow17');
+                    var textshow4 = document.getElementById('textshow18');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function DAYLILY() {
+                    var name = document.getElementById('DAYLILY');
+                    var textshow = document.getElementById('textshow17');
+                    var textshow2 = document.getElementById('textshow15');
+                    var textshow3 = document.getElementById('textshow16');
+                    var textshow4 = document.getElementById('textshow18');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function CHIVEFLOWER() {
+                    var name = document.getElementById('CHIVEFLOWER');
+                    var textshow = document.getElementById('textshow18');
+                    var textshow2 = document.getElementById('textshow15');
+                    var textshow3 = document.getElementById('textshow16');
+                    var textshow4 = document.getElementById('textshow17');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                /*19-21*/
+                function STRINGBEAN() {
+                    var name = document.getElementById('STRINGBEAN');
+                    var textshow = document.getElementById('textshow19');
+                    var textshow2 = document.getElementById('textshow20');
+                    var textshow3 = document.getElementById('textshow21');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function TOMATO() {
+                    var name = document.getElementById('TOMATO');
+                    var textshow = document.getElementById('textshow20');
+                    var textshow2 = document.getElementById('textshow19');
+                    var textshow3 = document.getElementById('textshow21');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function SMALLCUCUMBER() {
+                    var name = document.getElementById('SMALLCUCUMBER');
+                    var textshow = document.getElementById('textshow21');
+                    var textshow2 = document.getElementById('textshow19');
+                    var textshow3 = document.getElementById('textshow20');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                /*26-30*/
+                function WATERMELON() {
+                    var name = document.getElementById('WATERMELON');
+                    var textshow = document.getElementById('textshow26');
+                    var textshow2 = document.getElementById('textshow27');
+                    var textshow3 = document.getElementById('textshow28');
+                    var textshow4 = document.getElementById('textshow29');
+                    var textshow5 = document.getElementById('textshow30');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function MANGO() {
+                    var name = document.getElementById('MANGO');
+                    var textshow = document.getElementById('textshow27');
+                    var textshow2 = document.getElementById('textshow26');
+                    var textshow3 = document.getElementById('textshow28');
+                    var textshow4 = document.getElementById('textshow29');
+                    var textshow5 = document.getElementById('textshow30');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function STRAWBERRY() {
+                    var name = document.getElementById('STRAWBERRY');
+                    var textshow = document.getElementById('textshow28');
+                    var textshow2 = document.getElementById('textshow26');
+                    var textshow3 = document.getElementById('textshow27');
+                    var textshow4 = document.getElementById('textshow29');
+                    var textshow5 = document.getElementById('textshow30');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function LITCHI() {
+                    var name = document.getElementById('LITCHI');
+                    var textshow = document.getElementById('textshow29');
+                    var textshow2 = document.getElementById('textshow26');
+                    var textshow3 = document.getElementById('textshow27');
+                    var textshow4 = document.getElementById('textshow28');
+                    var textshow5 = document.getElementById('textshow30');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function REDDRAGONFRUIT() {
+                    var name = document.getElementById('REDDRAGONFRUIT');
+                    var textshow = document.getElementById('textshow30');
+                    var textshow2 = document.getElementById('textshow26');
+                    var textshow3 = document.getElementById('textshow27');
+                    var textshow4 = document.getElementById('textshow28');
+                    var textshow5 = document.getElementById('textshow29');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                /*36-39*/
+                function PIG1() {
+                    var name = document.getElementById('PIG1');
+                    var textshow = document.getElementById('textshow36');
+                    var textshow2 = document.getElementById('textshow37');
+                    var textshow3 = document.getElementById('textshow38');
+                    var textshow4 = document.getElementById('textshow39');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function PIG2() {
+                    var name = document.getElementById('PIG2');
+                    var textshow = document.getElementById('textshow37');
+                    var textshow2 = document.getElementById('textshow36');
+                    var textshow3 = document.getElementById('textshow38');
+                    var textshow4 = document.getElementById('textshow39');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function PIG3() {
+                    var name = document.getElementById('PIG3');
+                    var textshow = document.getElementById('textshow38');
+                    var textshow2 = document.getElementById('textshow36');
+                    var textshow3 = document.getElementById('textshow37');
+                    var textshow4 = document.getElementById('textshow39');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function PIG4() {
+                    var name = document.getElementById('PIG4');
+                    var textshow = document.getElementById('textshow39');
+                    var textshow2 = document.getElementById('textshow36');
+                    var textshow3 = document.getElementById('textshow37');
+                    var textshow4 = document.getElementById('textshow38');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                /*40-44*/
+                function CHICKEN1() {
+                    var name = document.getElementById('CHICKEN1');
+                    var textshow = document.getElementById('textshow40');
+                    var textshow2 = document.getElementById('textshow41');
+                    var textshow3 = document.getElementById('textshow42');
+                    var textshow4 = document.getElementById('textshow43');
+                    var textshow5 = document.getElementById('textshow44');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function CHICKEN2() {
+                    var name = document.getElementById('CHICKEN2');
+                    var textshow = document.getElementById('textshow41');
+                    var textshow2 = document.getElementById('textshow40');
+                    var textshow3 = document.getElementById('textshow42');
+                    var textshow4 = document.getElementById('textshow43');
+                    var textshow5 = document.getElementById('textshow44');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function CHICKEN3() {
+                    var name = document.getElementById('CHICKEN3');
+                    var textshow = document.getElementById('textshow42');
+                    var textshow2 = document.getElementById('textshow40');
+                    var textshow3 = document.getElementById('textshow41');
+                    var textshow4 = document.getElementById('textshow43');
+                    var textshow5 = document.getElementById('textshow44');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function CHICKEN4() {
+                    var name = document.getElementById('CHICKEN4');
+                    var textshow = document.getElementById('textshow43');
+                    var textshow2 = document.getElementById('textshow40');
+                    var textshow3 = document.getElementById('textshow41');
+                    var textshow4 = document.getElementById('textshow42');
+                    var textshow5 = document.getElementById('textshow44');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function CHICKEN5() {
+                    var name = document.getElementById('CHICKEN5');
+                    var textshow = document.getElementById('textshow44');
+                    var textshow2 = document.getElementById('textshow40');
+                    var textshow3 = document.getElementById('textshow41');
+                    var textshow4 = document.getElementById('textshow42');
+                    var textshow5 = document.getElementById('textshow43');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                /*45-46*/
+                function DUCK1() {
+                    var name = document.getElementById('DUCK1');
+                    var textshow = document.getElementById('textshow45');
+                    var textshow2 = document.getElementById('textshow46');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function DUCK2() {
+                    var name = document.getElementById('DUCK2');
+                    var textshow = document.getElementById('textshow46');
+                    var textshow2 = document.getElementById('textshow45');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                /*51-55*/
+                function EGG() {
+                    var name = document.getElementById('EGG');
+                    var textshow = document.getElementById('textshow51');
+                    var textshow2 = document.getElementById('textshow52');
+                    var textshow3 = document.getElementById('textshow53');
+                    var textshow4 = document.getElementById('textshow54');
+                    var textshow5 = document.getElementById('textshow55');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function DUCKEGG() {
+                    var name = document.getElementById('DUCKEGG');
+                    var textshow = document.getElementById('textshow52');
+                    var textshow2 = document.getElementById('textshow51');
+                    var textshow3 = document.getElementById('textshow53');
+                    var textshow4 = document.getElementById('textshow54');
+                    var textshow5 = document.getElementById('textshow55');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function SALTEDEGG() {
+                    var name = document.getElementById('SALTEDEGG');
+                    var textshow = document.getElementById('textshow53');
+                    var textshow2 = document.getElementById('textshow51');
+                    var textshow3 = document.getElementById('textshow52');
+                    var textshow4 = document.getElementById('textshow54');
+                    var textshow5 = document.getElementById('textshow55');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function PRESERVEDEGG() {
+                    var name = document.getElementById('PRESERVEDEGG');
+                    var textshow = document.getElementById('textshow54');
+                    var textshow2 = document.getElementById('textshow51');
+                    var textshow3 = document.getElementById('textshow52');
+                    var textshow4 = document.getElementById('textshow53');
+                    var textshow5 = document.getElementById('textshow55');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function BIRDEGGS() {
+                    var name = document.getElementById('BIRDEGGS');
+                    var textshow = document.getElementById('textshow55');
+                    var textshow2 = document.getElementById('textshow51');
+                    var textshow3 = document.getElementById('textshow52');
+                    var textshow4 = document.getElementById('textshow53');
+                    var textshow5 = document.getElementById('textshow54');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                /*56-61*/
+                function FLAMMULINAVELUTIPES() {
+                    var name = document.getElementById('FLAMMULINAVELUTIPES');
+                    var textshow = document.getElementById('textshow56');
+                    var textshow2 = document.getElementById('textshow57');
+                    var textshow3 = document.getElementById('textshow58');
+                    var textshow4 = document.getElementById('textshow59');
+                    var textshow5 = document.getElementById('textshow60');
+                    var textshow6 = document.getElementById('textshow61');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function PLEUROTUSERYNGII() {
+                    var name = document.getElementById('PLEUROTUSERYNGII');
+                    var textshow = document.getElementById('textshow57');
+                    var textshow2 = document.getElementById('textshow56');
+                    var textshow3 = document.getElementById('textshow58');
+                    var textshow4 = document.getElementById('textshow59');
+                    var textshow5 = document.getElementById('textshow60');
+                    var textshow6 = document.getElementById('textshow61');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function HONGXIMUSHROOM() {
+                    var name = document.getElementById('HONGXIMUSHROOM');
+                    var textshow = document.getElementById('textshow58');
+                    var textshow2 = document.getElementById('textshow56');
+                    var textshow3 = document.getElementById('textshow57');
+                    var textshow4 = document.getElementById('textshow59');
+                    var textshow5 = document.getElementById('textshow60');
+                    var textshow6 = document.getElementById('textshow61');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function MUSHROOM() {
+                    var name = document.getElementById('MUSHROOM');
+                    var textshow = document.getElementById('textshow59');
+                    var textshow2 = document.getElementById('textshow56');
+                    var textshow3 = document.getElementById('textshow57');
+                    var textshow4 = document.getElementById('textshow58');
+                    var textshow5 = document.getElementById('textshow60');
+                    var textshow6 = document.getElementById('textshow61');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function WHITEMUSHROOM() {
+                    var name = document.getElementById('WHITEMUSHROOM');
+                    var textshow = document.getElementById('textshow60');
+                    var textshow2 = document.getElementById('textshow56');
+                    var textshow3 = document.getElementById('textshow57');
+                    var textshow4 = document.getElementById('textshow58');
+                    var textshow5 = document.getElementById('textshow59');
+                    var textshow6 = document.getElementById('textshow61');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                function OYSTERMUSHROOM() {
+                    var name = document.getElementById('OYSTERMUSHROOM');
+                    var textshow = document.getElementById('textshow61');
+                    var textshow2 = document.getElementById('textshow56');
+                    var textshow3 = document.getElementById('textshow57');
+                    var textshow4 = document.getElementById('textshow58');
+                    var textshow5 = document.getElementById('textshow59');
+                    var textshow6 = document.getElementById('textshow60');
+                    if (textshow.style.display === 'none') {
+                        textshow.style.display = 'block';
+                        textshow2.style.display = 'none';
+                        textshow3.style.display = 'none';
+                        textshow4.style.display = 'none';
+                        textshow5.style.display = 'none';
+                        textshow6.style.display = 'none';
+                    } else {
+                        textshow.style.display = 'none';
+                    }
+                }
+                /*22-30
+                  function CUCUMBER() {
+                    var name = document.getElementById('CUCUMBER');
+                    var textshow = document.getElementById('textshow28');
+                    var textshow2 = document.getElementById('textshow29');
+                    var textshow3 = document.getElementById('textshow30');
+                    var textshow4 = document.getElementById('textshow22');
+                    var textshow5 = document.getElementById('textshow23');
+                    var textshow6 = document.getElementById('textshow24');
+                    var textshow7 = document.getElementById('textshow25');
+                    var textshow8 = document.getElementById('textshow26');
+                    var textshow9 = document.getElementById('textshow27');
+                    if (textshow.style.display === 'none') {
+                      textshow.style.display = 'block';
+                      textshow2.style.display = 'none';
+                      textshow3.style.display = 'none';
+                      textshow4.style.display = 'none';
+                      textshow5.style.display = 'none';
+                      textshow6.style.display = 'none';
+                      textshow7.style.display = 'none';
+                      textshow8.style.display = 'none';
+                      textshow9.style.display = 'none';
+                    } else {
+                      textshow.style.display = 'none';
+                    }
+                  }
+                  function PUMPKIN() {
+                    var name = document.getElementById('PUMPKIN');
+                    var textshow = document.getElementById('textshow29');
+                    var textshow2 = document.getElementById('textshow28');
+                    var textshow3 = document.getElementById('textshow30');
+                    var textshow4 = document.getElementById('textshow22');
+                    var textshow5 = document.getElementById('textshow23');
+                    var textshow6 = document.getElementById('textshow24');
+                    var textshow7 = document.getElementById('textshow25');
+                    var textshow8 = document.getElementById('textshow26');
+                    var textshow9 = document.getElementById('textshow27');
+                    if (textshow.style.display === 'none') {
+                      textshow.style.display = 'block';
+                      textshow2.style.display = 'none';
+                      textshow3.style.display = 'none';
+                      textshow4.style.display = 'none';
+                      textshow5.style.display = 'none';
+                      textshow6.style.display = 'none';
+                      textshow7.style.display = 'none';
+                      textshow8.style.display = 'none';
+                      textshow9.style.display = 'none';
+                    } else {
+                      textshow.style.display = 'none';
+                    }
+                  }
+                  function CORN() {
+                    var name = document.getElementById('CORN');
+                    var textshow = document.getElementById('textshow30');
+                    var textshow2 = document.getElementById('textshow28');
+                    var textshow3 = document.getElementById('textshow29');
+                    var textshow4 = document.getElementById('textshow22');
+                    var textshow5 = document.getElementById('textshow23');
+                    var textshow6 = document.getElementById('textshow24');
+                    var textshow7 = document.getElementById('textshow25');
+                    var textshow8 = document.getElementById('textshow26');
+                    var textshow9 = document.getElementById('textshow27');
+                    if (textshow.style.display === 'none') {
+                      textshow.style.display = 'block';
+                      textshow2.style.display = 'none';
+                      textshow3.style.display = 'none';
+                      textshow4.style.display = 'none';
+                      textshow5.style.display = 'none';
+                      textshow6.style.display = 'none';
+                      textshow7.style.display = 'none';
+                      textshow8.style.display = 'none';
+                      textshow9.style.display = 'none';
+                    } else {
+                      textshow.style.display = 'none';
+                    }
+                  }
+                  function SOY() {
+                    var name = document.getElementById('SOY');
+                    var textshow = document.getElementById('textshow22');
+                    var textshow2 = document.getElementById('textshow28');
+                    var textshow3 = document.getElementById('textshow29');
+                    var textshow4 = document.getElementById('textshow30');
+                    var textshow5 = document.getElementById('textshow23');
+                    var textshow6 = document.getElementById('textshow24');
+                    var textshow7 = document.getElementById('textshow25');
+                    var textshow8 = document.getElementById('textshow26');
+                    var textshow9 = document.getElementById('textshow27');
+                    if (textshow.style.display === 'none') {
+                      textshow.style.display = 'block';
+                      textshow2.style.display = 'none';
+                      textshow3.style.display = 'none';
+                      textshow4.style.display = 'none';
+                      textshow5.style.display = 'none';
+                      textshow6.style.display = 'none';
+                      textshow7.style.display = 'none';
+                      textshow8.style.display = 'none';
+                      textshow9.style.display = 'none';
+                    } else {
+                      textshow.style.display = 'none';
+                    }
+                  }
+                  function REDBEANS() {
+                    var name = document.getElementById('REDBEANS');
+                    var textshow = document.getElementById('textshow23');
+                    var textshow2 = document.getElementById('textshow28');
+                    var textshow3 = document.getElementById('textshow29');
+                    var textshow4 = document.getElementById('textshow30');
+                    var textshow5 = document.getElementById('textshow22');
+                    var textshow6 = document.getElementById('textshow24');
+                    var textshow7 = document.getElementById('textshow25');
+                    var textshow8 = document.getElementById('textshow26');
+                    var textshow9 = document.getElementById('textshow27');
+                    if (textshow.style.display === 'none') {
+                      textshow.style.display = 'block';
+                      textshow2.style.display = 'none';
+                      textshow3.style.display = 'none';
+                      textshow4.style.display = 'none';
+                      textshow5.style.display = 'none';
+                      textshow6.style.display = 'none';
+                      textshow7.style.display = 'none';
+                      textshow8.style.display = 'none';
+                      textshow9.style.display = 'none';
+                    } else {
+                      textshow.style.display = 'none';
+                    }
+                  }
+                  function GREENBEANS() {
+                    var name = document.getElementById('GREENBEANS');
+                    var textshow = document.getElementById('textshow24');
+                    var textshow2 = document.getElementById('textshow28');
+                    var textshow3 = document.getElementById('textshow29');
+                    var textshow4 = document.getElementById('textshow30');
+                    var textshow5 = document.getElementById('textshow22');
+                    var textshow6 = document.getElementById('textshow23');
+                    var textshow7 = document.getElementById('textshow25');
+                    var textshow8 = document.getElementById('textshow26');
+                    var textshow9 = document.getElementById('textshow27');
+                    if (textshow.style.display === 'none') {
+                      textshow.style.display = 'block';
+                      textshow2.style.display = 'none';
+                      textshow3.style.display = 'none';
+                      textshow4.style.display = 'none';
+                      textshow5.style.display = 'none';
+                      textshow6.style.display = 'none';
+                      textshow7.style.display = 'none';
+                      textshow8.style.display = 'none';
+                      textshow9.style.display = 'none';
+                    } else {
+                      textshow.style.display = 'none';
+                    }
+                  }
+                  function PEANUT() {
+                    var name = document.getElementById('PEANUT');
+                    var textshow = document.getElementById('textshow25');
+                    var textshow2 = document.getElementById('textshow28');
+                    var textshow3 = document.getElementById('textshow29');
+                    var textshow4 = document.getElementById('textshow30');
+                    var textshow5 = document.getElementById('textshow22');
+                    var textshow6 = document.getElementById('textshow23');
+                    var textshow7 = document.getElementById('textshow24');
+                    var textshow8 = document.getElementById('textshow26');
+                    var textshow9 = document.getElementById('textshow27');
+                    if (textshow.style.display === 'none') {
+                      textshow.style.display = 'block';
+                      textshow2.style.display = 'none';
+                      textshow3.style.display = 'none';
+                      textshow4.style.display = 'none';
+                      textshow5.style.display = 'none';
+                      textshow6.style.display = 'none';
+                      textshow7.style.display = 'none';
+                      textshow8.style.display = 'none';
+                      textshow9.style.display = 'none';
+                    } else {
+                      textshow.style.display = 'none';
+                    }
+                  }
+                  function PEA() {
+                    var name = document.getElementById('PEA');
+                    var textshow = document.getElementById('textshow26');
+                    var textshow2 = document.getElementById('textshow28');
+                    var textshow3 = document.getElementById('textshow29');
+                    var textshow4 = document.getElementById('textshow30');
+                    var textshow5 = document.getElementById('textshow22');
+                    var textshow6 = document.getElementById('textshow23');
+                    var textshow7 = document.getElementById('textshow24');
+                    var textshow8 = document.getElementById('textshow25');
+                    var textshow9 = document.getElementById('textshow27');
+                    if (textshow.style.display === 'none') {
+                      textshow.style.display = 'block';
+                      textshow2.style.display = 'none';
+                      textshow3.style.display = 'none';
+                      textshow4.style.display = 'none';
+                      textshow5.style.display = 'none';
+                      textshow6.style.display = 'none';
+                      textshow7.style.display = 'none';
+                      textshow8.style.display = 'none';
+                      textshow9.style.display = 'none';
+                    } else {
+                      textshow.style.display = 'none';
+                    }
+                  }
+                  function EDAMAME() {
+                    var name = document.getElementById('EDAMAME');
+                    var textshow = document.getElementById('textshow27');
+                    var textshow2 = document.getElementById('textshow28');
+                    var textshow3 = document.getElementById('textshow29');
+                    var textshow4 = document.getElementById('textshow30');
+                    var textshow5 = document.getElementById('textshow22');
+                    var textshow6 = document.getElementById('textshow23');
+                    var textshow7 = document.getElementById('textshow24');
+                    var textshow8 = document.getElementById('textshow25');
+                    var textshow9 = document.getElementById('textshow26');
+                    if (textshow.style.display === 'none') {
+                      textshow.style.display = 'block';
+                      textshow2.style.display = 'none';
+                      textshow3.style.display = 'none';
+                      textshow4.style.display = 'none';
+                      textshow5.style.display = 'none';
+                      textshow6.style.display = 'none';
+                      textshow7.style.display = 'none';
+                      textshow8.style.display = 'none';
+                      textshow9.style.display = 'none';
+                    } else {
+                      textshow.style.display = 'none';
+                    }
+                  }
+                */
+                let slideIndex = 1;
+                showSlides(slideIndex);
+
+                // Next/previous controls
+                function plusSlides(n) {
+                    showSlides(slideIndex += n);
+                }
+
+                // Thumbnail image controls
+                function currentSlide(n) {
+                    showSlides(slideIndex = n);
+                }
+
+                function showSlides(n) {
+                    let i;
+                    let slides = document.getElementsByClassName("mySlides");
+                    let dots = document.getElementsByClassName("dot");
+                    if (n > slides.length) { slideIndex = 1 }
+                    if (n < 1) { slideIndex = slides.length }
+                    for (i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";
+                    }
+                    for (i = 0; i < dots.length; i++) {
+                        dots[i].className = dots[i].className.replace(" active", "");
+                    }
+                    slides[slideIndex - 1].style.display = "block";
+                    dots[slideIndex - 1].className += " active";
+                }
+            </script>
+
+</body>
+<script>
+    $(function () {
+        var terms = [
+            "胡蘿蔔",
+            "白蘿蔔",
+            "馬鈴薯",
+            "地瓜(甘藷)",
+            "綠竹筍",
+            "洋蔥",
+            "菠菜",
+            "芹菜",
+            "高麗菜",
+            "小白菜",
+            "青江菜",
+            "空心菜",
+            "花椰菜",
+            "青花菜",
+            "黃花菜",
+            "韭菜花",
+            "豬五花",
+            "豬梅花",
+            "豬里肌",
+            "豬皮",
+            "雞柳",
+            "雞胸",
+            "雞翅",
+            "雞腿",
+            "雞皮",
+            "鴨血",
+            "鴨胸",
+            "雞蛋",
+            "鴨蛋",
+            "鹹蛋",
+            "皮蛋",
+            "鳥蛋",
+            "金針菇",
+            "杏鮑菇",
+            "鴻禧菇",
+            "鴻喜菇",
+            "香菇",
+            "蘑菇",
+            "秀珍菇",
+
+        ];
+        // 連結搜尋欄位
+        $('#tags').autocomplete({
+            source: terms
+        });
+    });
+</script>
+
+</html>

@@ -1,0 +1,130 @@
+<!-- 只顯示表格(有成功) -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firebase Connection Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>食物簡介</h1>
+    <id ="a1" />
+    <id ="a2" />
+    <id ="a3" />
+    <id ="a4" />
+    <id ="a5" />
+
+    <table id="example-table" border="1">
+      <thead>
+        <tr>
+          <th>名稱</th>
+          <th>圖片</th>
+          <th>別稱</th>
+          <th>如何挑選</th>
+          <th>建議保存方式</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script type="module">
+      //--------------------------------------------------------------------------------------
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+        query,
+        where,
+        addDoc,
+        doc,
+      } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCkYXHGj37nHrMglwUHKWN2vOE0ty3o8T4",
+        authDomain: "fir-test-dc8dc.firebaseapp.com",
+        projectId: "fir-test-dc8dc",
+        storageBucket: "fir-test-dc8dc.appspot.com",
+        messagingSenderId: "851272507964",
+        appId: "1:851272507964:web:493d6b2ce3d5e239029939",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      //--------------------------------------------------------------------------------------
+
+      //更新網頁上可編輯的文字內容
+      function updateEditableText(id, text) {
+        const editableText = document.getElementById(id);
+        editableText.textContent = text;
+      } //目的：通過提供元素的 id 和新的文字內容，來更新網頁上特定元素的內容，使其顯示為新的文字。
+
+      //目的是清空網頁上特定 HTML 表格中的所有資料。
+      function clearTableData() {
+        const tableElement = document.getElementById("example-table");
+        const tbodyElement = tableElement.getElementsByTagName("tbody")[0];
+        tbodyElement.innerHTML = "";
+      } //目的是找到名為 "example-table" 的表格，然後將其 <tbody> 元素的內容清空，從而實現清除表格中所有資料的效果。
+      //這在需要重置或清空表格內容的網頁應用中很有用。
+
+      //從firestore抓取資料
+      async function fetchExampleCollection(name = null) {
+        //這個函數可以接受一個名為 name 的參數，但預設為 null。
+        try {
+          //這行程式碼建立了一個名為 exampleCol 的資料集合，它可能是 Firebase Firestore 中的一個集合，這個集合的名稱是 "example"。
+          const exampleCol = collection(db, "Rhizome");
+          let exampleQuery; //宣告了一個變數 exampleQuery，稍後將用來設定資料集合的查詢條件。
+
+          exampleQuery = query(exampleCol); //建立了一個資料集合的查詢 exampleQuery，它基本上是選取整個 "example" 集合中的所有資料。
+
+          //使用 getDocs 函數來執行之前建立的查詢 exampleQuery，並將結果存儲在 exampleSnapshot 中。這個結果是一個包含資料集合中文件的快照。
+          const exampleSnapshot = await getDocs(exampleQuery);
+          const tableElement = document.getElementById("example-table"); //取得網頁上的一個具有 id 為 "example-table" 的 HTML 表格元素。
+
+          // Clear the table first
+          clearTableData();
+          exampleSnapshot.forEach((doc) => {
+            const rowElement = document.createElement("tr");
+            const nameCellElement = document.createElement("td");
+            const imageCellElement = document.createElement("td");
+            const nicknameCellElement = document.createElement("td");
+            const selectionCellElement = document.createElement("td");
+            const methodCellElement = document.createElement("td");
+
+            const data = doc.data();
+            nameCellElement.textContent = data.名稱;
+            imageCellElement.textContent = data.圖片;
+            nicknameCellElement.textContent = data.別稱;
+            selectionCellElement.textContent = data.如何挑選;
+            methodCellElement.textContent = data.建議保存方法;
+
+            rowElement.appendChild(nameCellElement);
+            rowElement.appendChild(imageCellElement);
+            rowElement.appendChild(nicknameCellElement);
+            rowElement.appendChild(selectionCellElement);
+            rowElement.appendChild(methodCellElement);
+            tableElement.querySelector("tbody").appendChild(rowElement);
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      //網頁一打開就load，執行fetchExampleCollection()
+      window.addEventListener("load", function () {
+        fetchExampleCollection();
+      });
+    </script>
+  </body>
+</html>

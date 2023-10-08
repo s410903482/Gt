@@ -1,5 +1,4 @@
-<!--查詢成功-->
-<!--查食物-->
+<!--查詢-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,6 +15,11 @@
 
   <body>
     <h1>食物簡介</h1>
+    <div id="a1"></div>
+    <div id="a2"></div>
+    <div id="a3"></div>
+    <div id="a4"></div>
+    <div id="a5"></div>
 
     <input type="text" id="search-input" placeholder="Enter name" />
     <button id="search-button">Search</button>
@@ -48,20 +52,20 @@
 
       // Your web app's Firebase configuration
       const firebaseConfig = {
-        apiKey: "AIzaSyCkYXHGj37nHrMglwUHKWN2vOE0ty3o8T4",
-        authDomain: "fir-test-dc8dc.firebaseapp.com",
-        projectId: "fir-test-dc8dc",
-        storageBucket: "fir-test-dc8dc.appspot.com",
-        messagingSenderId: "851272507964",
-        appId: "1:851272507964:web:493d6b2ce3d5e239029939",
+        apiKey: "AIzaSyCyNbWDHB-GYaVbzlNlwjaBnI1fWqUNj6Q",
+        authDomain: "example-fa0f1.firebaseapp.com",
+        projectId: "example-fa0f1",
+        storageBucket: "example-fa0f1.appspot.com",
+        messagingSenderId: "882903924249",
+        appId: "1:882903924249:web:c66f6cadbda9cc9e59b488",
       };
 
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
 
-      function updateEditableText(名稱, text) {
-        const editableText = document.getElementById(名稱);
+      function updateEditableText(id, text) {
+        const editableText = document.getElementById(id);
         editableText.textContent = text;
       }
 
@@ -71,13 +75,13 @@
         tbodyElement.innerHTML = "";
       }
 
-      async function fetchExampleCollection(名稱 = null) {
+      async function fetchExampleCollection(name = null) {
         try {
           const exampleCol = collection(db, "Rhizome");
           let exampleQuery;
 
-          if (名稱) {
-            exampleQuery = query(exampleCol, where("名稱", "==", 名稱));
+          if (name) {
+            exampleQuery = query(exampleCol, where("名稱", "==", name));
           } else {
             exampleQuery = exampleCol;
           }

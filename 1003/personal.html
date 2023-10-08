@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>咁單呷</title>
+    <!-- JQuery 連結 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- JQuery UI 連結 -->
+    <script src="jquery-ui.js"></script>
+    <meta charset="UTF-8">
+
+    <!--<link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/4443/4443003.png" type="image/x-icon">-->
+    <link rel="icon" href="icon.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /*div{
+      border-style: dashed;
+      border-color: blue;
+      }*/
+        u {
+            font-size: xx-small;
+        }
+
+        .itembottom {
+            bottom: 0%;
+        }
+
+        /*#personalname{
+        float: left;
+        padding: 10%;
+      }*/
+    </style>
+    <!-- <style>
+    .w3-bar-block .w3-bar-item {padding:20px}
+    body,h4,h5,h6 {font-family: "Karma", sans-serif;font-size: larger;}
+    h1,h3 {
+      color : #2A4C65;   /*8E6E57 976666 17341E*/
+      font-size: x-large;
+      font-weight: 600;
+    }     
+    h2,caption {
+      color: #003C9D;
+      font-size: xx-large;
+      font-weight: 600;
+    }
+    p {
+      color:black;
+      font-size: larger;
+      font-weight: 600;
+    }
+    /*div{
+      border-style: dashed;
+      border-color: blue;
+    }*/
+
+    table{
+      border-collapse: separate;
+    }
+    td:first-child{
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+    td:last-child{
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    input{border:0;
+      background-color:#B89886;/*82ABA3*/
+      color:#fff;
+      border-radius:10px;
+      cursor:pointer;}
+    input:focus{
+      color:#003C9D;
+      background-color:#fff;
+      border:2px #003C9D solid;
+    }
+
+    .show{
+      background-color:#B89886;
+      border-radius:10px;
+      text-align: left;
+    }
+    .group{
+      width: 95%;
+      display: inline-block;
+    }
+
+    .recipe{
+      color:#2A4C65;
+      background-color:#fff;
+      border:2px #003C9D solid;
+    }
+
+    </style> -->
+</head>
+
+<body bgcolor="#AAB8AB"><!-- 背景顏色 --><!-- 82ABA3 95A098 AAB8AB 93A3A0-->
+
+    <!-- Sidebar (hidden by default) -->
+    <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left"
+        style="display:none;z-index:2;width:20%;min-width:300px" id="mySidebar">
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button">Close Menu</a>
+        <a href="index.html" class="w3-bar-item w3-button">Home</a>
+    </nav>
+
+    <!-- Top menu -->
+    <div class="w3-top">
+        <div class="w3-white w3-xlarge" style="margin:auto">
+            <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+            <div class="w3-right w3-bar-item w3-padding-16 w3-row-padding">
+                <ul id="menu">
+                    <li><img src="https://cdn-icons-png.flaticon.com/512/552/552721.png" width="40px" height="40px">User
+                        <ul>
+                            <li><a href="set.html"></a>個人設置</li>
+                            <li><a href="personal.html">個人收藏</a></li>
+                            <li><a href="index.html"></a>登出</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="w3-padding-16 w3-bar-item">Food</div>
+            <!--<div class="w3-right w3-padding-16 w3-row-padding"><img src="https://cdn-icons-png.flaticon.com/512/552/552721.png" width="50px" height="50px">User 登出 註冊</div>-->
+        </div>
+    </div>
+
+    <!-- JQuery在這 -->
+    <script>
+        $('#menu').menu({
+            icons: { submenu: 'ui-icon-triangle-1-s' },
+            position: { my: 'left top', at: 'left+1% bottom' }
+        });
+    </script>
+
+
+    <!-- Personal Section -->
+    <hr>
+    <hr>
+    <hr>
+
+    <div>
+        <h1 style="float: center;">個人收藏</h1>
+        <h1><img src="https://cdn-icons-png.flaticon.com/512/552/552721.png" width="100px" height="100px"></h1>
+        <h1>User</h1>
+    </div>
+
+    <hr>
+    <div>
+        <h1>您的收藏</h1>
+        <div class="w3-row">
+            <div class="w3-container w3-quarter">
+                <p>| 小知識收藏(0) |</p>
+            </div>
+            <div class="w3-container w3-quarter">
+                <p>| 食譜收藏(0) |</h3>
+            </div>
+            <div class="w3-container w3-quarter">
+                <p><u>新增更多收藏資料夾</u></p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="w3-row-padding w3-padding-32">
+        <div class="itembottom" style="position: absolute;">
+            <h6>關於我們 - 本網頁僅供畢業專題使用
+                ，參考網頁:<a href="https://www.w3schools.com/spaces" target="_blank">W3Schools Spaces</a></h6>
+
+        </div>
+    </footer>
+
+    <script>
+        // Script to open and close sidebar
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+        }
+
+    </script>
+
+</body>
+
+</html>

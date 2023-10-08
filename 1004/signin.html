@@ -1,0 +1,109 @@
+<!--先把登出的部分拿掉，登入成功後會導向index2.html-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>咁單呷</title>
+    <!-- JQuery 連結 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- JQuery UI 連結 -->
+    <script src="jquery-ui.js"></script>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css"
+    />
+    <link rel="icon" href="icon.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"
+    />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="style2.css" />
+  </head>
+
+  <body bgcolor="#AAB8AB">
+    <div class="system_name">
+      <img src="1.jpg" width="400px" height="90px" />
+    </div>
+
+    <div id="signInButton">
+      <button id="signInButton">Google 登入</button>
+    </div>
+
+    <!-- Firebase -->
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      import {
+        getAuth,
+        GoogleAuthProvider,
+        signInWithPopup,
+        signOut,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyD_FelVc2UODXyd6En8owWGDJoQHckpryg",
+        authDomain: "gtest-6f566.firebaseapp.com",
+        projectId: "gtest-6f566",
+        storageBucket: "gtest-6f566.appspot.com",
+        messagingSenderId: "349275007026",
+        appId: "1:349275007026:web:2a1e309c7b86853c78b42b",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth();
+      const provider = new GoogleAuthProvider();
+      //-----Firebase-----
+
+      const signInButton = document.getElementById("signInButton");
+
+      const userSignIn = async () => {
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            const user = result.user;
+            console.log(user);
+            Swal.fire({
+              imageUrl: "login.signup.jpg",
+              imageWidth: 225,
+              imageHeight: 120,
+              imageAlt: "咁單呷",
+              icon: "success",
+              text: "登入成功！",
+            }).then(function () {
+              window.location.href = "index2.html";
+            });
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            Swal.fire({
+              imageUrl: "login.signup.jpg",
+              imageWidth: 225,
+              imageHeight: 120,
+              imageAlt: "咁單呷",
+              icon: "error",
+              text: "登入失敗",
+            });
+          });
+      };
+
+      signInButton.addEventListener("click", userSignIn);
+    </script>
+  </body>
+</html>

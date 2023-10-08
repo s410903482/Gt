@@ -1,0 +1,39 @@
+/*登入的icon圖的位置*/
+
+.system_name {
+    color: #003C9D;
+    font-size: xx-large;
+    font-weight: 100;
+    text-align: center;
+}
+
+#signInButton {
+    text-align: center;
+}
+
+
+/*
+.container {
+    width: 700px;
+    height: 300px;
+    
+    text-align: center;
+    padding: 20px;
+  }
+
+  
+  img {
+    width: 600px;
+    height: 150px;
+   
+  }
+  
+  button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+*/
+
