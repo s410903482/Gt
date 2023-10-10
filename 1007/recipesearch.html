@@ -16,7 +16,7 @@
   </head>
 
   <body>
-    <h1>食物簡介</h1>
+    <h1>食譜查詢</h1>
 
     <input
       type="text"
@@ -29,6 +29,7 @@
       <thead>
         <tr>
           <th>名稱</th>
+          <th>關鍵字</th>
           <th>準備食材</th>
         </tr>
       </thead>
@@ -81,8 +82,8 @@
           if (關鍵字) {
             const keywords = 關鍵字.split(/[ ,]+/); // 以逗號或空格分隔關鍵字
             exampleQuery = query(exampleCol, where("關鍵字1", "in", keywords));
-            //exampleQuery = query(exampleCol, where("關鍵字2", "in", keywords));
-            //exampleQuery = query(exampleCol, where("關鍵字3", "in", keywords));
+            exampleQuery = query(exampleCol, where("關鍵字2", "in", keywords));
+            exampleQuery = query(exampleCol, where("關鍵字3", "in", keywords));
           } else {
             // 如果關鍵字為空，則查詢全部資料
             exampleQuery = query(exampleCol);
@@ -101,13 +102,17 @@
             exampleSnapshot.forEach((doc) => {
               const rowElement = document.createElement("tr");
               const nameCellElement = document.createElement("td");
+              const keywordCellElement = document.createElement("td");
               const prepareCellElement = document.createElement("td");
 
               const data = doc.data();
               nameCellElement.textContent = data.名稱;
+              keywordCellElement.textContent = data.關鍵字1;
+              //keywordCellElement.textContent = data.關鍵字2;
               prepareCellElement.textContent = data.準備食材;
 
               rowElement.appendChild(nameCellElement);
+              rowElement.appendChild(keywordCellElement);
               rowElement.appendChild(prepareCellElement);
               tableElement.querySelector("tbody").appendChild(rowElement);
             });
