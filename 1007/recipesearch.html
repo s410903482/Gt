@@ -16,6 +16,19 @@
   </head>
 
   <body>
+    <style>
+      /*table元素占據整个寬度
+      table {
+        width: 100%;
+      }
+      */
+
+      img {
+        width: 300px;
+        height: auto;
+      }
+    </style>
+
     <h1>食譜查詢</h1>
 
     <input
@@ -28,9 +41,10 @@
     <table id="example-table" border="1">
       <thead>
         <tr>
+          <th>圖片</th>
           <th>名稱</th>
-          <th>關鍵字</th>
           <th>準備食材</th>
+          <th>調味料</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -81,9 +95,10 @@
 
           if (關鍵字) {
             const keywords = 關鍵字.split(/[ ,]+/); // 以逗號或空格分隔關鍵字
-            exampleQuery = query(exampleCol, where("關鍵字1", "in", keywords));
-            exampleQuery = query(exampleCol, where("關鍵字2", "in", keywords));
-            exampleQuery = query(exampleCol, where("關鍵字3", "in", keywords));
+            exampleQuery = query(
+              exampleCol,
+              where("準備食材", "array-contains-any", keywords)
+            );
           } else {
             // 如果關鍵字為空，則查詢全部資料
             exampleQuery = query(exampleCol);
@@ -101,19 +116,24 @@
             updateEditableText("t2-log", "資訊如下");
             exampleSnapshot.forEach((doc) => {
               const rowElement = document.createElement("tr");
+              const imgCellElement = document.createElement("td");
               const nameCellElement = document.createElement("td");
-              const keywordCellElement = document.createElement("td");
               const prepareCellElement = document.createElement("td");
+              const pCellElement = document.createElement("td");
 
               const data = doc.data();
               nameCellElement.textContent = data.名稱;
-              keywordCellElement.textContent = data.關鍵字1;
-              //keywordCellElement.textContent = data.關鍵字2;
-              prepareCellElement.textContent = data.準備食材;
+              prepareCellElement.textContent = data.準備食材.join(", ");
+              pCellElement.textContent = data.調味料.join(", ");
 
+              const imgElement = document.createElement("img");
+              imgElement.src = data.圖片;
+              imgCellElement.appendChild(imgElement);
+
+              rowElement.appendChild(imgCellElement);
               rowElement.appendChild(nameCellElement);
-              rowElement.appendChild(keywordCellElement);
               rowElement.appendChild(prepareCellElement);
+              rowElement.appendChild(pCellElement);
               tableElement.querySelector("tbody").appendChild(rowElement);
             });
           }
