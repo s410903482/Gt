@@ -1,6 +1,5 @@
-<!--查詢-->
-<!--查詢食物-->
-<!--還無法使用多個關鍵字查詢資料-->
+<!--食譜查詢-->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,21 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Firebase Connection Example</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-      }
-    </style>
   </head>
 
   <body>
     <style>
-      /*table元素占據整个寬度
-      table {
-        width: 100%;
-      }
-      */
-
       img {
         width: 300px;
         height: auto;
@@ -37,7 +25,7 @@
       placeholder="Enter keywords separated by commas"
     />
     <button id="search-button">Search</button>
-    <div id="t2-log" contenteditable="true">log</div>
+    <div id="t2-log" contenteditable="true"></div>
     <table id="example-table" border="1">
       <thead>
         <tr>

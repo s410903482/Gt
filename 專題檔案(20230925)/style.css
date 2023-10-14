@@ -1,6 +1,11 @@
-.w3-bar-block .w3-bar-item {padding:20px}
+/*主程式碼css*/
 
-    body,h4,h5 {font-family: "Karma", sans-serif;font-size: larger;}
+.w3-bar-block .w3-bar-item {padding:20px}
+    
+    body,h4,h5 {
+      font-family: "Karma", sans-serif;
+      font-size: larger;
+    }
     
     h1,h3 {
       color : #2A4C65;   /*8E6E57 976666 17341E*/
@@ -63,7 +68,8 @@
       width: 75%;
       display:inline-block;
     }
-    .show3{/*9/25前新增*/
+    /*
+    .show3{9/25前新增，精選食譜
       background-color:#B89886;
       border-radius:10px;
       text-align: center;
@@ -71,7 +77,71 @@
       width: 32%;
       font-size: small;
       display:inline-block;
-    }
+    }*/
+
+    
+/*精選食譜css*/
+/* 簡易食譜水平滚动容器样式(加入主css) */
+.horizontal-scroll-container {
+     display: flex; /* 使用 Flexbox 布局 */
+     overflow-x: auto; /* 启用水平滚动条 */
+     -webkit-overflow-scrolling: touch; /* 支持iOS滑动效果 */
+     /*width: 85%; /* 容器宽度填充整个视窗 */
+     position: relative;
+     overflow: hidden;
+     width: 80%;
+     margin: 0 auto;
+  }
+
+  /* 簡易食譜滚动项样式(加入主css) */
+  .scroll-item {
+      flex: 0 0 30%; /* 每个项占据一半宽度 */
+      margin-right: 20px; /* 可根据需要调整项之间的间距 */
+      display: flex;
+      flex-direction: column;
+      background-color: #faebd7;
+      text-align: center;
+      border: 1px solid #ccc;
+      align-items: center; /* 内容在水平方向上居中对齐 */
+      padding: 20px;
+  }
+  /* 簡易食譜文字样式 */
+  .stext {
+     flex: 1; /* 填充可用空间 */
+     overflow: auto; /* 添加垂直滚动条 */
+     text-align: left; /* 将文本内容左对齐 */
+  }   
+
+  /* 精選食譜iframe 样式(加入主css) */
+  iframe {
+      width: 100%; /* 填充容器宽度 */
+      max-width: 100%; /* 避免水平滚动 */
+      max-height: 100%; /* 避免影片高度溢出 */
+      border: none; /* 移除边框 */
+  }
+
+  /* 精選食譜左右按钮样式(加入主css) */
+  .scroll-button {
+      position: absolute;
+      top: 290%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;       
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      cursor: pointer;
+  }
+
+  .scroll-button.left {
+      left: 80px;
+  }
+
+  .scroll-button.right {
+      right: 80px;
+  }
+/*精選食譜css*/
+
     .group{
       width: 95%;
       display: inline-block;
@@ -122,7 +192,7 @@
         text-align: center;
         display: none;
     }
-    #searchconsole{
+    #searchconsole{/*搜尋結果*/
       display: none;
     }
     #nosearch{
@@ -132,6 +202,7 @@
       background-color: #B89886;
       border-radius: 10px;
     }
+    
     #myTable td{
       padding: auto;
     }
