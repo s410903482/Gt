@@ -1,0 +1,320 @@
+<!--拷貝的-->
+<!--原主程式碼-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>咁單呷</title>
+    <!-- JQuery 連結 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- JQuery UI 連結 -->
+    <!-- <script src="function.js"></script> -->
+    <meta charset="UTF-8" />
+
+    <link
+      rel="shortcut icon"
+      href="https://www1.pu.edu.tw/~s1091829/logo"
+      type="image/x-icon"
+    />
+    <!-- href="https://cdn-icons-png.flaticon.com/512/4443/4443003.png" -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"
+    />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body bgcolor="#AAB8AB">
+    <!-- 背景顏色 --><!-- 82ABA3 95A098 AAB8AB 93A3A0-->
+
+    <!-- Sidebar (hidden by default) -->
+    <nav
+      class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left"
+      style="display: none; z-index: 2; width: 20%; min-width: 300px"
+      id="mySidebar"
+    >
+      <a
+        href="javascript:void(0)"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button"
+        >Close Menu</a
+      >
+      <a href="index.html" class="w3-bar-item w3-button">Home</a>
+      <a href="#search" onclick="w3_close()" class="w3-bar-item w3-button"
+        >Search</a
+      >
+      <a href="#knowledge" onclick="w3_close()" class="w3-bar-item w3-button"
+        >Knowledge</a
+      >
+      <a
+        href="#season fruits and vegetables"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button"
+        >當季蔬果</a
+      >
+      <a
+        href="#simple recipes"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button"
+        >精選簡易食譜</a
+      >
+      <a href="#food" onclick="w3_close()" class="w3-bar-item w3-button"
+        >Food</a
+      >
+    </nav>
+
+    <!-- Top menu -->
+    <div class="w3-top">
+      <div class="w3-white w3-xlarge" style="margin: auto">
+        <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+        <div class="w3-right w3-bar-item w3-padding-16 w3-row-padding">
+          <img
+            src="https://www1.pu.edu.tw/~s1091829/logo1"
+            width="160px"
+            height="40px"
+          />
+        </div>
+        <div class="w3-padding-16 w3-bar-item">Food</div>
+      </div>
+    </div>
+
+    <!-- Search Section -->
+    <hr id="search" />
+    <div class="w3-container w3-padding-32 w3-center">
+      <!-- 查詢 section -->
+      <h2>Search</h2>
+      <form class="SEARCH" style="margin: auto"></form>
+      <!-- <input class="bar" id="myInput" placeholder="請輸入要搜尋的食材或食譜名稱，並以空格或逗號隔開">
+      <button id="search" style="border-radius: 10px;" type="submit"> -->
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Enter keywords separated by commas"
+      />
+      <button id="search-button">Search</button>
+
+      <img
+        src="https://png.pngtree.com/png-vector/20190423/ourmid/pngtree-search-icon-vector-illustration-in-filled-style-for-any-purpose-png-image_975457.jpg"
+        width="50px"
+        height="50px"
+      />
+    </div>
+
+    <!-- <h1 id="searchconsole">搜尋結果</h1> -->
+    <!-- <div id="t2-log" contenteditable="true"></div> -->
+    <div id="t2-log"></div>
+
+    <!-- <table id="myTable">
+    <thead>
+      <tr>
+        <th style="width: 30%;">食譜圖片</th>
+        <th style="width: 30%;">食譜名稱</th>
+        <th style="width: 40%;">關鍵字</th>
+      </tr>
+    </thead> -->
+    <table id="example-table" border="1">
+      <thead>
+        <tr>
+          <th>圖片</th>
+          <th>名稱</th>
+          <th>準備食材</th>
+          <th>調味料</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+        query,
+        where,
+        addDoc,
+        doc,
+      } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCkYXHGj37nHrMglwUHKWN2vOE0ty3o8T4",
+        authDomain: "fir-test-dc8dc.firebaseapp.com",
+        projectId: "fir-test-dc8dc",
+        storageBucket: "fir-test-dc8dc.appspot.com",
+        messagingSenderId: "851272507964",
+        appId: "1:851272507964:web:493d6b2ce3d5e239029939",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      function updateEditableText(id, text) {
+        const editableText = document.getElementById(id);
+        editableText.textContent = text;
+      }
+
+      function clearTableData() {
+        const tableElement = document.getElementById("example-table");
+        const tbodyElement = tableElement.getElementsByTagName("tbody")[0];
+        tbodyElement.innerHTML = "";
+      }
+
+      async function fetchExampleCollection(關鍵字 = null) {
+        try {
+          const exampleCol = collection(db, "recipe");
+          let exampleQuery;
+
+          if (關鍵字) {
+            const keywords = 關鍵字.split(/[ ,]+/); // 以逗號或空格分隔關鍵字
+            exampleQuery = query(
+              exampleCol,
+              where("準備食材", "array-contains-any", keywords)
+            );
+          } else {
+            // 如果關鍵字為空，則查詢全部資料
+            exampleQuery = query(exampleCol);
+          }
+
+          const exampleSnapshot = await getDocs(exampleQuery);
+          const tableElement = document.getElementById("example-table");
+
+          if (exampleSnapshot.empty) {
+            clearTableData();
+            updateEditableText("t2-log", "查無資訊");
+          } else {
+            // Clear the table first
+            clearTableData();
+            updateEditableText("t2-log", "資訊如下");
+            exampleSnapshot.forEach((doc) => {
+              const rowElement = document.createElement("tr");
+              const imgCellElement = document.createElement("td");
+              const nameCellElement = document.createElement("td");
+              const prepareCellElement = document.createElement("td");
+              const pCellElement = document.createElement("td");
+
+              const data = doc.data();
+              nameCellElement.textContent = data.名稱;
+              prepareCellElement.textContent = data.準備食材.join(", ");
+              pCellElement.textContent = data.調味料.join(", ");
+
+              const imgElement = document.createElement("img");
+              imgElement.src = data.圖片;
+              imgCellElement.appendChild(imgElement);
+
+              rowElement.appendChild(imgCellElement);
+              rowElement.appendChild(nameCellElement);
+              rowElement.appendChild(prepareCellElement);
+              rowElement.appendChild(pCellElement);
+              tableElement.querySelector("tbody").appendChild(rowElement);
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching collection:", error);
+        }
+      }
+
+      document.getElementById("search-button").addEventListener("click", () => {
+        const searchInput = document.getElementById("search-input");
+        const searchText = searchInput.value.trim();
+
+        fetchExampleCollection(searchText);
+      });
+
+      const searchInput = document.getElementById("search-input");
+
+      searchInput.addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
+          // 按下 "Enter" 时執行搜索操作
+          const searchText = searchInput.value.trim();
+          fetchExampleCollection(searchText);
+        }
+      });
+    </script>
+    <!-- <tbody id="myBody">
+      <tr>
+        <td><img src="https://n.sinaimg.cn/front/342/w644h498/20190305/Jpje-htwhfzr9823434.png" width="100%" height="100%"></td>
+        <td>金針菇豬肉捲</td>
+        <td>#金針菇 #豬肉捲</td>
+      </tr>
+      <tr>
+        <td><img src="https://d3l76hx23vw40a.cloudfront.net/recipe/whk086-098b.jpg" width="100%" height="100%"></td>
+        <td>三杯杏鮑菇</td>
+        <td>#杏鮑菇 #辣椒</td>
+      </tr>
+      <tr>
+        <td><img src="https://2.bp.blogspot.com/-3jd-03rRBYg/Wi1IDEmIazI/AAAAAAAAu58/tmd620ROwOke7SxOZbsLS29P-7HCSnbygCLcBGAs/s1600/DSC09142.JPG" width="100%" height="100%"></td>
+        <td>菠菜炒鴻喜菇</td>
+        <td>#鴻禧菇 #菠菜</td>
+      </tr>
+      <tr>
+        <td><img src="https://imageproxy.icook.network/resize?background=255%2C255%2C255&height=600&nocrop=false&stripmeta=true&type=auto&url=http%3A%2F%2Ftokyo-kitchen.icook.tw.s3.amazonaws.com%2Fuploads%2Fstep%2Fcover%2F1421602%2F2e5058ea796c5def.jpg&width=800" width="100%" height="100%"></td>
+        <td>蘆筍炒蘑菇</td>
+        <td>#蘑菇 #蘆筍 #辣椒</td>
+      </tr>
+      <tr>
+        <td><img src="https://tokyo-kitchen.icook.network/uploads/recipe/cover/212831/4bfbe103c3c7f84f.jpg" width="100%" height="100%"></td>
+        <td>秀珍菇豆腐</td>
+        <td>#秀珍菇 #豆腐 #辣椒</td>
+      </tr>
+      <tr>
+        <td><img src="https://cc.tvbs.com.tw/img/program/upload/2022/10/05/20221005095137-a8d9daf3.jpg" width="100%" height="100%"></td>
+        <td>水煮蛋</td>
+        <td>#雞蛋</td>
+      </tr>
+    </tbody>
+  </table> -->
+    <!-- JQuery在這 -->
+    <!-- <script>
+
+      $('#menu').menu({
+                   icons: {submenu: 'ui-icon-triangle-1-s'},
+                   position: { my:'left top', at: 'left+1% bottom'}
+                   });  
+
+      $(document).ready(function(){
+        $("#myInput").on("keyup", function(){
+          //抓 搜尋的關鍵詞
+          
+          var value=$(this).val().toLowerCase();
+        
+        // 抓Table裡有沒有符合
+        $("#myBody tr").filter(function(){
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          $("#searchconsole").show();
+          $("#myTable").show();
+        });  
+        });
+      });
+  </script> -->
+  </body>
+  <!-- Footer -->
+  <footer class="w3-row-padding w3-padding-32">
+    <hr />
+    <div class="w3-third">
+      <h3>關於我們</h3>
+      <div>
+        <span>本網頁僅供畢業專題使用</span><br />
+        <span
+          >參考網頁:<a href="https://www.w3schools.com/spaces" target="_blank"
+            >W3Schools Spaces</a
+          ></span
+        >
+      </div>
+    </div>
+
+    <div class="w3-third w3-serif">
+      <h3>POPULAR TAGS</h3>
+      <div>
+        <span class="w3-tag w3-dark-grey w3-small">Chicken</span>
+        <span class="w3-tag w3-dark-grey w3-small">Fish</span>
+        <span class="w3-tag w3-dark-grey w3-small">Egg</span>
+      </div>
+    </div>
+  </footer>
+</html>
