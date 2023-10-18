@@ -7,7 +7,7 @@
     <!-- JQuery 連結 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <!-- JQuery UI 連結 -->
-    <!-- <script src="function.js"></script> -->
+    <script src="function.js"></script>
     <meta charset="UTF-8" />
 
     <link
@@ -15,7 +15,6 @@
       href="https://www1.pu.edu.tw/~s1091829/logo"
       type="image/x-icon"
     />
-    <!-- href="https://cdn-icons-png.flaticon.com/512/4443/4443003.png" -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
@@ -71,11 +70,7 @@
       <div class="w3-white w3-xlarge" style="margin: auto">
         <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
         <div class="w3-right w3-bar-item w3-padding-16 w3-row-padding">
-          <img
-            src="https://www1.pu.edu.tw/~s1091829/logo1"
-            width="160px"
-            height="40px"
-          />
+          <img src="https://www1.pu.edu.tw/~s1091829/logo1" id="logo1img" />
         </div>
         <div class="w3-padding-16 w3-bar-item">Food</div>
       </div>
@@ -87,35 +82,24 @@
       <!-- 查詢 section -->
       <h2>Search</h2>
       <form class="SEARCH" style="margin: auto"></form>
-      <!-- <input class="bar" id="myInput" placeholder="請輸入要搜尋的食材或食譜名稱，並以空格或逗號隔開">
-      <button id="search" style="border-radius: 10px;" type="submit"> -->
       <input
-        type="text"
+        type="bar"
         id="search-input"
-        placeholder="Enter keywords separated by commas"
+        placeholder="請輸入要搜尋的食材或食譜名稱，並以空格或逗號隔開"
       />
-      <button id="search-button">Search</button>
+      <button id="search-button" style="border-radius: 10px;" type="submit">
 
       <img
         src="https://png.pngtree.com/png-vector/20190423/ourmid/pngtree-search-icon-vector-illustration-in-filled-style-for-any-purpose-png-image_975457.jpg"
-        width="50px"
-        height="50px"
+        id="searchimg"
       />
     </div>
 
     <!-- <h1 id="searchconsole">搜尋結果</h1> -->
-    <!-- <div id="t2-log" contenteditable="true"></div> -->
     <div id="t2-log"></div>
 
-    <!-- <table id="myTable">
-    <thead>
-      <tr>
-        <th style="width: 30%;">食譜圖片</th>
-        <th style="width: 30%;">食譜名稱</th>
-        <th style="width: 40%;">關鍵字</th>
-      </tr>
-    </thead> -->
-    <table id="example-table" border="1">
+    <table id="myTable" border="1">
+    <!-- <table id="myTable"> -->
       <thead>
         <tr>
           <th>圖片</th>
@@ -160,7 +144,7 @@
       }
 
       function clearTableData() {
-        const tableElement = document.getElementById("example-table");
+        const tableElement = document.getElementById("myTable");
         const tbodyElement = tableElement.getElementsByTagName("tbody")[0];
         tbodyElement.innerHTML = "";
       }
@@ -182,7 +166,7 @@
           }
 
           const exampleSnapshot = await getDocs(exampleQuery);
-          const tableElement = document.getElementById("example-table");
+          const tableElement = document.getElementById("myTable");
 
           if (exampleSnapshot.empty) {
             clearTableData();
@@ -193,26 +177,28 @@
             updateEditableText("t2-log", "資訊如下");
             exampleSnapshot.forEach((doc) => {
               const rowElement = document.createElement("tr");
-              const imgCellElement = document.createElement("td");
-              const nameCellElement = document.createElement("td");
-              const prepareCellElement = document.createElement("td");
-              const pCellElement = document.createElement("td");
+              const imgCellElement = document.createElement("td");//顯示照片
+              const nameCellElement = document.createElement("td");//顯示名稱
+              const prepareCellElement = document.createElement("td");//顯示準備食材
+              const pCellElement = document.createElement("td");//顯示調味料
 
               const data = doc.data();
               nameCellElement.textContent = data.名稱;
               prepareCellElement.textContent = data.準備食材.join(", ");
               pCellElement.textContent = data.調味料.join(", ");
 
-              const imgElement = document.createElement("img");
+              const imgElement = document.createElement("img");//顯示照片
+              imgElement.setAttribute("id", "recipeimg"); // 设置id属性为 "recipeimg"
               imgElement.src = data.圖片;
-              imgCellElement.appendChild(imgElement);
+              imgCellElement.appendChild(imgElement);// 添加圖像元素到表格單元格
 
-              rowElement.appendChild(imgCellElement);
+              rowElement.appendChild(imgCellElement);// 添加圖像元素到表格單元格
               rowElement.appendChild(nameCellElement);
               rowElement.appendChild(prepareCellElement);
               rowElement.appendChild(pCellElement);
               tableElement.querySelector("tbody").appendChild(rowElement);
             });
+            tableElement.style.display = "block"; // 显示表格
           }
         } catch (error) {
           console.error("Error fetching collection:", error);
@@ -230,69 +216,14 @@
 
       searchInput.addEventListener("keyup", (event) => {
         if (event.key === "Enter") {
-          // 按下 "Enter" 时執行搜索操作
+          // 按下 "Enter"时執行搜索操作
           const searchText = searchInput.value.trim();
           fetchExampleCollection(searchText);
         }
       });
     </script>
-    <!-- <tbody id="myBody">
-      <tr>
-        <td><img src="https://n.sinaimg.cn/front/342/w644h498/20190305/Jpje-htwhfzr9823434.png" width="100%" height="100%"></td>
-        <td>金針菇豬肉捲</td>
-        <td>#金針菇 #豬肉捲</td>
-      </tr>
-      <tr>
-        <td><img src="https://d3l76hx23vw40a.cloudfront.net/recipe/whk086-098b.jpg" width="100%" height="100%"></td>
-        <td>三杯杏鮑菇</td>
-        <td>#杏鮑菇 #辣椒</td>
-      </tr>
-      <tr>
-        <td><img src="https://2.bp.blogspot.com/-3jd-03rRBYg/Wi1IDEmIazI/AAAAAAAAu58/tmd620ROwOke7SxOZbsLS29P-7HCSnbygCLcBGAs/s1600/DSC09142.JPG" width="100%" height="100%"></td>
-        <td>菠菜炒鴻喜菇</td>
-        <td>#鴻禧菇 #菠菜</td>
-      </tr>
-      <tr>
-        <td><img src="https://imageproxy.icook.network/resize?background=255%2C255%2C255&height=600&nocrop=false&stripmeta=true&type=auto&url=http%3A%2F%2Ftokyo-kitchen.icook.tw.s3.amazonaws.com%2Fuploads%2Fstep%2Fcover%2F1421602%2F2e5058ea796c5def.jpg&width=800" width="100%" height="100%"></td>
-        <td>蘆筍炒蘑菇</td>
-        <td>#蘑菇 #蘆筍 #辣椒</td>
-      </tr>
-      <tr>
-        <td><img src="https://tokyo-kitchen.icook.network/uploads/recipe/cover/212831/4bfbe103c3c7f84f.jpg" width="100%" height="100%"></td>
-        <td>秀珍菇豆腐</td>
-        <td>#秀珍菇 #豆腐 #辣椒</td>
-      </tr>
-      <tr>
-        <td><img src="https://cc.tvbs.com.tw/img/program/upload/2022/10/05/20221005095137-a8d9daf3.jpg" width="100%" height="100%"></td>
-        <td>水煮蛋</td>
-        <td>#雞蛋</td>
-      </tr>
-    </tbody>
-  </table> -->
-    <!-- JQuery在這 -->
-    <!-- <script>
-
-      $('#menu').menu({
-                   icons: {submenu: 'ui-icon-triangle-1-s'},
-                   position: { my:'left top', at: 'left+1% bottom'}
-                   });  
-
-      $(document).ready(function(){
-        $("#myInput").on("keyup", function(){
-          //抓 搜尋的關鍵詞
-          
-          var value=$(this).val().toLowerCase();
-        
-        // 抓Table裡有沒有符合
-        $("#myBody tr").filter(function(){
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-          $("#searchconsole").show();
-          $("#myTable").show();
-        });  
-        });
-      });
-  </script> -->
   </body>
+
   <!-- Footer -->
   <footer class="w3-row-padding w3-padding-32">
     <hr />

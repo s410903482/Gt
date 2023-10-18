@@ -51,8 +51,23 @@
       display:inline-block;
     }
     
+    /*搜尋跟logo照片*/
+    #searchimg{
+      width:50px;
+      height:50px;
+    }
+    #logo1img{
+      width:160px;
+      height:40px;
+    }
+
     /*搜尋結果的食譜照片的css*/
-    /* ... */
+    #recipeimg {
+      width: 300px;
+      height: 250px;
+      /*max-width: 100%; /* 图片的最大宽度为其容器的100% */
+      /*height: auto; 保持纵横比，自动调整高度*/
+    }
     
 /*精選食譜css*/
 
@@ -132,7 +147,7 @@ p {
     .group{/*當季蔬果及食物分類*/
       width: 95%;
       display: inline-block;
-      margin: auto;/*9/25前新增*/
+      margin: auto;
     }
 
     /*導航到食譜的網頁，並且按鈕上標有 "相關料理" 的文字。
@@ -144,6 +159,7 @@ p {
       border:2px #003C9D solid;
     }
 
+    /* 搜尋結果的CSS */
     /*輸入搜尋的框框*/
     .bar{
       width: 60%;
@@ -152,47 +168,50 @@ p {
       font-size: large;
       display: inline;
     }
-
-    /* 搜尋結果的CSS */
-    #myInput{
-        width: 60%;
-        font-size: large;
-        padding: 10px;
-        background-color:#fff;
-    }
-    #myTable{
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 60%;
-        border: 1px solid;
-        border-radius: 5px;
-        font-size:30px;
-        text-align: center;
-        display: none;
-    }
-    #searchconsole{/*搜尋結果*/
-      display: none;
-    }
-    #nosearch{
-      display: none;
-    }
-    #myTable th{
-      background-color: #B89886;
-      border-radius: 10px;
-    }
     
-    #myTable td{
-      padding: auto;
-    }
-    #myTable tr:hover{
+    #search-input{
+      width: 60%;
+      font-size: large;
+      padding: 10px;
       background-color:#fff;
     }
+
+  #myTable{/*表格的樣式*/
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;/*占據整個畫面幾%的寬度*/
+    border: 1px solid;
+    border-radius: 5px;
+    font-size:20px;/*字體大小*/
+    text-align: center;
+    display: none;/*初始时隐藏表格*/
+  }
+
+  #myTable th{/*表頭*/
+    background-color: #B89886;
+    border-radius: 10px;
+  }
     
-    li{
-      font-weight: bolder;
-      background-color: #B89886;
-    } 
+  #myTable td{/*表格中的所有数据单元格 */
+    padding: auto;
+  }
+
+  #myTable tr:hover{/*鼠标悬停时改变数据行的背景颜色*/
+    background-color:#fff;
+  }
+    
+  #t2-log {
+    color : #2A4C65;   /*8E6E57 976666 17341E*/
+    font-size: x-large;
+    font-weight: 600;
+    text-align: center;
+  }    
+
+  li{
+    font-weight: bolder;
+    background-color: #B89886;
+  } 
 /* 搜尋結果的CSS */
 
 /*小知識輪播css start*/
