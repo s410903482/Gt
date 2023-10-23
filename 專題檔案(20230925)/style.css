@@ -1,87 +1,87 @@
-/*主程式碼css*/
-
-.w3-bar-block .w3-bar-item {padding:20px}
+.w3-bar-block .w3-bar-item {padding:20px}/*側邊欄Sidebar*/
     
-    body,h4,h5 {
+    body,h4,h5 {/*h4,h5目前沒找到用在哪裡*/
       font-family: "Karma", sans-serif;
       font-size: larger;
     }
     
+    /*h1標題：搜尋結果、蔬菜類、水果類、肉類、蛋類、菇類*/
+    /*h3標題：精選食譜的食譜名、Footer的關於我們*/
     h1,h3 {
       color : #2A4C65;   /*8E6E57 976666 17341E*/
       font-size: x-large;
       font-weight: 600;
       text-align: center;
-    }     
+    }
+    
+    /*h2標題：Search、Knowledge、當季蔬果、精選簡易食譜、Food*/
     h2,caption {
       color: #003C9D;
       font-size: xx-large;
       font-weight: 600;
       text-align: center;
     }
-    h6{/*9/25前新增*/
-      text-align: left;
-      font-weight: bold;
-    }
-    p {
-      color:black;
-      font-size: larger;
-      font-weight: 600;
-    }
-    /*div{
-      border-style: dashed;
-      border-color: blue;
-    }*/
 
-    /*table{
-      border-collapse: separate;
-    }
-    td:first-child{
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-    }
-    td:last-child{
-      border-top-right-radius: 10px;
-      border-bottom-right-radius: 10px;
-    }*/
 
+    /*在視覺上有所不同，擁有白色背景和藍色邊框，
+    以清晰地顯示當前選中或正在與之互動的狀態*/
     input{border:0;
       background-color:#B89886;/*82ABA3*/
       color:#fff;
       border-radius:10px;
-      cursor:pointer;}
+      cursor:pointer;}/*當滑鼠懸停在該元素上時，將滑鼠游標顯示為手型指針*/
     input:focus{
       color:#003C9D;
       background-color:#fff;
       border:2px #003C9D solid;
     }
 
-    .show{
+    .show{/*食物分類*/
       background-color:#B89886;
       border-radius:10px;
       text-align: left;
     }
-    .show2{/*9/25前新增*/
+    .show2{/*當季蔬果*/
       background-color:#B89886;
       border-radius:10px;
       text-align: center;
       width: 75%;
       display:inline-block;
     }
-    /*
-    .show3{9/25前新增，精選食譜
-      background-color:#B89886;
-      border-radius:10px;
-      text-align: center;
-      border-top: double #fff 10px;
-      width: 32%;
-      font-size: small;
-      display:inline-block;
-    }*/
+    
+    /*搜尋跟logo照片*/
+    #searchimg{
+      width:50px;
+      height:50px;
+    }
+    #logo1img{
+      width:160px;
+      height:40px;
+    }
 
+    /*搜尋結果的食譜照片的css*/
+    #recipeimg {
+      width: 300px;
+      height: 250px;
+      /*max-width: 100%; /* 图片的最大宽度为其容器的100% */
+      /*height: auto; 保持纵横比，自动调整高度*/
+    }
     
 /*精選食譜css*/
-/* 簡易食譜水平滚动容器样式(加入主css) */
+
+/*精選簡易食譜的內容*/
+h6{
+  text-align: left;
+  font-weight: bold;
+}
+p {
+  color:black;
+  font-size: larger;
+  font-weight: 600;
+}
+/*精選簡易食譜的內容*/
+
+/* 簡易食譜水平滚动容器样式 */
 .horizontal-scroll-container {
      display: flex; /* 使用 Flexbox 布局 */
      overflow-x: auto; /* 启用水平滚动条 */
@@ -93,7 +93,7 @@
      margin: 0 auto;
   }
 
-  /* 簡易食譜滚动项样式(加入主css) */
+  /* 簡易食譜滚动项样式*/
   .scroll-item {
       flex: 0 0 30%; /* 每个项占据一半宽度 */
       margin-right: 20px; /* 可根据需要调整项之间的间距 */
@@ -112,7 +112,7 @@
      text-align: left; /* 将文本内容左对齐 */
   }   
 
-  /* 精選食譜iframe 样式(加入主css) */
+  /* 精選食譜iframe 样式*/
   iframe {
       width: 100%; /* 填充容器宽度 */
       max-width: 100%; /* 避免水平滚动 */
@@ -120,10 +120,10 @@
       border: none; /* 移除边框 */
   }
 
-  /* 精選食譜左右按钮样式(加入主css) */
+  /* 精選食譜左右按钮样式*/
   .scroll-button {
       position: absolute;
-      top: 290%;
+      top: 200%;/*按鈕的高低*/
       transform: translateY(-50%);
       width: 30px;
       height: 30px;       
@@ -142,18 +142,23 @@
   }
 /*精選食譜css*/
 
-    .group{
+    .group{/*當季蔬果及食物分類*/
       width: 95%;
       display: inline-block;
-      margin: auto;/*9/25前新增*/
+      margin: auto;
     }
 
+    /*導航到食譜的網頁，並且按鈕上標有 "相關料理" 的文字。
+    這個按鈕會在網頁上用於連接到相關的料理資訊或頁面。
+    */
     .recipe{
       color:#2A4C65;
       background-color:#fff;
       border:2px #003C9D solid;
     }
 
+    /* 搜尋結果的CSS */
+    /*輸入搜尋的框框*/
     .bar{
       width: 60%;
       height: 50px;
@@ -161,67 +166,53 @@
       font-size: large;
       display: inline;
     }
-    /* 搜尋結果的CSS */
-    .ui-widget{
-        font-size: 30px;
-        list-style: none;
-        transition: 1s;
-        background-color: #fff;
-        width: 50%;
-        opacity: 0.7;
-        border-radius: 10px;
-    }
-    .ui-menu-item:hover{
-        background-color: #B89886;
-    }
-
-    #myInput{
-        width: 60%;
-        font-size: large;
-        padding: 10px;
-        background-color:#fff;
-    }
-    #myTable{
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 60%;
-        border: 1px solid;
-        border-radius: 5px;
-        font-size:30px;
-        text-align: center;
-        display: none;
-    }
-    #searchconsole{/*搜尋結果*/
-      display: none;
-    }
-    #nosearch{
-      display: none;
-    }
-    #myTable th{
-      background-color: #B89886;
-      border-radius: 10px;
-    }
     
-    #myTable td{
-      padding: auto;
-    }
-    #myTable tr:hover{
+    #search-input{
+      width: 60%;
+      font-size: large;
+      padding: 10px;
       background-color:#fff;
     }
 
-    .ui-menu{
-      width: 200px;
-      height: 50px;
-      color: black;
-      font-weight: bolder;
-    }
+  #myTable{/*表格的樣式*/
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;/*占據整個畫面幾%的寬度*/
+    border: 1px solid;
+    border-radius: 5px;
+    font-size:20px;/*字體大小*/
+    text-align: center;
+    display: none;/*初始时隐藏表格*/
+  }
+
+  #myTable th{/*表頭*/
+    background-color: #B89886;
+    border-radius: 10px;
+  }
     
-    li{
-      font-weight: bolder;
-      background-color: #B89886;
-    }
-/*輪播css start*/
+  #myTable td{/*表格中的所有数据单元格 */
+    padding: auto;
+  }
+
+  #myTable tr:hover{/*鼠标悬停时改变数据行的背景颜色*/
+    background-color:#fff;
+  }
+    
+  #t2-log {
+    color : #2A4C65;   /*8E6E57 976666 17341E*/
+    font-size: x-large;
+    font-weight: 600;
+    text-align: center;
+  }    
+
+  li{
+    font-weight: bolder;
+    background-color: #B89886;
+  } 
+/* 搜尋結果的CSS */
+
+/*小知識輪播css start*/
     * {box-sizing:border-box}
 
     /* Slideshow container */
@@ -312,4 +303,4 @@
       from {opacity: .4}
       to {opacity: 1}
     }
-/*輪播css end*/
+/*小知識輪播css end*/
