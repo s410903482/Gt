@@ -63,7 +63,7 @@
       <img
         src="https://png.pngtree.com/png-vector/20190423/ourmid/pngtree-search-icon-vector-illustration-in-filled-style-for-any-purpose-png-image_975457.jpg"
         id="searchimg"
-      />
+      </img>
     </div>
 
     <!-- <h1 id="searchconsole">搜尋結果</h1> -->
@@ -77,6 +77,7 @@
           <th>名稱</th>
           <th>準備食材</th>
           <th>調味料</th>
+          <th>查看詳情</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -127,7 +128,6 @@
         }
       }
 
-
       async function fetchExampleCollection(關鍵字 = null) {
         try {
           const exampleCol = collection(db, "recipe");
@@ -146,23 +146,41 @@
 
           const exampleSnapshot = await getDocs(exampleQuery);
           const tableElement = document.getElementById("myTable");
-
+          
           if (exampleSnapshot.empty) {
             clearTableData();
           } else {
             // Clear the table first
             clearTableData();
             exampleSnapshot.forEach((doc) => {
+              // 创建单元格元素
               const rowElement = document.createElement("tr");
               const imgCellElement = document.createElement("td"); //顯示照片
               const nameCellElement = document.createElement("td"); //顯示名稱
               const prepareCellElement = document.createElement("td"); //顯示準備食材
               const pCellElement = document.createElement("td"); //顯示調味料
+              const dCellElement = document.createElement("td");
 
               const data = doc.data();
               nameCellElement.textContent = data.名稱;
               prepareCellElement.textContent = data.準備食材.join(", ");
               pCellElement.textContent = data.調味料.join(", ");
+
+              // 创建链接元素
+              const linkElement = document.createElement("a");
+              linkElement.href = data.link; // 设置链接的 URL
+              linkElement.textContent = "查看詳情"; // 设置链接的显示文本
+              dCellElement.appendChild(linkElement);// 将链接元素添加到单元格
+
+              // 添加点击事件处理程序，当用户点击链接时执行跳转
+              linkElement.addEventListener("click", (event) => {
+                // 阻止默认链接行为，以便自己处理跳转
+                event.preventDefault();
+                // 获取链接的URL
+                const url = data.link;
+                // 执行跳转
+                window.location.href = url;
+              });
 
               const imgElement = document.createElement("img"); //顯示照片
               imgElement.setAttribute("id", "recipeimg"); // 设置id属性为 "recipeimg"
@@ -173,15 +191,9 @@
               rowElement.appendChild(nameCellElement);
               rowElement.appendChild(prepareCellElement);
               rowElement.appendChild(pCellElement);
-
-              // // 创建一个链接元素并设置href属性
-              // const linkElement = document.createElement("a");
-              // linkElement.href = `/Carrot_recipe1.html?recipeId=${doc.id}`;
-              // linkElement.appendChild(rowElement); // 将行元素添加到链接元素
-
-              // // 添加链接元素到表格中
-              // tableElement.querySelector("tbody").appendChild(linkElement);
-
+              rowElement.appendChild(dCellElement);
+              
+              
               tableElement.querySelector("tbody").appendChild(rowElement);
               });
             tableElement.style.display = "block"; // 显示表格
@@ -233,9 +245,6 @@
       }
       });
 
-      
-
-     
       // 获取查询参数
 
       document.addEventListener("DOMContentLoaded", function () {

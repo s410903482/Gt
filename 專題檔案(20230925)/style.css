@@ -63,9 +63,26 @@
     #recipeimg {
       width: 300px;
       height: 250px;
-      /*max-width: 100%; /* 图片的最大宽度为其容器的100% */
-      /*height: auto; 保持纵横比，自动调整高度*/
     }
+
+    /*小知識圖片(10/25)*/
+    #knowledgeimg1 {
+      width: 300px;
+      height: 250px;
+    }
+    #knowledgeimg2 {
+      width: 300px;
+      height: 250px;
+    }
+    #knowledgeimg3 {
+      width: 300px;
+      height: 250px;
+    }
+    #knowledgeimg4 {
+      width: 300px;
+      height: 250px;
+    }
+    /*小知識圖片(10/25)*/
     
 /*精選食譜css*/
 
@@ -212,6 +229,135 @@ p {
   } 
 /* 搜尋結果的CSS */
 
+/*小知識(10/25)*/
+
+/* 通用按钮样式 */
+#toggleButton1, #toggleButton2, #toggleButton3, #toggleButton4 {
+  /*display: block; /* 设置按钮为块级元素，一个按钮占据一行 */
+  margin: 10px auto; /* 设置按钮的左右外边距为 auto，使其水平居中，并增加上下外边距以实现垂直排列和间距 */
+  text-align: center; /* 文本水平居中对齐 */
+  padding: 10px; /* 添加一些内边距 */
+  width: 120px; /* 设置按钮的宽度，根据需要进行调整 */
+  background-color: #B89886; /* 设置按钮背景颜色 */
+  color: black; /* 设置按钮文字颜色 */
+  border: none; /* 移除按钮边框 */
+  border-radius: 5px; /* 添加边框圆角 */
+  cursor: pointer; /* 鼠标悬停时显示指针光标 */
+  /*position: fixed; /* 将按钮固定定位 */
+  /*top: 200px; /* 从顶部20px的位置开始 */
+}
+
+/* 按钮悬停效果 */
+#toggleButton1:hover, #toggleButton2:hover, #toggleButton3:hover, #toggleButton4:hover {
+  background-color: #fff; /* 设置悬停时的背景颜色 */
+}
+
+#knowledgeTable1{/*表格的樣式*/
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;/*占據整個畫面幾%的寬度*/
+  border: 1px solid;
+  border-radius: 5px;
+  font-size:20px;/*字體大小*/
+  text-align: center;
+  display: none;/*初始时隐藏表格*/
+}
+
+#knowledgeTable1 th{/*表頭*/
+  background-color: #B89886;
+  border-radius: 10px;
+}
+  
+#knowledgeTable1 td{/*表格中的所有数据单元格 */
+  padding: auto;
+}
+
+#knowledgeTable1 tr:hover{/*鼠标悬停时改变数据行的背景颜色*/
+  background-color:#fff;
+}
+
+#knowledgeTable2{/*表格的樣式*/
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;/*占據整個畫面幾%的寬度*/
+  border: 1px solid;
+  border-radius: 5px;
+  font-size:20px;/*字體大小*/
+  text-align: center;
+  display: none;/*初始时隐藏表格*/
+}
+
+#knowledgeTable2 th{/*表頭*/
+  background-color: #B89886;
+  border-radius: 10px;
+}
+  
+#knowledgeTable2 td{/*表格中的所有数据单元格 */
+  padding: auto;
+}
+
+#knowledgeTable2 tr:hover{/*鼠标悬停时改变数据行的背景颜色*/
+  background-color:#fff;
+}
+
+#knowledgeTable3{/*表格的樣式*/
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;/*占據整個畫面幾%的寬度*/
+  border: 1px solid;
+  border-radius: 5px;
+  font-size:20px;/*字體大小*/
+  text-align: center;
+  display: none;/*初始时隐藏表格*/
+}
+
+#knowledgeTable3 th{/*表頭*/
+  background-color: #B89886;
+  border-radius: 10px;
+}
+  
+#knowledgeTable3 td{/*表格中的所有数据单元格 */
+  padding: auto;
+}
+
+#knowledgeTable3 tr:hover{/*鼠标悬停时改变数据行的背景颜色*/
+  background-color:#fff;
+}
+
+#knowledgeTable4{/*表格的樣式*/
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;/*占據整個畫面幾%的寬度*/
+  border: 1px solid;
+  border-radius: 5px;
+  font-size:20px;/*字體大小*/
+  text-align: center;
+  display: none;/*初始时隐藏表格*/
+}
+
+#knowledgeTable4 th{/*表頭*/
+  background-color: #B89886;
+  border-radius: 10px;
+}
+  
+#knowledgeTable4 td{/*表格中的所有数据单元格 */
+  padding: auto;
+}
+
+#knowledgeTable4 tr:hover{/*鼠标悬停时改变数据行的背景颜色*/
+  background-color:#fff;
+}
+
+li{
+  font-weight: bolder;
+  background-color: #B89886;
+}
+/*小知識(10/25)*/
+
 /*小知識輪播css start*/
     * {box-sizing:border-box}
 
@@ -303,4 +449,17 @@ p {
       from {opacity: .4}
       to {opacity: 1}
     }
+
+    /* ------------------------------------- */
+    .read-more-button {/*查看更多的按鈕*/
+      background: rgba(0, 0, 0, 0.7); /* 设置背景颜色以增加文本的可读性 */
+      color: #fff; /* 文本颜色 */
+      font-size: 24px; /* 文本大小 */
+      padding: 20px; /* 调整内边距 */
+      border: none; /* 移除按钮边框 */
+      cursor: pointer; /* 添加指针样式 */
+      border-radius: 5px; /* 圆角边框 */
+      display: inline-block; /* 使按钮在一行内显示 */
+    }
+    /* ------------------------------------- */
 /*小知識輪播css end*/

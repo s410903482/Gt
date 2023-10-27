@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>呷好逗相報</title>
+    <!-- JQuery 連結 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- JQuery UI 連結 -->
+    <script src="jquery-ui.js"></script>
+    <meta charset="UTF-8" />
+
+    <link
+      rel="shortcut icon"
+      href="https://cdn-icons-png.flaticon.com/512/4443/4443003.png"
+      type="image/x-icon"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"
+    />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      img {
+        border-radius: 10px;
+      }
+      .view {
+        display: inline-table;
+        margin: auto;
+        width: 90%;
+      }
+    </style>
+  </head>
+  <body bgcolor="#AAB8AB">
+    <!-- 背景顏色 --><!-- 82ABA3 95A098 AAB8AB 93A3A0-->
+
+    <!-- Sidebar (hidden by default) -->
+    <nav
+      class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left"
+      style="display: none; z-index: 2; width: 20%; min-width: 300px"
+      id="mySidebar"
+    >
+      <a
+        href="javascript:void(0)"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button"
+        >Close Menu</a
+      >
+      <a href="index.html" class="w3-bar-item w3-button">Home</a>
+      <a href="#recipe" onclick="w3_close()" class="w3-bar-item w3-button"
+        >Recipe</a
+      >
+      <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button"
+        >About</a
+      >
+    </nav>
+
+    <!-- Top menu -->
+    <div class="w3-top">
+      <div class="w3-white w3-xlarge" style="margin: auto">
+        <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+        <div class="w3-right w3-bar-item w3-padding-16 w3-row-padding">
+          <ul id="menu">
+            <li>
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/552/552721.png"
+                width="40px"
+                height="40px"
+              />User
+              <ul>
+                <li>個人設置</li>
+                <li><a href="personal.html">個人收藏</a></li>
+                <li>--</li>
+                <li>登出</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="w3-padding-16 w3-bar-item">Food</div>
+      </div>
+    </div>
+    <!-- JQuery在這 -->
+    <script>
+      $("#menu").menu({
+        icons: { submenu: "ui-icon-triangle-1-s" },
+        position: { my: "left top", at: "left+1% bottom" },
+      });
+    </script>
+
+    <!-- Recipe Section -->
+    <hr id="recipe" />
+    <div class="w3-container w3-padding-32 w3-center">
+      <!--<h3>Knowledge</h3><br> -->
+      <h2>Recipe</h2>
+      <hr align="center" style="border: 2px #fff dashed" />
+      <img
+        src="https://img-global.cpcdn.com/recipes/37d1580375cbad48/1360x964cq70/%E8%8F%87%E8%8F%87%E7%B4%85%E8%98%BF%E8%94%94%E5%81%BD%E7%83%98%E8%9B%8B%E6%BB%BF%E6%BC%A2%E9%9B%BB%E7%81%AB%E9%8D%8B-%E9%A3%9F%E8%AD%9C%E6%88%90%E5%93%81%E7%85%A7%E7%89%87.webp"
+        alt="Me"
+        style="display: block; margin: auto"
+        width="400px"
+        height="300px"
+      />
+      <div class="w3-padding-32">
+        <h1>鮮菇胡蘿蔔烘蛋</h1>
+        <p class="show">
+          一、準備食材：<br />
+          胡蘿蔔 1/4條, 金針菇 1/2包, 茶樹菇 一把, 雞蛋 4顆<br />
+          調味料：<br />
+          鹽 適量, 胡椒鹽 適量<br />
+          (以上食材可依人數或個人喜好自行調整)
+        </p>
+        <p class="show">
+          二、製作過程：<br />
+          1.金針菇和茶樹菇切半洗淨；胡蘿蔔洗淨後將外皮刨除，接著切絲或刨絲。<br />
+          2.將四顆蛋打入，攪拌均勻，加入鹽、胡椒鹽，依個人口味添加。<br />
+          3.火力調中火，倒入油，熱鍋後將蛋液倒入，均勻散開，避免有區域過厚。接著蓋上蓋子慢慢烘，約4-5分鐘。觀察2/3熟後可翻面或對折，繼續蓋蓋子烘約2分鐘，待全熟後即可關火起鍋。<br />
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w3-row-padding w3-padding-32">
+      <hr id="about" />
+      <div class="w3-third">
+        <h3>關於我們</h3>
+        <div>
+          <span>本網頁僅供畢業專題使用</span><br />
+          <span
+            >參考網頁:<a href="https://www.w3schools.com/spaces" target="_blank"
+              >W3Schools Spaces</a
+            ></span
+          >
+        </div>
+      </div>
+
+      <div class="w3-third w3-serif">
+        <h3>POPULAR TAGS</h3>
+        <div>
+          <span class="w3-tag w3-dark-grey w3-small">Chicken</span>
+          <span class="w3-tag w3-dark-grey w3-small">Fish</span>
+          <span class="w3-tag w3-dark-grey w3-small">Egg</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Script to open and close sidebar
+      function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+      }
+
+      function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+      }
+    </script>
+  </body>
+</html>
