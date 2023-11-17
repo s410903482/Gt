@@ -1,0 +1,251 @@
+<!-- 雖然可以批次建立，但是側邊欄不能用，可能要再問問 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Pages</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- 引入 Firebase JavaScript SDK -->
+    <script
+      src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js"
+      defer
+    ></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js"
+      defer
+    ></script>
+    <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="function.js"></script>
+  </head>
+  <body>
+    <script type="module" defer>
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
+
+      // 將 Firebase 配置代碼替換為您的配置
+      const firebaseConfig = {
+        apiKey: "AIzaSyCkYXHGj37nHrMglwUHKWN2vOE0ty3o8T4",
+        authDomain: "fir-test-dc8dc.firebaseapp.com",
+        projectId: "fir-test-dc8dc",
+        storageBucket: "fir-test-dc8dc.appspot.com",
+        messagingSenderId: "851272507964",
+        appId: "1:851272507964:web:493d6b2ce3d5e239029939",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const recipesCollection = collection(db, "RT");
+
+      const downloadRecipes = async () => {
+        const querySnapshot = await getDocs(recipesCollection);
+        console.log("Number of documents:", querySnapshot.size);
+
+        for (const doc of querySnapshot.docs) {
+          const recipeData = doc.data();
+
+          // 定義 videoUrl 變數
+          const videoId = getYouTubeVideoId(recipeData.video);
+          const videoUrl = `https://www.youtube.com/embed/${videoId}`;
+
+          function getYouTubeVideoId(url) {
+            const match = url.match(
+              /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+            );
+            return match ? match[1] : null;
+          }
+
+          // 替換資料中的句號為換行符號
+          const cookingSteps = recipeData.step.split("。").join("。<br>");
+
+          // 動態生成 HTML 內容
+          const htmlContent = `
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <title>咁單呷</title>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>                        
+                        <link
+                            rel="shortcut icon"
+                            href="https://www1.pu.edu.tw/~s1091829/logo"
+                            type="image/x-icon"
+                        />
+                        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                        <link
+                            rel="stylesheet"
+                            href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"
+                        />
+                        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+                        <link rel="stylesheet" href="style.css"/>
+                        <style>
+                            .w3-bar-block .w3-bar-item {padding:20px}/*側邊欄Sidebar*/
+                            
+                            /*h3標題：精選食譜的食譜名、Footer的關於我們*/
+                            h3 {
+                                color : #2A4C65;   /*8E6E57 976666 17341E*/
+                                font-size: x-large;
+                                font-weight: 600;
+                                text-align: center;
+                            }
+                            
+                            h2{
+                                color: #003C9D;
+                                font-size: xx-large;
+                                font-weight: 600;
+                                text-align: center;
+                                margin-top: 50px;
+                            }
+
+                            .Rimg {
+                                border-radius: 10px;
+                                display: block; 
+                                margin: auto;
+                                width:30%;
+                                height:30%;
+                            }
+
+                            .Rshow {
+                                background-color: #b89886;
+                                border-radius: 10px;
+                                float: initial;
+                                width: 90%;
+                                height: auto;
+                                display: inline-table;
+                                vertical-align: middle;
+                                text-align: left;
+                            }
+
+                            .Riframe {
+                                width: auto;
+                                height: 100%;
+                                display: block;
+                                margin: 0 auto;
+                                background-color: #b89886;
+                                border-radius: 10px;
+                                text-align: left;
+                            }
+                        </style>
+                    </head>
+                        <body bgcolor="#AAB8AB">
+
+                            <!-- Sidebar (hidden by default) -->
+                            <nav
+                                class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left"
+                                style="display: none; z-index: 2; width: 20%; min-width: 300px"
+                                id="mySidebar">
+                                <a
+                                    href="javascript:void(0)"
+                                    onclick="w3_close()"
+                                    class="w3-bar-item w3-button"
+                                    >Close Menu
+                                </a>
+                                <a href="index.html" class="w3-bar-item w3-button">Home</a>
+                            </nav>
+
+                            <!-- 透明的背景 -->
+                            <div id="overlay" onclick="w3_close()"></div>
+
+                            <!-- Top menu -->
+                            <div class="w3-top">
+                            <div class="w3-white w3-xlarge" style="margin:auto">
+                              <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+
+                              <!-- 登入按钮和用戶訊息 -->
+                              <div class="w3-button w3-padding-16 w3-right" id="login-button">登入</div>
+                              <!--<div class="w3-padding-16 w3-right" id="user-info" style="display: none;">-->
+                                
+                              <!-- 下拉式選單 -->
+                              <div class="w3-right" id="user-info" style="display: none;">
+                                <ul id="menu" style="list-style: none;" onmouseover="showDropdown()">
+                                  <li onmouseleave="hideDropdown()"><img id="user-photo" style="width: 40px; height: 40px; border-radius: 50%"><span id="user-name"></span></li>
+                                  <ul id="user-show" style="display: none;list-style: none;">
+                                    <li><a class="w3-button" href="personal.html">個人收藏</a></li>
+                                    <li><a class="w3-button" id="logout-button">登出</a></li>
+                                  </ul>
+                                </ul>
+                              </div>
+
+                              <div class="w3-center w3-padding-16">
+                                <a href="index.html"><img src="https://www1.pu.edu.tw/~s1091829/logo1" width="160px" height="40px"></a>
+                              </div>
+                            </div>
+                          </div>
+
+                            <!-- Recipe Section -->
+                            <div class="w3-container w3-padding-32 w3-center">
+                                    <h2>${recipeData.name}</h2>
+                                    <img class="Rimg" src="${recipeData.picture}"></img>
+                                <div class="w3-padding-32">
+                                    <p class="Rshow">
+                                    <br>
+                                    一、準備食材：<br>
+                                        ${recipeData.prepare} <br>
+                                        調味料：<br>
+                                        ${recipeData.seasoning} <br>
+                                        (以上食材可依人數或個人喜好自行調整)<br>
+                                    <br>
+                                    二、製作過程：<br>
+                                        ${cookingSteps} <br>
+                                    <iframe class="Riframe" src = "${videoUrl}"></iframe>
+                                    <br> <br>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Footer -->
+                            <footer class="w3-row-padding w3-padding-32">
+                            <br>
+                                <div class="w3-center">
+                                    <h3>關於我們</h3>
+                                    <div>
+                                    <span>本網頁僅供畢業專題使用</span><br>
+                                    <span
+                                        >參考網頁:<a href="https://www.w3schools.com/spaces" target="_blank"
+                                        >W3Schools Spaces</a
+                                        ></span>
+                                    </div>
+                                </div>
+                            </footer>
+                        </body>
+                    </html>`; // 創建一個Blob對象
+          const blob = new Blob([htmlContent], { type: "text/html" });
+
+          // 創建一個包含Blob的URL
+          const url = URL.createObjectURL(blob);
+
+          // 創建一個 a 元素，用於下載
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${recipeData.filename}.html`;
+
+          // 將 a 元素附加到文檔中
+          document.body.appendChild(a);
+
+          // 模擬單擊 a 元素
+          a.click();
+
+          // 移除 a 元素
+          document.body.removeChild(a);
+
+          // 釋放對象URL的內存
+          URL.revokeObjectURL(url);
+
+          // 等待一段時間，再處理下一個
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }
+      };
+
+      downloadRecipes().catch((error) => {
+        console.error("Error getting documents: ", error);
+      });
+    </script>
+  </body>
+</html>
